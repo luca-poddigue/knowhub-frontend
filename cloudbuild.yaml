@@ -17,13 +17,14 @@ steps:
       - '--key=frontend-env-dev'
   - id: 'Install dependencies'
     dir: 'src'
-    name: 'gcr.io/cloud-builders/npm'
+    name: 'node:10.14.2'
+    entrypoint: 'npm'
     args: ['install']
   - id: 'Gulp build'
     dir: 'src'
-    name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args: ['gulp', 'build']
+    name: 'node:10.14.2'
+    entrypoint: 'node'
+    args: ['node_modules/gulp/bin/gulp.js', 'build']
   - id: 'Docker build'
     dir: 'target'
     name: 'gcr.io/cloud-builders/docker'
