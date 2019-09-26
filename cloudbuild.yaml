@@ -23,7 +23,7 @@ steps:
     dir: 'src'
     name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
-    args: ['gulp' 'build']
+    args: ['gulp', 'build']
   - id: 'Docker build'
     dir: 'target'
     name: 'gcr.io/cloud-builders/docker'
