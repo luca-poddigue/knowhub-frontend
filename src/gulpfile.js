@@ -19,7 +19,7 @@ const fs = require('fs');
 const babel = require('gulp-babel');
 
 // Config params
-const outputDir = 'webapp';
+const outputDir = '../target';
 const appDir = '.';
 const revManifestPath = outputDir + '/rev-manifest.json';
 const dynamicRevManifestPath = outputDir + '/d-rev-manifest.json';

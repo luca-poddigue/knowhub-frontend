@@ -1,5 +1,11 @@
+substitutions:
+  _MASTER_BRANCH: master
+  _IMAGES_TO_KEEP: "2"
+  _GITHUB_ENV_REPO: knowhub-env
+  _GITHUB_USERNAME: luca-poddigue
 steps:
   - id: 'Decrypt env constants'
+    dir: 'src'
     name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'kms'
@@ -10,9 +16,102 @@ steps:
       - '--keyring=build'
       - '--key=frontend-env-dev'
   - id: 'Install dependencies'
+    dir: 'src'
     name: 'gcr.io/cloud-builders/npm'
     args: ['install']
   - id: 'Gulp build'
+    dir: 'src'
     name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args: ['gulp' 'build']
+  - id: 'Docker build'
+    dir: 'target'
+    name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        docker build -t eu.gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA -f ../Dockerfile . && \
+        if [ "$BRANCH_NAME" == "${_MASTER_BRANCH}" ]; then docker push eu.gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA; fi
+  - id: 'Decrypt GitHub env repo SSH key'
+    name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - kms
+      - decrypt
+      - --ciphertext-file=.github/id_rsa.enc
+      - --plaintext-file=/root/.ssh/id_rsa
+      - --location=global
+      - --keyring=build
+      - --key=github-ssh
+    volumes:
+      - name: 'ssh'
+        path: /root/.ssh
+  - id: 'Install GitHub env repo SSH key'
+    name: 'gcr.io/cloud-builders/git'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [ "$BRANCH_NAME" != "${_MASTER_BRANCH}" ]; then exit 0; fi
+        chmod 600 /root/.ssh/id_rsa
+        cat <<EOF >/root/.ssh/config
+        Hostname github.com
+        IdentityFile /root/.ssh/id_rsa
+        EOF
+        mv .github/known_hosts /root/.ssh/known_hosts;
+    volumes:
+      - name: 'ssh'
+        path: /root/.ssh
+  - id: 'Clone GitHub env repo SSH key'
+    name: 'gcr.io/cloud-builders/git'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [ "$BRANCH_NAME" != "${_MASTER_BRANCH}" ]; then exit 0; fi
+        git clone git@github.com:${_GITHUB_USERNAME}/${_GITHUB_ENV_REPO}
+    volumes:
+      - name: 'ssh'
+        path: /root/.ssh
+  - id: Update image tag
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [ "$BRANCH_NAME" != "${_MASTER_BRANCH}" ]; then exit 0; fi
+        cd ${_GITHUB_ENV_REPO} && \
+        sed -i -E "s/(\s*$REPO_NAME:\s*)\w+/\1$SHORT_SHA/" images.yaml
+  - id: 'Push to env repo'
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [ "$BRANCH_NAME" != "${_MASTER_BRANCH}" ]; then exit 0; fi
+        cd ${_GITHUB_ENV_REPO} && \
+        git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)') && \
+        git add images.yaml && \
+        git commit -m "[Build] Updating deployment for $REPO_NAME with new image tag $SHORT_SHA
+        Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
+        git push origin master
+    volumes:
+      - name: 'ssh'
+        path: /root/.ssh
+  # When prod repo will be available, when a PR gets merged, for each image the promoted tag should be re-tagged (https://cloud.google.com/sdk/gcloud/reference/container/images/add-tag) with an image name like <<imageName>>-prod:<<tag>>. Then the same cleanup process below should be run on the prod tag to keep the last 2 images.
+  - id: 'Cleanup old images'
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [ "$BRANCH_NAME" != "${_MASTER_BRANCH}" ]; then exit 0; fi
+        for tag in $(gcloud container images list-tags eu.gcr.io/$PROJECT_ID/$REPO_NAME --format='get(tags)' | awk -F '[[:space:]][[:space:]]+' 'NR>${_IMAGES_TO_KEEP}{print $0}'); do gcloud container images untag --quiet eu.gcr.io/$PROJECT_ID/$REPO_NAME:$tag; done
+  - id: 'Drop untagged images'
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [ "$BRANCH_NAME" != "${_MASTER_BRANCH}" ]; then exit 0; fi
+        for digest in $(gcloud container images list-tags eu.gcr.io/$PROJECT_ID/$REPO_NAME --filter='-tags:*' --format='get(digest)'); do gcloud container images delete --quiet eu.gcr.io/$PROJECT_ID/$REPO_NAME@$digest; done
