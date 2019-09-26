@@ -1,0 +1,83 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-bind="'SESSION_RESCHEDULING_TITLE' | translate"></h3>
+</div>
+
+<form novalidate name="$ctrl.sessionReschedulingForm">
+    <div class="modal-body session-rescheduling">
+
+        <div class="alert alert-danger" ng-if="$ctrl.mode === $ctrl.userType.seeker && $ctrl.hasAvailability === false"
+             ng-bind-html="'SESSION_RESCHEDULING_NO_AVAILABILITY' | translate">
+        </div>
+
+        <collapsable-alert
+                ng-if="$ctrl.mode === $ctrl.userType.expert || ($ctrl.mode === $ctrl.userType.seeker && $ctrl.hasAvailability === true)"
+                name="session-rescheduling-calendar">
+            <alert-title ng-bind="'SESSION_RESCHEDULING_INSTRUCTIONS_TITLE' | translate"></alert-title>
+            <alert-content>
+                <div ng-bind-html="'SESSION_RESCHEDULING_INSTRUCTIONS_TEXT_' + $ctrl.mode | translate"></div>
+                <div class="legend">
+                    <h4 ng-bind="'SESSION_RESCHEDULING_LEGEND' | translate"></h4>
+                    <div class="legend-entry"
+                         ng-repeat="legendEntry in $ctrl.legendEntries">
+                        <div class="color" ng-class="legendEntry"></div>
+                        <span ng-bind="::'SESSION_RESCHEDULING_LEGEND_'+legendEntry.toUpperCase().replaceAll('-', '_') + '_' + $ctrl.mode | translate"></span>
+                    </div>
+                </div>
+            </alert-content>
+        </collapsable-alert>
+
+        <div>
+            <div ng-if="$ctrl.hasAvailability === true" class="calendar-btns">
+                <div class="view-btns">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default"
+                                ng-class="{'active': $ctrl.currentView() === 'agendaWeek'}"
+                                ng-click="$ctrl.changeView('agendaWeek')"
+                                ng-bind="'AVAILABILITY_WEEK' | translate"></button>
+                        <button type="button" class="btn btn-default"
+                                ng-class="{'active': $ctrl.currentView() === 'agendaDay'}"
+                                ng-click="$ctrl.changeView('agendaDay')"
+                                ng-bind="'AVAILABILITY_DAY' | translate"></button>
+                    </div>
+                </div>
+
+                <div class="nav-btns">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" ng-disabled="$ctrl.prevButtonDisabled"
+                                ng-click="$ctrl.prev()">
+                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" ng-disabled="$ctrl.nextButtonDisabled"
+                                ng-click="$ctrl.next()">
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="calendar"></div>
+            <spinner name="session-rescheduling-calendar-spinner"></spinner>
+
+            <div class="time-span-validation">
+                <input type="hidden" name="timeSpan" id="timeSpan" ng-model="$ctrl.newTimeSpan" required>
+                <div ng-if="$ctrl.hasAvailability === true"
+                     ng-messages="$ctrl.sessionReschedulingForm.timeSpan.$touched && $ctrl.sessionReschedulingForm.timeSpan.$error"
+                     class="help-block text-danger">
+                    <div ng-message="required" ng-bind="'SESSION_RESCHEDULING_TIME_SPAN_REQUIRED' | translate"></div>
+                </div>
+            </div>
+
+            <div ng-if="$ctrl.sessionChanged" class="session-changed-alert alert alert-danger"
+                 ng-bind="'SESSION_RESCHEDULING_SESSION_CHANGED' | translate">
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<div class="modal-footer">
+    <promise-button spinner="session-rescheduling-spinner" on-confirm="$ctrl.rescheduleSession"
+                    on-cancel="$ctrl.dismiss"
+                    confirm-text-key="COMMON_APPLY" form="$ctrl.sessionReschedulingForm"
+                    btn-disabled="$ctrl.sessionChanged || ($ctrl.mode === $ctrl.userType.seeker && $ctrl.hasAvailability === false)"></promise-button>
+</div>

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEE,wDAAW;EACT,UAAU,EAAE,IAAI",
+"sources": ["accept-session-checklist-modal.scss"],
+"names": [],
+"file": "accept-session-checklist-modal.css"
+}

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,eAAgB;EACd,MAAM,EAAE,OAAO;EAEf,2BAAY;IACV,KAAK,ECLQ,OAAO;EDQtB,2BAAY;IACV,OAAO,EAAE,GAAG;IACZ,MAAM,EAAE,OAAO",
+"sources": ["bookmark-button.scss","../../../css/_cvars.scss"],
+"names": [],
+"file": "bookmark-button.css"
+}

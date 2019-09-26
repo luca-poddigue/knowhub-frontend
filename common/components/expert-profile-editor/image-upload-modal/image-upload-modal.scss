@@ -1,0 +1,64 @@
+.image-upload-modal {
+  $stack-details-size: 480px;
+
+  .help-text {
+    margin: -3px 0 -10px 3px;
+    display: inline-block;
+
+    ul {
+      padding-left: 16px;
+    }
+  }
+
+  table.img-upload {
+    width: 100%;
+
+    td.thumbnail-container {
+      @media screen and (max-width: $stack-details-size) {
+        display: block;
+        margin-bottom: 16px;
+      }
+
+      vertical-align: top;
+      width: 1px;
+      padding-right: 10px;
+
+      .thumbnail {
+        max-width: 200px;
+        max-height: 200px;
+        min-height: 105px;
+        margin: 0;
+      }
+    }
+
+    td.details {
+      @media screen and (max-width: $stack-details-size) {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      h4 {
+        margin-top: -3px;
+        word-break: break-word;
+      }
+
+      .progress {
+        margin-top: 10px;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .dimensions-hint {
+    margin-bottom: 0;
+  }
+
+  .dimensions .form-group {
+    margin-bottom: 0;
+
+    .help-block.text-danger {
+      margin: 0;
+    }
+  }
+
+}

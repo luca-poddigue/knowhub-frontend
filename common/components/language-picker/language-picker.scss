@@ -1,0 +1,35 @@
+language-picker {
+
+  > div {
+    max-width: 250px;
+  }
+
+  span.ui-select-toggle {
+    a.btn {
+      cursor: pointer;
+      border: none;
+
+      &:active,
+      &:focus {
+        background-color: transparent;
+        box-shadow: none;
+      }
+    }
+
+    &:hover {
+      margin-top: inherit;
+      transform: none;
+    }
+  }
+
+  .ui-select-no-choice {
+    border: none;
+    padding: 0;
+    top: 37px;
+
+    .panel {
+      margin: 0;
+      padding: 8px;
+    }
+  }
+}

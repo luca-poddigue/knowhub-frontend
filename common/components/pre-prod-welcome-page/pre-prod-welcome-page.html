@@ -1,0 +1,32 @@
+<div class="welcome-box">
+    <div>
+        <div class="text-center">
+            <img class="logo" mf-src="/common/images/logo">
+        </div>
+        <h2 class="text-center" ng-bind="'PREPROD_WELCOME_TITLE' | translate"></h2>
+        <hr class="primary">
+        <div class="text text-center">
+            <span ng-bind-html="'PREPROD_WELCOME_TEXT' | translate"></span>
+        </div>
+
+        <div class="early-access-form text-center">
+            <a class="early-access-link" ng-if="!$ctrl.isShowEarlyAccessForm"
+               ng-bind="'PREPROD_WELCOME_EARLY_ACCESS' | translate" ng-click="$ctrl.showEarlyAccessForm()"></a>
+            <form ng-if="$ctrl.isShowEarlyAccessForm" name="$ctrl.earlyAccessForm" novalidate>
+
+                <div class="input-group"
+                     ng-class="{'has-error': $ctrl.earlyAccessForm.earlyAccessCode.$touched && !$ctrl.codeValid}">
+                    <input autocomplete="off" id="earlyAccessCode" name="earlyAccessCode" class="form-control"
+                           type="text" ng-model="$ctrl.earlyAccessCode" required
+                           placeholder="{{'PREPROD_WELCOME_EARLY_ACCESS_CODE' | translate}}"
+                           ng-change="$ctrl.codeValid = true" ng-keyup="$ctrl.onInputKeyPress($event)">
+                    <span class="input-group-btn">
+           <button id="go-btn" class="btn btn-default" type="button" ng-bind="'PREPROD_WELCOME_GO' | translate"
+                   ng-click="$ctrl.verify()" ng-disabled="$ctrl.earlyAccessForm.$invalid"
+                   ng-class="{'btn-danger': $ctrl.earlyAccessForm.earlyAccessCode.$touched && !$ctrl.codeValid}"></button>
+        </span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

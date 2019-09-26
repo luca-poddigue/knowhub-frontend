@@ -1,0 +1,95 @@
+@import '../../../common/css/cvars';
+@import '../../../common/css/mixins';
+
+tab-log {
+  $user-color: #23d200;
+  $seeker-color: #34caff;
+  $expert-color: #445cb4;
+
+
+  .label {
+    padding: 2px 4px;
+
+    &.label-user {
+      background-color: $user-color;
+    }
+
+    &.label-seeker {
+      background-color: $seeker-color;
+    }
+
+    &.label-expert {
+      background-color: $expert-color;
+    }
+  }
+
+  .btn-print {
+    margin-top: 25px;
+    @media screen and (min-width: $screen-sm) {
+      text-align: right;
+    }
+  }
+
+  .user-types.btn-group {
+    display: block;
+    height: 36px;
+
+    &.prevent-click {
+      .btn-primary {
+        @include prevent-click();
+      }
+    }
+  }
+
+  .logs-list {
+    div {
+      padding: 0;
+    }
+
+    .header {
+      padding: 0 5px;
+      border-bottom-style: solid;
+      border-color: $knowhub-orange;
+      border-width: 0 0 2px;
+    }
+
+    .title {
+      h5,
+      h4 {
+        font-weight: bold;
+      }
+    }
+
+    .log-entry {
+      padding: 10px 5px;
+      border-bottom-style: solid;
+      border-color: $knowhub-orange;
+      border-width: 0 0 1px;
+
+      .file-link {
+        font-weight: bold;
+      }
+
+      .label {
+        display: inline-block;
+        margin-bottom: 1px;
+      }
+
+      .action {
+        margin-top: 2px;
+        font-weight: bold;
+
+        @media screen and (min-width: $screen-sm) {
+          font-size: inherit;
+          margin: 0;
+          line-height: 20px;
+        }
+      }
+
+      .details {
+        margin-top: 15px;
+        margin-bottom: 3px;
+      }
+    }
+  }
+}

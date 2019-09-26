@@ -1,0 +1,41 @@
+doc-renderer .doc-container {
+  margin: auto;
+  max-width: 510px;
+  font-size: 16px;
+  line-height: 25px; }
+  doc-renderer .doc-container h1:first-child {
+    margin: 0; }
+  @media screen and (min-width: 768px) {
+    doc-renderer .doc-container h3:first-child {
+      margin-top: 0; } }
+doc-renderer .disabled-link {
+  color: inherit;
+  font-weight: bold;
+  cursor: default; }
+doc-renderer aside ul {
+  padding: 0; }
+doc-renderer a {
+  cursor: pointer; }
+doc-renderer ol > li > p,
+doc-renderer ul > li > p {
+  margin: 0; }
+doc-renderer .outline {
+  list-style: none;
+  margin-bottom: 46px;
+  position: relative;
+  transition: top .5s ease-in-out; }
+  @media screen and (max-width: 767px) {
+    doc-renderer .outline {
+      position: static;
+      text-align: center; } }
+  doc-renderer .outline .outline-item {
+    margin-bottom: 10px; }
+  doc-renderer .outline a {
+    font-size: 14px;
+    font-weight: bold; }
+    doc-renderer .outline a.item-selected {
+      color: #e68900;
+      font-size: 17px;
+      cursor: default; }
+
+/*# sourceMappingURL=doc-renderer.css.map */

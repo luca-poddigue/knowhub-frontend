@@ -1,0 +1,43 @@
+@keyframes shake {
+    0%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+@keyframes x-red-x-color {
+    50% {
+        color: red;
+    }
+}
+proficiency-picker {
+  position: relative;
+    top: 1px;
+    outline: none;
+}
+  proficiency-picker .label.proficiency-level {
+    top: -22px;
+    right: -3px;
+    position: absolute;
+    z-index: 5;
+    font-size: inherit;
+    text-transform: none; }
+  proficiency-picker .star {
+    cursor: pointer; }
+
+proficiency-picker .stars-container {
+    display: inline-block;
+    padding-left: 3px;
+}
+  proficiency-picker .stars-container.missing-value {
+      animation: shake 0.3s ease-out 3, x-red-x-color 0.3s linear 3;
+  }
+
+/*# sourceMappingURL=proficiency-picker.css.map */

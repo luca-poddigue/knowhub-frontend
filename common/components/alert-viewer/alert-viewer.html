@@ -1,0 +1,26 @@
+<div class="alerts-container">
+    <div ng-repeat="(alertId, alert) in $ctrl.alerts" class="fade-alert alert alert-{{alert.level.toLowerCase()}}">
+        <span ng-bind-html="$ctrl.message(alert.messageKey, alert.messageData)"></span>
+        <div class="text-right">
+            <button class="btn btn-no-style btn-xs" ng-repeat="additionalLink in alert.additionalLinks"
+                    ng-click="$ctrl.processAdditionalLink(alertId, additionalLink.target)">
+                <i class="fa fa-{{additionalLink.icon}}" aria-hidden="true"></i>&nbsp;
+                <span ng-bind="additionalLink.titleKey | translate"></span>
+            </button>
+            <button class="btn btn-no-style btn-xs" ng-show="alert.level === 'DANGER'"
+                    ng-click="$ctrl.goToReportIssue(alertId)">
+                <i class="fa fa-bug" aria-hidden="true"></i>&nbsp;
+                <span ng-bind="'ALERT_VIEWER_REPORT_BUG' | translate"></span>
+            </button>
+            <button ng-if="alert.enableDontShowAnymore" class="btn btn-no-style btn-xs"
+                    ng-click="$ctrl.dontShowAnymore(alertId)">
+                <i class="fa fa-times"></i>&nbsp;
+                <span ng-bind="'COMMON_DONT_SHOW_ANYMORE' | translate"></span>
+            </button>
+            <button class="btn btn-no-style btn-xs" ng-click="$ctrl.hideAlert(alertId)">
+                <i class="fa fa-times"></i>&nbsp;
+                <span ng-bind="'COMMON_CLOSE' | translate"></span>
+            </button>
+        </div>
+    </div>
+</div>

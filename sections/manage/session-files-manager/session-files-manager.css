@@ -1,0 +1,77 @@
+session-files-manager {
+  display: inline-block;
+  width: 100%; }
+  session-files-manager .controls {
+    margin-top: 10px;
+    display: table;
+    width: 100%; }
+    session-files-manager .controls .btn-select {
+      vertical-align: middle;
+      width: 1px;
+      padding-right: 20px; }
+      @media screen and (min-width: 450px) {
+        session-files-manager .controls .btn-select {
+          display: table-cell; } }
+    session-files-manager .controls .bucket-status {
+      margin-top: 10px;
+      position: relative;
+      bottom: 1px;
+      vertical-align: middle; }
+      @media screen and (min-width: 450px) {
+        session-files-manager .controls .bucket-status {
+          margin-top: 0;
+          display: table-cell; } }
+      session-files-manager .controls .bucket-status .status-text {
+        padding-left: 5px; }
+      session-files-manager .controls .bucket-status .progress {
+        margin-bottom: 0;
+        height: 14px; }
+  session-files-manager .files-list {
+    margin: 0;
+    max-height: 410px;
+    overflow-y: auto;
+    margin-top: 10px; }
+  session-files-manager .file-header {
+    width: 100%; }
+    @media screen and (min-width: 630px) {
+      session-files-manager .file-header {
+        display: table; } }
+    @media screen and (min-width: 630px) {
+      session-files-manager .file-header > div {
+        display: table-cell;
+        vertical-align: middle; } }
+    session-files-manager .file-header > div.buttons {
+      vertical-align: top;
+      white-space: nowrap;
+      margin-top: 8px; }
+      @media screen and (min-width: 630px) {
+        session-files-manager .file-header > div.buttons {
+          margin-top: 0;
+          text-align: right; } }
+      session-files-manager .file-header > div.buttons > * {
+        font-size: 160%;
+        padding: 0;
+        height: 25px; }
+        session-files-manager .file-header > div.buttons > *.btn-delete {
+          position: relative;
+          bottom: 2px;
+          margin-left: 9px;
+          color: #ec2121; }
+        session-files-manager .file-header > div.buttons > *.btn-download {
+          color: #ff9800; }
+    session-files-manager .file-header h4 {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+      display: inline-block;
+      margin: 0 30px 0 0;
+      position: relative;
+      top: 1px; }
+  session-files-manager .file-details > div {
+    display: inline-block;
+    margin: 10px 22px 0 0; }
+  session-files-manager .file-details label {
+    font-weight: bold;
+    margin-bottom: 0; }
+
+/*# sourceMappingURL=session-files-manager.css.map */

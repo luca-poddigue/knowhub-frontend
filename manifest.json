@@ -1,0 +1,36 @@
+{
+  "short_name": "KnowHub",
+  "name": "KnowHub",
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#ffc437",
+  "display": "standalone",
+  "gcm_sender_id": "103953800507",
+  "icons": [
+    {
+      "src": "common/app-icons/launcher-icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "common/app-icons/launcher-icon-256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "common/app-icons/launcher-icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "common/app-icons/launcher-icon-144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "common/app-icons/launcher-icon-128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+.image-upload-modal .help-text {
+    margin: -3px 0 -10px 3px;
+    display: inline-block;
+}
+
+.image-upload-modal .help-text ul {
+    padding-left: 16px;
+}
+.image-upload-modal table.img-upload {
+  width: 100%; }
+  .image-upload-modal table.img-upload td.thumbnail-container {
+    vertical-align: top;
+    width: 1px;
+    padding-right: 10px; }
+    @media screen and (max-width: 480px) {
+      .image-upload-modal table.img-upload td.thumbnail-container {
+        display: block;
+        margin-bottom: 16px; } }
+    .image-upload-modal table.img-upload td.thumbnail-container .thumbnail {
+      max-width: 200px;
+      max-height: 200px;
+      min-height: 105px;
+      margin: 0; }
+  @media screen and (max-width: 480px) {
+    .image-upload-modal table.img-upload td.details {
+      display: block;
+      margin-bottom: 10px; } }
+  .image-upload-modal table.img-upload td.details h4 {
+      margin-top: -3px;
+      word-break: break-word;
+  }
+  .image-upload-modal table.img-upload td.details .progress {
+    margin-top: 10px;
+    margin-bottom: 0; }
+.image-upload-modal .dimensions-hint {
+  margin-bottom: 0; }
+.image-upload-modal .dimensions .form-group {
+  margin-bottom: 0; }
+  .image-upload-modal .dimensions .form-group .help-block.text-danger {
+    margin: 0; }
+
+/*# sourceMappingURL=image-upload-modal.css.map */

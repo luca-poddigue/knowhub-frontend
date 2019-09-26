@@ -1,0 +1,85 @@
+call-buttons {
+  display: block; }
+  call-buttons .steps {
+    margin: 4px 0 0 6px; }
+    call-buttons .steps p:last-child {
+      margin-bottom: 0; }
+  call-buttons .btn-container .call-id {
+    margin-top: 6px;
+    font-size: 90%; }
+    call-buttons .btn-container .call-id .title {
+      font-weight: bold;
+      margin-bottom: -2px; }
+  call-buttons .btn-container.hangouts .call-id {
+    margin-top: 0; }
+  @media screen and (min-width: 550px) {
+    call-buttons .btn-container {
+      display: table; }
+      call-buttons .btn-container > div {
+        display: table-cell;
+        vertical-align: middle; }
+      call-buttons .btn-container .call-id {
+        margin-top: 0; }
+      call-buttons .btn-container .call-btn {
+        padding-right: 20px; }
+      call-buttons .btn-container.hangouts .call-id {
+        padding-bottom: 3px; } }
+  call-buttons .call-method-picker .btn {
+    overflow: inherit; }
+  call-buttons .call-method-picker .ui-select-container img {
+    bottom: 1px;
+    margin-right: 5px;
+    position: relative;
+    width: 26px; }
+  call-buttons .call-method-picker .ui-select-choices-row > a div {
+    display: inline; }
+  call-buttons .call-method-picker .ui-select-choices-row-inner div {
+    display: inline; }
+  call-buttons .call-method-picker .ui-select-match div {
+    display: inline; }
+  call-buttons .call-method-picker .ui-select-match-text {
+    color: #555; }
+  call-buttons .call-method-picker .ui-select-container {
+    height: 40px;
+    width: 225px;
+    display: inline-block; }
+  call-buttons .call-method-picker .ui-select-toggle {
+    height: 40px;
+    padding-top: 0;
+    padding-bottom: 0; }
+    call-buttons .call-method-picker .ui-select-toggle > .caret {
+      margin-top: -1px; }
+  call-buttons .call-method-picker .ui-select-choices-row-inner, call-buttons .call-method-picker .ui-select-match-text {
+    display: table;
+    width: 100%; }
+  call-buttons .call-method-picker .ui-select-match-text > div {
+    height: 43px; }
+  call-buttons .call-method-picker .ui-select-placeholder {
+    line-height: 40px; }
+  call-buttons .call-method-picker .ui-select-choices-row > a div img {
+    bottom: 0; }
+  call-buttons .call-method-picker .ui-select-choices-group div, call-buttons .call-method-picker .ui-select-match-text > div {
+    display: block; }
+    call-buttons .call-method-picker .ui-select-choices-group div.choice-img, call-buttons .call-method-picker .ui-select-match-text > div.choice-img {
+      display: table-cell;
+      vertical-align: top;
+      text-align: center;
+      width: 26px; }
+      call-buttons .call-method-picker .ui-select-choices-group div.choice-img img, call-buttons .call-method-picker .ui-select-match-text > div.choice-img img {
+        width: 100%; }
+    call-buttons .call-method-picker .ui-select-choices-group div.choice-text, call-buttons .call-method-picker .ui-select-match-text > div.choice-text {
+      display: table-cell;
+      vertical-align: middle;
+      padding-left: 12px; }
+      call-buttons .call-method-picker .ui-select-choices-group div.choice-text .reason, call-buttons .call-method-picker .ui-select-match-text > div.choice-text .reason {
+        font-size: 85%;
+        white-space: pre-wrap;
+        color: #ec2121;
+        font-weight: bold; }
+  call-buttons .call-method-picker .ui-select-match-text > div.choice-img {
+    vertical-align: middle;
+    overflow: visible; }
+  call-buttons .call-method-picker .glyphicon {
+    top: 12px; }
+
+/*# sourceMappingURL=call-buttons.css.map */

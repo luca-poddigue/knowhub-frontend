@@ -1,0 +1,24 @@
+<form novalidate name="$ctrl.sessionRejectionForm">
+    <div class="modal-header">
+        <h3 class="modal-title" ng-bind="'SESSION_REJECTION_TITLE' | translate"></h3>
+    </div>
+    <div class="modal-body session-rejection-modal">
+        <div class="intro-text" ng-bind="'SESSION_REJECTION_TEXT' | translate"></div>
+
+        <div class="form-group"
+             ng-class="{'has-error': $ctrl.sessionRejectionForm.reason.$touched && $ctrl.sessionRejectionForm.reason.$invalid}">
+            <label required class="control-label" for="reason" ng-bind="'SESSION_REJECTION_REASON' | translate"></label>
+            <textarea class="form-control" rows="5" id="reason" name="reason" required ng-minlength=10
+                      ng-maxlength=500 ng-model="$ctrl.rejectionDetails.reason"></textarea>
+            <div ng-show="$ctrl.sessionRejectionForm.reason.$touched" ng-messages="$ctrl.sessionRejectionForm.reason.$error"
+                 class="help-block text-danger">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <promise-button spinner="session-rejection-spinner" on-confirm="$ctrl.rejectSession" on-cancel="$ctrl.dismiss"
+                        confirm-text-key="SESSION_REJECTION_REJECT_SESSION"
+                        form="$ctrl.sessionRejectionForm"></promise-button>
+    </div>
+</form>

@@ -1,0 +1,71 @@
+<update-title title="{{$ctrl.applicationName+' | '+('SECTION_GUIDE' | translate)}}"></update-title>
+<update-meta content="" name="description"></update-meta>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 ng-bind="'GUIDE_TITLE' | translate"></h1>
+        <p ng-bind="'GUIDE_SUBTITLE' | translate"></p>
+        <div class="btn-group" ng-if="!$ctrl.isForQuestionnaire">
+            <button class="btn btn-primary" ng-bind="'COMMON_FOR_SEEKERS' | translate"
+                    ng-class="{'active': $ctrl.mode===$ctrl.userType.seeker}"
+                    ng-click="$ctrl.setMode($ctrl.userType.seeker)"></button>
+            <button class="btn btn-primary" ng-bind="'COMMON_FOR_EXPERTS' | translate"
+                    ng-class="{'active': $ctrl.mode===$ctrl.userType.expert}"
+                    ng-click="$ctrl.setMode($ctrl.userType.expert)"></button>
+        </div>
+    </div>
+
+    <div class="content" ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}">
+
+        <div class="intro" ng-if="$ctrl.isForQuestionnaire">
+            <h2 ng-bind="'GUIDE_'+$ctrl.mode+'_QUESTIONNAIRE' | translate"></h2>
+            <div ng-bind-html="'GUIDE_'+$ctrl.mode+'_QUESTIONNAIRE_INTRO' | translate"></div>
+        </div>
+
+        <div ng-show="$ctrl.status === 'reading'">
+
+            <div class="yt-video" ng-if="$ctrl.userHasItalianLocale()">
+                <iframe allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+                        frameborder="0" ng-if="$ctrl.mode === $ctrl.userType.seeker"
+                        src="https://www.youtube-nocookie.com/embed/Qt1vXwWqyx4?rel=0&color=white"></iframe>
+
+                <iframe allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+                        frameborder="0" ng-if="$ctrl.mode === $ctrl.userType.expert"
+                        src="https://www.youtube-nocookie.com/embed/Z8tPPSYXMMs?rel=0&color=white"></iframe>
+            </div>
+
+            <doc-renderer disable-url-links="$ctrl.isForQuestionnaire"
+                          translation-key="{{$ctrl.mode===$ctrl.userType.expert ? 'GUIDE_EXPERT' : 'GUIDE_SEEKER'}}"></doc-renderer>
+
+            <div class="text-center" ng-if="$ctrl.isForQuestionnaire">
+                <button class="begin-questionnaire btn btn btn-primary"
+                        ng-bind="'GUIDE_BEGIN_QUESTIONNAIRE' | translate"
+                        ng-click="$ctrl.showQuestionnaire()"></button>
+            </div>
+        </div>
+
+        <div class="questionnaire" ng-if="$ctrl.status === 'questionnaire'">
+            <tos-questions mode="{{$ctrl.mode}}" ng-if="!$ctrl.evaluation"
+                           on-evaluate="$ctrl.onEvaluateQuestionnaire($event)"></tos-questions>
+
+            <div ng-if="$ctrl.evaluation" ng-switch="$ctrl.evaluation.result">
+                <div ng-switch-when="PASS">
+                    <h3 class="text-center" ng-bind="'GUIDE_QUESTIONNAIRE_PASSED' | translate"></h3>
+                    <p ng-bind="'GUIDE_'+$ctrl.mode+'_QUESTIONNAIRE_PASSED_TEXT' | translate"></p>
+                    <div class="text-center">
+                        <button class="btn btn-primary" ng-bind="'COMMON_PROCEED' | translate"
+                                ng-click="$ctrl.proceed()"></button>
+                    </div>
+                </div>
+                <div ng-switch-when="FAIL">
+                    <h3 class="text-center" ng-bind="'GUIDE_QUESTIONNAIRE_FAILED' | translate"></h3>
+                    <p ng-bind="('GUIDE_QUESTIONNAIRE_FAILED_TEXT' | translate).replace('##ERRORS', $ctrl.evaluation.errors)"></p>
+                    <div class="text-center">
+                        <button class="btn btn-danger" ng-bind="'GUIDE_BACK_TO_TOS' | translate"
+                                ng-click="$ctrl.returnToTermsOfService()"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

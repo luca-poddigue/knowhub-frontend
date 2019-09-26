@@ -1,0 +1,9 @@
+<div>
+    <span class="stars">
+        <i ng-repeat="level in $ctrl.levels" class="star fa" ng-class="{ 'fa-star-o': $ctrl.proficiencyIndex < $index,
+                          'fa-star':  $ctrl.proficiencyIndex >= $index }" aria-hidden="true"
+       ng-click="$ctrl.onSelect(level, $index)"></i>
+    </span>
+    <span ng-if="$ctrl.showProficiencyLabel" class="label label-primary proficiency-level"
+          ng-bind="'PROFICIENCY_LEVEL_'+$ctrl.proficiency | translate"></span>
+</div>

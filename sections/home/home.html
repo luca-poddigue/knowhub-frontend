@@ -1,0 +1,162 @@
+<update-title title="{{$ctrl.applicationName}}"></update-title>
+<update-meta name="description" content=""></update-meta>
+
+<div ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}" class="home-content">
+
+    <header>
+        <div class="logo-block">
+            <img mf-src="/sections/home/images/home-logo-owls">
+            <img class="logo" mf-src="/common/images/logo">
+            <img mf-src="{{'/sections/home/images/home-logo-slogan-'+$ctrl.language()}}">
+        </div>
+    </header>
+
+    <section class="intro">
+        <div class="row">
+            <div class="col-sm-6 general">
+                <div class="text">
+                    <h2 ng-bind="'HOME_INTRO_GENERAL' | translate"></h2>
+                    <div ng-bind-html="'HOME_INTRO_GENERAL_TEXT' | translate"></div>
+                    <div class="btn-container">
+                        <button class="btn btn-no-style" ng-click="$ctrl.showPromoVideoModal()">
+                            <span ng-bind="'HOME_INTRO_WATCH_VIDEO' | translate"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 users">
+                <div class="text">
+                    <h2 ng-bind="'HOME_INTRO_USERS' | translate"></h2>
+                    <div ng-bind-html="'HOME_INTRO_USERS_TEXT' | translate"></div>
+                    <div class="btn-container">
+                        <button class="btn btn-no-style" ng-if="!$ctrl.userIsSignedIn()"
+                                ng-click="$ctrl.showAuthModal()" class="btn btn-primary"
+                                ng-bind="'HOME_INTRO_GET_STARTED' | translate"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="social-buttons">
+            <div>
+                <a class="btn btn-no-style" ng-href="{{$ctrl.socialConstants.facebookPageUrl}}" target="_blank">
+                    <i class="fa fa-facebook-official fa-4x" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div>
+                <a class="btn btn-no-style" ng-href="{{$ctrl.socialConstants.instagramProfileUrl}}" target="_blank">
+                    <i aria-hidden="true" class="fa fa-instagram fa-4x"></i>
+                </a>
+            </div>
+            <div>
+                <a class="btn btn-no-style" ng-href="{{$ctrl.socialConstants.twitterPageUrl}}" target="_blank">
+                    <i class="fa fa-twitter fa-4x" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div>
+                <a class="btn btn-no-style" ng-href="{{$ctrl.socialConstants.youtubeChannelUrl}}" target="_blank">
+                    <i class="fa fa-youtube-play fa-4x" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features seeker">
+        <div class=" container-fluid">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading" ng-bind="'HOME_FEATURES_SEEKERS' | translate"></h2>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-search"></i>
+                        <h3 ng-bind="'HOME_QUICK_SEARCH' | translate"></h3>
+                        <p ng-bind="'HOME_QUICK_SEARCH_DETAIL' | translate"></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-cogs"></i>
+                        <h3 ng-bind="'HOME_INTUITIVE_WORKFLOW' | translate"></h3>
+                        <p ng-bind="'HOME_INTUITIVE_WORKFLOW_DETAIL' | translate"></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-commenting-o"></i>
+                        <h3 ng-bind="'HOME_FEEDBACK_SYSTEM' | translate"></h3>
+                        <p ng-bind="'HOME_FEEDBACK_SYSTEM_DETAIL' | translate"></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-credit-card"></i>
+                        <h3 ng-bind="'HOME_SECURE_PAYMENTS' | translate"></h3>
+                        <p ng-bind="'HOME_SECURE_PAYMENTS_DETAIL' | translate"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features expert">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading" ng-bind="'HOME_FEATURES_EXPERTS' | translate"></h2>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-user-circle-o"></i>
+                        <h3 ng-bind="'HOME_PERSONAL_PROFILE' | translate"></h3>
+                        <p ng-bind="'HOME_PERSONAL_PROFILE_DETAIL' | translate"></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-retweet"></i>
+                        <h3 ng-bind="'HOME_SHARING_SESSIONS' | translate"></h3>
+                        <p ng-bind="'HOME_SHARING_SESSIONS_DETAIL' | translate"></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-trophy"></i>
+                        <h3 ng-bind="'HOME_STAND_OUT' | translate"></h3>
+                        <p ng-bind="'HOME_STAND_OUT_DETAIL' | translate"></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-money"></i>
+                        <h3 ng-bind="'HOME_PAYOUTS' | translate"></h3>
+                        <p ng-bind="'HOME_PAYOUTS_DETAIL' | translate"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section ng-if="!$ctrl.userIsSignedIn()" class="join-us">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading" ng-bind="'HOME_JOIN_US' | translate"></h2>
+                    <p ng-bind-html="'HOME_JOIN_US_DETAIL' | translate"></p>
+                </div>
+                <div class="col-lg-12 text-center">
+                    <button ng-click="$ctrl.showAuthModal()" class="btn btn-no-style"
+                            ng-bind="'HOME_REGISTER_ACCOUNT' | translate"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

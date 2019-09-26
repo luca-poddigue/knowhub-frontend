@@ -1,0 +1,10 @@
+<spinner ng-if="$ctrl.spinner" name="{{$ctrl.spinner}}"></spinner>
+<button ng-click="$ctrl.doOnConfirm()" ng-if="$ctrl.onConfirm"
+        ng-disabled="$ctrl.isProcessing || $ctrl.btnDisabled"
+        type="{{$ctrl.btnType || 'submit'}}" class="btn btn-{{$ctrl.btnStyle || 'primary'}}">
+    <i ng-if="$ctrl.btnIcon" ng-show="!$ctrl.isProcessing" class="fa {{::$ctrl.btnIcon}}" aria-hidden="true"></i>
+    <span ng-bind="$ctrl.confirmTextKey | translate"></span>
+</button>
+<button ng-disabled="$ctrl.isProcessing" type="button" ng-if="$ctrl.onCancel" class="btn btn-danger"
+        ng-click="$ctrl.doOnCancel()" ng-bind="($ctrl.cancelTextKey || 'COMMON_CANCEL') | translate">
+</button>

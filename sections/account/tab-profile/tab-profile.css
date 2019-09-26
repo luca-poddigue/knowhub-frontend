@@ -1,0 +1,67 @@
+tab-profile h2 div {
+  display: inline-block; }
+tab-profile .expert-profile h2 {
+  margin-bottom: 5px; }
+tab-profile .expert-profile .profile-views {
+    margin-top: 2px;
+}
+tab-profile .expert-profile .edit-btns > * {
+  display: inline-block;
+    margin: 7px 0;
+}
+tab-profile .payout-details {
+    margin-top: 30px;
+}
+tab-profile .seeker-profile .edit-btns {
+  margin-bottom: 15px; }
+  @media (max-width: 767px) {
+    tab-profile .seeker-profile .edit-btns {
+      margin: 0; } }
+tab-profile .seeker-profile .supporter-medal-block {
+  position: relative;
+  margin: 35px 0 30px 0; }
+  @media screen and (min-width: 640px) {
+    tab-profile .seeker-profile .supporter-medal-block .medal {
+      width: 95px;
+      left: -1px;
+      top: -6px;
+      transform: rotate(-8deg);
+      position: absolute; }
+    tab-profile .seeker-profile .supporter-medal-block .explanation {
+      margin-left: 110px; } }
+  @media screen and (max-width: 639px) {
+    tab-profile .seeker-profile .supporter-medal-block .medal {
+      width: 95px;
+      right: 1px;
+      top: -6px;
+      transform: rotate(-8deg);
+      float: right;
+      position: relative;
+      margin-left: 10px; } }
+  tab-profile .seeker-profile .supporter-medal-block h3 {
+    margin-top: 0; }
+  tab-profile .seeker-profile .supporter-medal-block p:last-child {
+    margin-bottom: 0; }
+@media (min-width: 768px) {
+  tab-profile .details .form-group {
+    display: inline-block;
+    margin-right: 15px; } }
+tab-profile .payout-status {
+    margin-bottom: 20px;
+}
+
+tab-profile .payout-status user-metric-viewer .number {
+    margin-left: -5px;
+}
+
+tab-profile .payout-status user-metric-viewer.enabled {
+    background-color: #26a942;
+    border-color: #186b2a;
+}
+
+tab-profile .payout-status user-metric-viewer.disabled {
+    background-color: #ec2121;
+    border-color: #b10f0f;
+}
+
+/*# sourceMappingURL=tab-profile.css.map */

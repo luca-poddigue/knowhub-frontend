@@ -1,0 +1,11 @@
+tab-support-dashboard .promo-campaigns textarea,
+tab-support-dashboard .session-price-limit textarea {
+    min-height: 160px;
+}
+@media (max-width: 767px) {
+    tab-support-dashboard .litigations .resolve-btn {
+        margin-top: 14px;
+    }
+}
+
+/*# sourceMappingURL=tab-support-dashboard.css.map */

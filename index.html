@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="knowhub">
+
+<head>
+    <title>KnowHub</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+    <meta content="noindex,nofollow" name="robots">
+    <meta name="fragment" content="!">
+
+    <meta content="Luca Poddigue" name="author">
+    <meta content="Luca Poddigue" name="copyright">
+
+    <!-- Evaluate using a prerendering service, to allow multilanguage metadata and ensure search engine crawlers do their job. -->
+    <meta content="KnowHub" property="og:site_name">
+    <meta content="KnowHub | Condividi e monetizza le tue conoscenze" property="og:title">
+    <meta content="Con KnowHub trovi supporto per i tuoi progetti e guadagni insegnando ciò che ami."
+          name="description">
+    <meta content="Con KnowHub trovi supporto per i tuoi progetti e guadagni insegnando ciò che ami."
+          property="og:description">
+    <meta content="https://knowhub.it/common/images/ogimage.png" property="og:image"/>
+    <meta content="https://knowhub.it/" property="og:url">
+    <meta content="website" property="og:type">
+    <meta content="summary_large_image" name="twitter:card">
+    <meta content="@KnowHubIT" name="twitter:site">
+
+    <base href="/">
+
+    <link rel="shortcut icon" sizes="192x192" href="/favicon.png" type="image/x-icon">
+    <link rel="icon" sizes="192x192" href="/favicon.png" type="image/x-icon">
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Chrome, Firefox OS and Opera -->
+    <meta name="theme-color" content="#ffc437">
+    <!-- Windows Phone -->
+    <meta name="msapplication-navbutton-color" content="#ffc437">
+    <!-- iOS Safari -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body .app {
+            display: none;
+        }
+
+        body.pg-loaded .app {
+            display: block;
+        }
+
+        .pg-loading-screen.pg-loading {
+            background: white;
+        }
+
+        .pg-loading-logo-header {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .pg-loading-logo {
+            border: 0;
+            margin: auto;
+            vertical-align: middle;
+        }
+
+        .pg-loading-logo svg {
+            max-width: 600px;
+        }
+
+        .pg-loading-logo img {
+            max-width: 500px;
+            width: 84%;
+        }
+
+        .pg-loading.pg-loading-screen .pg-loading-center-middle {
+            padding-bottom: 6%;
+        }
+
+        @media screen and (max-height: 450px) {
+            .pg-loading-logo-header {
+                margin: 0;
+            }
+
+            .pg-loading-screen .pg-loading-inner .pg-loading-html {
+                margin-top: 10px;
+            }
+
+            .pg-loading.pg-loading-screen .pg-loading-center-middle {
+                padding-bottom: 0;
+            }
+        }
+
+        .pg-loading-screen .pg-loading-html.login {
+            margin-top: -75px;
+        }
+
+        noscript .logo img {
+            margin-top: 50px;
+            margin-bottom: 20px;
+            max-width: 500px;
+        }
+
+        noscript .text {
+            max-width: 550px;
+            margin: auto;
+        }
+
+    </style>
+
+</head>
+
+<body>
+<app></app>
+
+<!-- build:css / -->
+<link rel="stylesheet" type="text/css" href="node_modules/please-wait/build/please-wait.css">
+<link rel="stylesheet" href="common/components/spinner/spinner.css">
+<!-- endbuild -->
+<!-- build:js / -->
+<script src="node_modules/please-wait/build/please-wait.min.js"></script>
+<!-- endbuild -->
+<script>
+    if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+        const msViewportStyle = document.createElement('style');
+        msViewportStyle.appendChild(
+            document.createTextNode(
+                '@-ms-viewport{width:auto!important}'
+            )
+        );
+        document.querySelector('head').appendChild(msViewportStyle)
+    }
+
+    if (window.pleaseWait) {
+        const pleaseWaitConfig = {
+            loadingHtml: '<div class="sk-folding-cube">\n' +
+            '        <div class="sk-cube1 sk-cube"></div>\n' +
+            '        <div class="sk-cube2 sk-cube"></div>\n' +
+            '        <div class="sk-cube4 sk-cube"></div>\n' +
+            '        <div class="sk-cube3 sk-cube"></div>\n' +
+            '      </div>'
+        };
+        const browserSupportsSvg = document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1");
+        // if URL hash contains the auth token query param
+        if (window.location.hash.indexOf('access_token') !== -1 || window.location.hash.indexOf('error') !== -1) {
+            pleaseWaitConfig.template = '<div class="pg-loading-inner"><div class="pg-loading-center-outer"><div class="pg-loading-center-middle"><div class="pg-loading-html login"></div></div></div>';
+        } else {
+            // standard loading screen
+            if (!browserSupportsSvg) {
+                pleaseWaitConfig.template = '<div class="pg-loading-inner"><div class="pg-loading-center-outer"><div class="pg-loading-center-middle">      <h1 class="pg-loading-logo-header"><div class="pg-loading-logo"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABMUAAAF2CAYAAABuyC8dAAAACXBIWXMAABcRAAAXEQHKJvM/AAAgAElEQVR42u3dS3IbSZYw6tNtaUa7mJB3AyT+FZA9w0yoFUi9AqFHHJZqBclaQamHHCVyBU2toMDRxeySK2iQKyAnMOOo/kGAqUeKJJ4BPx7fZybLKokPh7uHh/sJ9xP/9q9//SsA4EXT3llEHEVEf/EnIuL571YxWfz3ISJuIuIhBvMbFQwAAOzDvwmKARAREdNeP5pg11lEDKMJgJ208JvvImIWTdBsFhE3gmUAAMCuCYoBdFUTBBtGxIdoAmEnBZXuMZogWfNHkAwAANgyQTGALmmOQo6iCYSdJCr5XTQBsqsYzK80JAAAsKl/+9f/9/9Mkpb9JgbzTx1bzI7jaz6fXAbz4YqfddKRVs3dj6e9z9HsMKqr/9U3dvQj4lPkC4S95DEixhExrnYH2bR3FavnbNu3SQzmF0nr+ywiPicr9SwG81HiPl76fX6r9+eny+NhRPwz8ah0fXB+X929tIJ2iYj4+8H5/cUO62gSEe8S189fDs7vJ8n76UVE/GrMSF8npXhOW/J1/vY8r1j8OTi/n3WpQn5JPsh1bVH7MWnpv6zxPV3pl2fRBCsyl98YUu648WHRv2pro8OI+GtE/DWmvduI+ByD+biyz3jk2lLfS9wnR0nHpqH+DQB7cRLfPyT/0/346fI4IuI2nnP9NoGzm4Pz+4caK+QXfSKNzIGTseZ7ZXE/7fVjMJ+pCra44BxFxEXUsSvsLacR8dti12LzZzB/0AlY0VAV8AP3ZQC67HTx530sduU9XR7fxdcg2VUtO8r+XVun8SFpue/k/7EYoyXT3iimvVlE/BbdCIh963Bxw57FtHcR095R8s+TcZLRdxFSkZkqAIDvnEQTJPtHRPzv0+Xx7OnyePx0efwh84cSFMux0M2cB2isAd90pgrYeIzobjDsR98Gx0YW5K1PlGj32h+67wEAe5z7fYyI/3m6PH7IGiATFMshc+R1rPksDtjZgri/SFb9PyEg8aPDaI5V3iQOHGAcrlWGnZw3mgkAVpp7PwfIZk+XxxdPl8f9DAUXFCt/0XsUmRPsy5W1DMmGWWdsuIiI/9V/3nQaEf+Mae9zsiOVN0n7ZT9pPzlyqfADuQkBYD0n0Zzc+N/F7rGi54eCYuUbJS77WPMtvZAcqgSW7Cv9mPZuwmuoV/XXiLiJaS/LjqCsC/K+rtaqM+UGAAr2MQoPjgmKlW+UtNwS7FsgsG1NjqybaHY/sbqTiPj/F7vs4Fv9pOU+Uu4dGcwnLgsA2Jpig2OCYmUvgM8SL37HGnAlgmK8NR6Mo0mkf6gyNvZrTHtXRR+nzLsgzzqWyckHALB7HyPi5uny+KKUAgmKle1T4rKPNd9KhqqAn5r2jhbHJT+qjK16HxGTRMcps5Cbq12OT+7Go64FADtzGBG/Pl0e3zxdHu99HSwoVrasb52UYH91J8mSgNOGJmAzCccld+U0yg6MWZi3c51lHnuzlr30Ha/ePAkA7czF/7nvXWOCYuVO0keR95jUWAOuxY4Vvh0DBMTaW5xPFmOuhXk3xzFjLwDA/jzvGuvv45cLipUr6y4xCfbXN1QFRMS3ATH5w9pxGBG/FRoYy8aO13b105U4x5Hlma4FAK06jSbXWOtrYkGxMieM/Wjy3WQkILa+oSpAQGyvSguMWZjzlowvCMgQOHXtAUD7DqM5TtnqfFxQrEyjxGX/rPnW5ghP1wmIleC3mPZK2ambcWGecRwb6vYAAOXMx9vMMyYoVqZR0nJfS7C/kUNvwuuwJtn3JATESjB2LW4wjtH22NFPVuIM5ZVoHwD269eny+NxG79IUKy8ye0wch6HaBaSbMpCvJvXvYBYWZ6T7+978W5hzjL6yrt1D7oVAOzdxzYCY4Ji5RklLfdjDOZjzbcxQbFuGoe3TJbmMCKuFgFLC/NVNA93jLsAAGxq54ExQbGyFhJHkfetk2MNuBVDVdC56/4i8r5Yo3anxrZOOFL+VvWLL+FgPnFZAEAxPu4y+b6gWFk+RN7jUxLsb28RTlc0Cd1/VRFFex/T3icLcwqWbadbX5MBACv67enyeCcbiATFyvIpabkl2N+mfEePWK+dj8IupCz+IfH+SrKNYX1NxjceVQEAFGn8dHm89Tm5oFg5C+R+5N0lZGG/XRbf3XAVEuvnaq/95hdjd05UQav6hZfPCy4AoEyH0QTGtjonFxQrR9ZdYhLsb99QFVSuOY73TkWkchIRF3v4vdeqnsruGYKQAMC6TmPLqZsExcohwT7P7BSrWbMr9EJFpPRXx5uXMkx0Pdr9x49mqgAAivZxm/nFBMXKmJR/iLxPTiXY374TC7WqjcOxyezt16YHVb5THkK0O9/pJyjlTEMBQPlz8m0doxQUK8Moabkl2N+doSqockH4IRybzO4kpr2LFn+f/Ea8JdOY0tdcAMAWHMaWHlYLiu1/kXwUEe+Tln6sAXfG7oU62VlZh09Jdrzsi8AvmQlEA0AO758uj4eb/hBBsf0bJS23BPu7NVQFlWl2F0kwXYfDaC8v3Ex1G2srkiE1gCPLAJDHeNMfICi2f5+62vl4lZ0WNWl2hH5SEVX5GNNeGzs6Z4n7PO3Vd5bdxXZBAwDbdPJ0eTza5AcIiu1/EivBPtkXObztU0iuXyPj4MuMX+0ShNyWwXyiEgAg15x8k6T7gmL7XyhnJMG+RSXLskusZu9i2hvu+HfIb2ScrYngHQCwbYebrLcExfbrQ9JyjzVdK4aqoAp2idXtYqc/fTDPmt/oSDlb5fjkdjwa0gAg55pr3d1igmL7Mu2Nki6UJdi3eGD569wusfq9c9TZ+FUAO7C2w85MAMjpMNZ8iaGg2P6MkpZ7rOlac6oK0rNLrDvtvEvXqnhn+qqgVYJ3AEBRc3JBsX2Y9vqR9+2CEku321eGKiG1kSrohI+LcZ2vsgQ/Tiqp7yz9r/SHPTOXLgCktdabKAXFLJRXIcF++4aqIKnmiPSJijCub0HGvGKOT7arrwq2whwHADo2JxcUq2/xtEtjTWdhSfXXOevZ5RFKeY52ocn5h/oGAOrx7unyuL/KNwiKtT8pHEbO3SMS7O+HoFjO67wfeY9Is57Dxe5AGv0EZaxpfD1S31shAA0A+a30sFpQrH1ZF01jTbcXJ3IV1T8QU40PO/q5s5RjF23yYpbteFAFANCtObmgWJuaowMfk5Zegv39sVus8oGYarzfURB7pmoBAGApJ0+Xx0uvxwTFLJSXIcH+fgmKZTLtfQi7ZIzzRIJdrsPK6vtIfW9oMJ+4cAGgW3NyQbF2ZT1SNdZ0FhJsfwCmSqMd/MyseY76ukOrPEABAFhxTSYo1pZp7yxy5vyQYH//JGyvdACmSqdb3yE1mMtzBG3MdwCAWhw+XR4Pl/lCQbH2jJKWe6zpCtAEVSm/nT5ExKGK6DyB0Ua/8PIZV9s1LLx83jwJAB2ckwuKtWeUtNwS7FtMsOWBF+P9Gq4T1kO/8PIdVdbv3CcAAFZcmwmKtSHv7hEJ9sthR4NFKXmcJkh6DnzPfAcA6nLydHncf+uLBMXaMUpa7rGmK4agWOmaI67eOsmzbe8azJhXrPRxq6+btqr0/JgzTQQA1Rm+9QW/qKOdL5T7EfE+Yckl2C9Ls/NEwu3UA26F7hYLyZt4OWgzjOaY2mkH+8M2x9CbhPeS0nfL1RbE9vAEAGDFObmg2O5lzTE01nRFLngmqqHoAbcLfl/0w6uVgrTNccLhYkzswgsJ5JejbY7sbkaifQDo4BrN8cnd+5S03BLsJ7yg2av3FX+2x4j4e0T8vzGYj2IwH6+8a3Ewf4jB/Grx/UcR8V/R7DSr1eGW3xo7S1gHdi7RmPYy3L/sxAaA+ryZV0xQbLeTwKw5hiTYt8CkvgXfuv47IvoxmF9s9fhuE1jrR8Tfogm61Wib/SLjmHzomnWPAAAoeY7k+ORuZd0lNtZ01S+w0TZveYyIDzGYT3b6WwbzzzHtXUXEVdSXd2wYdt3SnkNVsNFYNFEJALTk92jvgecwupnf91tni7XGTwmK7UqTPydjThkJ9kte8Ex7fbv4ih1oa3IbEcPWXuwwmM8WO3c+R8RH/eKncuY7mvbOYjCXqwm72ADgq/HB+f2k7V/6dHn8Ib7m+D3pUH0PX/tHxyd3J2si6bGms7BguwNtMu0GxJ41OcdG0Tw5q8XJ4g3E26mfnEpN/l7nWLqt/tadfvCs1iPcAPCHg/P7q4Pz+08H5/f9aPL7XltDC4rt0ihpuR31KdtQFRS5CK3l2NJj7CMg9q0mMHbblZswe1Prmxr7mnYtdjMC0CkH5/fjg/P7YTTBsdofDh2+lmxfUGx3i+R3CUsuwb4FNt1uk2EhO5KGFd2ct9k/rl0fuA4AgG05OL8fR/NQrfZdY/2X/kFQbDck2GdX3qkCi70d+XsxuZ+awNyoknoddvz6KHVHVr9rEz794FUztzIAuurg/P5hsWvs94o/5otzckGx3ciZYP+VNzJQkGnPE/ckA2widzGYXxRVosH8KiK+VFC327xeH1xuW9P3ufjGTBUA0HUH5/ejqDcw9uIDOkGxbZv2sr7J4SpxIueuGaoCi9At+6RcO3O4eBvxNmTMe2S8IsLxSQBIYREY+1LhR3txLiIotn0fkpZbgn2LC9aT/XXGt4tdWeVpchz+7pplB458rlaV/jISifYB4KtRRNx1ZQ0tKLZNzW6Aj0kXxSaEeQxVQTHXfA1tUXpA/KLmm/CKZi66rTmt9HMJwK7HTnkAWDg4v68pv++zFx/QCYptV9aOY5dYLidbPI7FZvrJy/8Yg/m46BI2u8Wu9ZOIyBkU83KQrmveyA0AJHJwfj+JyvKLPV0e//ThoaDYdo1SLool2M/IboAyZF/sjZXT9QqdHycH84lmAoA/uajs8/x0Y4mg2LY0bwTMeBxDgv2chqqgCNmDHeM045SgQIS8R9u6X9c8ftqZBwBsxcH5/Szq2i320zm5oNj2jJKW29HJnIaqoAiZj7Hepckl2ATuM78F52SL9ZBP3UEo1pyAAgAp1BQv+OmcRFBse0YJyyzBfl6OY5Uh866MifK2SF4luqv0vn+tiQDg5w7O728i4rbmzygotp3FzijKf934z9glltehRTYbmihvysBAxgV8aTsq636oYGceALBd40o+x0/nSIJi2/EhYZkl2K/0oqa1hWf2hfUkVWmbXa2Pieu7y2+MPdMWndYvvHzyqgLA66qOGwiKbb4w7kfE+5QdW4J9C026urB+jMF8lrDcN65XC3jS6RtXACCvRcL9ao9QCoptbpS03I5O5icotl+Zg2JZF4ET3S5l25V2rfTdGwAAVlLDbrGf5oMWFNvcKGGZJdivwztVYOG5pknSctsp5rNvQ7/y+haEXM3M7QwAql0/vElQbBNNMtuThCW3S6yuPgirelDu1m0rUGEBTzalz5NcUwDwtmo31QiKbWaUsMwS7NfFMZn96buptWwwn+h2KRfwR8pjbAIA8jo4v3+IiLsaP5ug2LqmvaPI+dZJCfbrMlQFFp5rmGm+1nU5gH2qPB0dm5q5UumkkwCAjtwzny6P/zQnFxRb34eIOExYbkcnLbTpupxvnnx2nbTc27pfWMDjHrXd8dCDQgDozjz0Tw/sBMXW9ylhmSXYr89JkifxQJcX8NNeX+O1Rl0DALtQZSxBUGz9yX3G4xd2idVpqAr2IusuvVtNxx70C7l/d2G8LCmxfekPba5dmgCwtCp3VwuKrSfjLjEJ9uvlCOV+HCYtd/ab2SRtyae9bV2rFvK4PwEAbbNTjD9IsE9JhqoAUujyUee+5m+RY/XLMi8CgCUt3kBZHUGx1SeaH6KsownLcnSyXp7Eg4V86frGy05+ztKDc/KsAsBqHmv7QIJiqxslLLME+3U73OKxLKB8xvP12UHVLvcmADAPLZqg2Cqa4wjvE5bcLjELD4B96quCVgn+LWemCgCg2wTFVjNKWGYJ9rtBUAy6w/HJ/OXoyj2h9ODczHACAN0mKLaajG+dlGC/G4aqoEWSWLNfjk+ur68KWnWqCgCgKtXFFgTFll8En4UE+1h40LAzD1bTVwUUSIAZADp+7xQUW17GXWIS7HfJtDdUCdAJs4RlLuWhUld2ebofLMNOegDoPEGx5X1IWGa7xLrF7iXoxkJ+phLWZldtWzyoAQASEBRbbmI3iojDZKWWYL97LECAku+lAveU5FoVAACCYssZJSyzBPvdY8EJ3XGbsMxeUOF+AABQFEGxt0x7/Yh4l7Dkjk52z8mivwL189Bj9fv5sEOftoTd7UPXEABQOkGxt40SllmC/e6yOwAwPsHbzJMAAEGxJYwSltkuMYtOoG6ThGV2fLJNcrgBALxJUOz1CeUwynmN/LIk2O+2oSoA+KmuBYn2HYQs/X40c0kAAIJirxslLLME+932ThVAJ2Qc5/cdlLJTjW/NVAEAICj2kmnvKCI+Jiy5o5P6riMzUL+M+ZAEpdrVVwUAAK8TFHvZh4RllmCfCHnFAH6m7/O2qvSdy+ZLAICg2Cs+JSyzXWJEyCsGXTBLWOZ9B0n6ug1/kGoCAAhBsZ9rjp+dJiu1BPs8s1MM6l/Qz1QCb+irAgCA1wmK/dwoYZkl2OfZqSoA+JOu5TTr7+03l5/b8trlAABECIq9ZJSwzGPNxjcLkqFKgOrdGptW4oFBe7xUAQBIQVDszxP2DxFxmKzUdzGYTzTeXvxnoeUaahqont3BvEZgyrUDALxBUOzPRgnLLMH+fifWdwWWS14xgG7b58640u9B3jwJAESEoNj3pr1+RLxPWPKxxturSYFlGmoWMPYYm/64vxsT22WXGgCQgqDY9z4kLPPvEuzvXYlPnA8XQV4A4HszVQAARAiK/ehTwjKPNdveTQotlyOUULeMD0TsIGrT/nbIlX7/mekcAECEoNi3E8eziDhJVmoJ9kswmJeam2SocaBqGfMinXXs93aV4CcAkIKg2FcZd4lJsF+Oa4tPgGIJ0vAtifYBoIMOzu8nP/6doFhExLR3FDnziY01ngn2K95pFqjaLGGZBafaNdzT7y37oYxcrADAgqBY40NEHCYrswT7ZZkUWarmWDBQo8F8lrDUp3v6vX0dplWHqgAAyEBQrDFKWOaxZiuKvGIA5eqrAhauVQEA8ExQbNrrR75jZhLsl6bZsXFXYMnsFIO63Sa87zpCWfM9oJlXAQCU5qcPxgTFJNhne0rcLSYoBnXLeIx+H+NSVwNx+/jcfdcMAJCFoJgE+2xPiUGxU7syAPaWywz3agCgYN0Oik17HyLiJFmpJdgv16TQctktBsadkvQ1W9V1rX0BoF6ZN1z8dN7c9Z1idomxPeXmeRtqHKAgfVXQmhPt+ycz3QIA1lbdhovuBsWaI2Ufk5Vagv3ylZj02k4xqJedw2/f742BfGumCgDAHOBZl3eKjRKWWYL98pWYq2SoWcCYU5B+y7+v23kV238bZN9lCQAUaPazvxQUy2WsHxdvUmCZDvewKAJ4ifGo7vouvX0l2geAbs7jfnrCoptBseYoRbY3UUmwn0Opk+2hpoEqzVRB1ZM3ts1cCgA2cZK14Afn9z9dq3d1p9goYZnHrr8Uk+2biHgssGRy6kCdY84sYan7lf++0hypbwCg4+5e+gdBsSwNKMF+JiXuFhMUA0pxogqqHv9Lbt9r3QEA1vN0eTxMXPzZS//QvaDYtDeKiMNkpZZgP5dJgWV6p1mgWreq4FVHqgAAoNNzqhc3rnRxp9iHhGUeu/7quOD2atobahqoUr4cSe2+/KPrO2WPWmzXI9cKAFQr85xq9tI/dCso1kzC3ycrtQT7+UwMYgCv6quCKsf+0u8z3jwJAN1cT9optjBKWOaxay+ZJoh5ZxADWjJRBQAA7Fg/cdkFxRZGycorwX6FF90eDTULUIg2g/RyKran9OOTM00EAKt7ujw+iojTpMW/Ozi/f/H0XXeCYk0+pWxvvJJgP69JgWU6SZDvBVhdxiP2xqL2tBkULH1H8kx3AIAq7/GveXXDSpd2io0Slnns2qvzwjOYAR0YbwAAqMOw1rlyN4Jize6YbG+dlGA/s3KPvQ41DlCAdgL0054HAe0qfQegADIArOdD4rK/ujb/9w414GGyMo9dd+ldF1imoWaB6swSlvmost9TtvaCg2UHIT1sBICVPV0e9yNvPrE4OL+fvPbvXQmKfUpWXgn261DiE2m7JqA2g/lMJfAGwUEAYF2Zd4ndvvUF9QfFpr1+5ItqSrBfhxKDYoeOEwEFaGsc6qtqFq5VAQCsZZS47JO3vqALO8U+JSzz2HVXhUmh5RIUg/rcJitvWykN+rpGq+P+O1UNAPV4ujw+i8RHJyPi6q0v6EJQTIJ99qM50vTY4cUR0B73DV7j+KRrBADW8Slz4d/KJxZRe1Bs2vsQESfJSj123VVlUmCZhpoFKOAe3cZYJBjEM2+eBIAVLBLsf0z8Eb4s80W17xQbJSuvBPsm4W041SxQHfeOn7MzttHf+W9oJ8gJALTnInn5r5b5onqDYtPeUUS8T1ZqCfYtVNu6PixeALqjrwocnwSAZS1yiX1M/jGWWovXvFNslLDMY5dfdUo9rmH3BFjw79tQs+F+DABFGicv/+3B+f1smS+sOSiWLSGcBPs1atq0xLfCWYyCBX8XeBtio+++AgAs4+ny+HPkT7mz9Cm8OoNi095ZSLCPxepr7BQD6I4TVRAzVQAAr3u6PB5FxF8r+ChXy35hrTvFsu0Sk2C/biUGxU4WefeAOjg+Ca8ZzGcqAQBetsgj9lsFH+XLwfn90nPjWoNiH5KVd+wSrNrEghTY8YLf8ckfNbvG+Vofu34Q4p4CAEk9XR5/iHreZj5e5YvrC4pNe6OIOKy50bBY3RILRmCfjpL//Gy6PObfan4A+Lmny+NPEfE/kS+O8jN3B+f3V6t8wy8VtukoWXm/2NLfCddRXsLnoWaBqtxFrtxRp5qMlniREQD84OnyuB/NBp2aXkz0edVvqCsoNu31Ezbo2OXYCZMC+6adYlCXWUio/q2+KnBPAQC+93R5fBRNHvZPUcfusGePsUZ8pbbjk6Nk5b2LwfzKZdkJJR6hPJRzB9ir3ea56qvg7wx3fk8p10TzA9B1T5fH/afL48/RPEj9NeoKiEVEfF4lwf6z2o5PjpKVd+zS7IyS84pJ0A31jDPZdkufhYAFAMDWLXaEnUXzIsJh1J264jHWODoZUVNQbNobRr5jI2OXakcM5rOY9krM9zPUD6Ea8iZ9T6L99uZgZ64NAFja2dPl8VZ/3jfznudAWD+6lVZjrV1iEXXtFBslK68E+91zU+DA5PgksE+7DFwZ3743TNqO27r/AkAp/qEKtmrtXWIRteQUa3KSfExW6rG+2zklTsq9/Q3qMUlYZoErAAA2cbHuLrGIehLtf0hWXgn2LVjL0Rw9BoB1lR7cnGkiAKjS7cH5/edNfkAtQbFPyco71nc7aDCfFFqyocaBKmTMm7TLY3fvdInvnCVtx23cf2eaHwCqtHEsKH9QrEnumu0I2Fjf7azbji2UgPYW/hnzJhl/2nOoCgCAivz3wfn9ZNMfUsNOsVGy8kqw322TAstkUQpArfeRW80DANW5i4iLbfwgQbH2jfXfTitxJ8dJTHt9TQPVTBAy2c3Y0+wi58/1squxvuTjkw8aHgCq82GT5Prf+iX55O5D5DoOIME+pR5vOguJiKEGs4g4SVTeXZX1SFf4qb6xnnX7ztPl8UWl1wQAufzt4Px+a+vqX5JXxihZecf6b8cN5jcx7T1GecHcs4gQsAVgHf2CyzbRPFtxEhG/qgYA9uzLpm+b/FHm45PvIuJ9sjKP9WGizN1iQ80Cxpe92M2Rvr6u0Gq9nKhaAGDHbmMHG6P+Xb22RoJ9nk0KLNM7zQJVyJg/qZ/kZ9ag75oAABJ6jIjhtvKIfUtQrD1jVcDCpMhSSUwNwOr3jn7hJbzRSACQ2s4CYhGCYm2RYJ8ME/ShpoH0JgnL3N/Bz5Rov7166atWAGBHngNiO1tDC4q1Q0CMrwbzh4i4K7BkdooB+9A3nhnnd2im2QEgpZ0HxCIExTJP+MltYrEE7ID8SZjjfEs+VwDIqJWAWISgWFveqwJ+UOIRytOY9hw5gswG84z5kwTk2+P4JABQutuI6LcREIsQFGvPtPdBJfCNUheuFqdA23YRqPFG3Z877eCkGgDI4/fYYVL9nxEUa4+gGF8N5pNCSzbUOJDenSqgRf2Cy+Y4MQDk8beD8/tRmwGxCEGxNgmK8aPrAstkpxjkN0tWXuNObn1VAABs4DYi/uPg/P7zPn65oFh7Dh2h5AclHqEcahag9fvjNk17gmyv10+XxvmJBgeAov09Wkqo/xJBsXYJilH6ZP0wpr2+poHUbjr++b0wRH0DAGW7jmZ32EXbxyV/9Iu2aJWgGBkWrmeR7/gV8FW+PErT3lnSN2e+5nHx38PK+9upawEAWMHvB+f3o1IKY6dYuw4d6+APg/nsm0VTSYYaB2jZNncb9Qv5TFcRMS6wrrs0D7lxaQFAeevNp8vjUSmFERRr30gV8I2JBRPQgXGlTf1CyjGLMncqbS8AOe05OgkArOokIn57ujyelRAcExRrnyOUfKvEp9jvNAvQsqEqSKn0hygzTQQAxXoOjt08XR7vbS4oKLaPhneEkq8mRZZKH4XMup5HqZTdS7Mo88FHd8b3Jk0BAFC204j459Pl8fjp8rj1eZyg2H6MVAELpeY7GWoaSBsI6HoepVKCPrOo/fikN08CANvzMSJmT5fHrZ6uExTbD0coeV68PkTErUUl0HFDVZBSyfeKW80DAOkcRsT/tLlrTFBsP05i2uurBhZK3NVhgQq53amCvZsVOr53Zf7xoAsCQFofI2LydHm88wdwgmL7Y7cYzyYFlunEW8UgtVmHP3sZLwsZzGeL3cDlje/b4z4BAOzKaTSBsZ3GTgTF9mekClgoNf+PI5RAW7z1NlHjPnwAACAASURBVKeS7xMTzQMA6T0fpxzt6hcIiu3PqSOURETJSbGHGgfSulEFe/Xt8dXyclvZCQwA5PLb0+XxxS5+sKDYfjlCybPrAss01CyQVjfzKU17Jb15suS2OHMNAADJ/Pp0eTze9g8VFNuvkSpgYWLRBHTatDfcwk+xA6pdJR97tVsSAOrzcduBMUGx/XKEkpIn74f6J6Q1UQXFjOkltoXgIQCQ1cdt5hgTFNu/oSqg4AWs/gm05aiQn7ENpR/d68JO4JlLCgCq9du2AmOCYvsnrxgRg/lDfJ+Y2cIJ2ETGfEpnhfwMlrGd4667vK/ONBIAVO3z0+XxxnM/QbH9e+8tUCyUeITSAhMyKvettl0czyeqAwBg6w4jYvJ0ebxRPEVQrAx2i1HqwumdZgFaUtMDotJ36g0r70u3LicA6ITDiLja5AcIipVBUIyIUt+UVfoRGeAld8nKu42dqcar9pRc1w+aBwA6493T5fHFut8sKFYGRyiJGMwnFS9UgfbNVMHe3CQY2wEAavHruvnFBMXKMVQFRJlHPgTFgDbU83CoeXlKyWo/Gj9xOQFA54zX+SZBsXI4QkmpE/mhZoGUsiXbP93CzxDEd28AALrpdJ1jlIJi5RAUo9RF7InjvZBSF/MqHRZQhp/t+L3WHfV9AGDnPj1dHvdX+QZBsZIm8tOewBiTQss11DTAzk17/Qo+xUOSuq55V92NiwkAOukwIj6v8g2CYmURFOu6wXwWEY8FlsyRJMhnkrDM/bW/s+yAWomBsk13ALsvAAAlev90eTxc9osFxcoiKEZEmU+4h5oFKFy/kHJMkozrmzosuGwzlwMAdNrFsl8oKFbaBNMRSsrc3WFHAOSTMa9SX7Op6401u64BgO56t+xuMUGx8gxVQedNCizTYeX5Z6A+g3nG3Un9Db635BeCPFRV1+4HAED5Lpb5IkGx8tgpRqkLWYsgoGSljFGTROP6ukoOQN66FACAWHK3mKBYeU48ge24wfyh0Em9fgn53CUrb1+TqesNPWhaAGDh01tfIChWppEq6DzJ9oFtmCUrb7/SdniorK49JAEAMnj/dHn86pznF3VUpA+xRESTqt1ExMfCynSqWYCCDYsoxWA++cnf3cS0V1Ndl3x8cuJSAKBwfzk4v9/Z/erp8vjsm3v18/8+W/w56WB9f4pX4iuCYmVqjlDmTJJMzZP6aW/40wUfUKpZRLxLVF47kNpzpAoAoD4H5/c3L60rny6Pj6J5kPhh8eewA1UyileCYo5PlkvC/S4rNyBqwQq5zJKVt+aJ2WNh5dlk92+/4HqWUwwAXnBwfv9wcH5/dXB+Pzo4vz+KiP+MiOvKP/bh0+Xx6KV/FBQrl6AYJQ5OQ80CFKqEoP1r43ZNu7/7BZfNLnsAWNIiQDaMiL9E3cGxF+MrgmLlOo1pr68aOq3Eib2dYmAc2a3138B8qLlXrmtHKAGAODi/nyyCY/8Z5e1u34b3i6OjfyIoVja7xbptUmCZTgRrIZWMR8mOKq3vEtti3QBkyfeBmcseANZzcH5/tZgf3Fb48X4aXxEUK9tIFXSavGIAyygnWH+TcExfR7lvrhrMZy4IAFjfwfn9LJq0ObUFxgTFEnKEssuaif1dgSUTFIM848gkYanXGWPcKwEAtuTg/P4h6guM/fQI5S+au3gfIuKzauismyjvifxQswA7VOvxyVmB5R3Gqkf1y35Yd+fy2ZnrRa6ZqjxdHg8j4p+aF+DPDs7vHxbj5CQ2e2t1ST5ExPjbv7BTLEej0V0lHrd5p1kglccOfMZSAmmvjdmzSuq6X3DZZi53ANiexY6xUUXzyeGPfyEoVr533g7VaZMiS7X+2+GA9mXLZXXW0vcAAPCGg/P7m4i4qOTjDH/8C0GxHOwW66py8wFZgAK74vhk2WN5v+D6v3H5AMD2HZzff4468oudPF0efzf/ERTLQVCs20ocfIaaBdKYqYKWDOY3r/xbie2wTgCyX3ALPOiEALAznyr5HN+tZQXFcnjvCGWnlfjk204xyGOWrLzr5C0camYAgN05OL+fRMR1BR/lu3mjoFgedot116TAMp1qFoDvLJOAtrS3I67zgKPkh3QT3RAAdupzBZ/B8cmkBMW6q8wcKdPeUNOAMYSV6nlWWJkPN51IAgDdcXB+fxXlPeRb1cnT5XH/+f8IiuUxVAUd1eSoedQngTXly7O0etBdoIacfR0A8hlX8Bn+mDsKiuVxGNOe3WLdVeJOj5GFKFDMPXL/lgnIzIqruWmvv+J3lHt88rUXHQAA2zKu4DN0Oij2mLjsgmLdNSmwTCeFLESB1wzmE5XQiozHJyNWf5uknJIA0GEH5/eziLhN/jGGz/+ji0Gxq8gbGBMUs9gC6ILh0l+5+k4n6nSnCgCgNVfJy//H/LGLQbGLxA3oCGV3TVQBsIHHij9bv5ByzJb4mhIfcCx/HHLaK/nNkzOXOQBYny7p5Ony+Ciie0Gx6xjMZ5E7qiko1kWD+UN4Cg6sL9tu06OEdTxb4mtKTAR/tqOvBQAqdXB+P6ngY5xFdC8o9jkiIgZzRyjJaKIKgI5YJfhypLoIaQYAoG3Xycvfj+hWUOxuEQx7Nkn6OQ5j2vOk1oQfYBWzij/bWaI6zn18suwA5IPLHACsT1fQj+hWUOzzD/8/8xHKkevPoAOwglmy8ubb/dWkZ3jraxyfBACsTwuaA3UlKPYYEeMf/k5eMbItuCYqAeiIU1XAitwjAaBd2YNinUq0P/7T09nm/39J+nlOHKHsrGtVAHRw0vKaYQFlWOVFKLe6IwCQ3cH5ffb55buI7gTFPr/w95PEn2nkMrSwBVhSvnxL016mI5SzxG3xboWvHerjAMA37rJ/gC4Exb68kufDEUqyERQDusKOaJY3mLs/AkD7ZpkL/3R5fNaFoNjnVyZQs8h7jOEkpr2+a7BzJqoAWFndOQlLCJ6tMiEUvAEAajFLXv6j2oNid0ssBMaJP5/dYt1b2M6ieXEEQO36S37dYbIJYXnH/Ka94ZJf+a7QvnLncgGA4udAJao+KHaxxNdMEn++kWuwkyaqAFhDtoB6X5PRkQk5AGSVPadn1ccnH2OZnGFNDoqsTxhPHaHsJEdvAGNHRBR0D1ylbie6IgBgflmGmoNi4xjMl41aSrhPJhZUQBf0t/Q1bUj/lPTNr1j+iKUJOQCQRdXHJz+v8LXjxJ9zpB93jsk/sI5ZsvL2NVl7E8Lk5X/QhADAGqo9PvllkZB8Oc0RyqzJyx2h7JpmB+StigBWNKvwM5USzFn+YUXdbwIFADrk4Pw+/bym1qDY5zW+J/MRyqHLsXPsFgNq11/ia86KKOny6Roy13XJc42JywUAWEeNQbG7NZ/CyitGJoJiQO3jxokma01fFQAAHVRlTrGLtb5rML+KvEco38e0d6Q/d8pEFQArkndpN9Y5zn6t2vRtAGDvTmsLij3GZju+Jok/u91iXdLkwQOo29s5M4cFlLKGgEx/ia85K7b07okAwJpqC4p93jCvhyOUZGKnAbC8nAne+xquFcscVbUjHQCoTm1BsfGG3585KOYIZfdMVAHA3q2zS8n4vT13qgAA9uoxc+FrCor9HoP5bKOf0Owy+5K4DoauRwsxgIomLWcb/nsb6shn9faDtVKPT85c1gBgXbqumoJi4y39nEniOnCE0uADUNO48Vag5jBpO5QYSDurtK4BAF5US1Dsdou5UuQVI4dmZ6RjIwD7tc78w0ON7VGXAMDaagmKfd7aT2oCDbdJ6+Ewpj2BMYsBgJfMkpX35d1Lb7+ZktUcvVLXZwWX+0HTAQDrqiEo9hiD+XjLP9NuMbKYqAJgBbNk5X3t+GQ/cTtkOz7pRT4AQJVqCIp93sHPFBQjCzvFAPZpnfQNg7mxe3smqgAAWFcNQbHxDia4N5E3V5MjlBZjAC/JFow502TaAQBgV7IHxX5f5ADbhcy7xYa6dqfcqgJgSdnyLx1WfK97TDR3ONKnAYAaZQ+KjXf4sx2hJIuJKgDYi+sNvtcRym1wFBUA2EDmoNjtTo+ONT/7MWndnBT+pii2y4IAWOXelsu0N9Rwe9dXBQBAjTIHxdrYLp95t9hI9+4MQTGgi7I//HlIVJ/9QuvwzmUAAGzi31XBqxyhpHzN0ZFHFQEsqZbxooQ8V5MNvre0BxqHCfvAzOUMAGxCUOw1g3nmoJgjlN1itxhQ63gx1GR711cFAECNBMXe9iVx2e0W646JKgA6pl9AGTY5AjkrrkZffph2Umgf8EAIANiIoNjbHKEkg4kqAJY0q+RzlBCouamsHY6S9YEHlzMAsAlBsbdlDoqdxrTX14Sd4Gk5sKxZsvIONdkemUcAABUTFHvLYP4QEdeJP4HdYt3pp97CBXTDtFfKjqa6jk/+/Ehqv+CeMHExAACbEBRbTubdYiPN1xkWB8Aysu0s/VkArIwXyTRv/133e2cF1nXf5QEAdImg2HIcocRCF6hFtjxMp5psr470ZQCgVoJiy2ie5t4m/gSOUHaDoBhAex638DNKO/Ze7q68n8/P3PcAgI0Iii0v826xoebrgMF8ohKAJeQLJPw5h9iwknqcFVbTZy4PAKBLBMWWlzko9r6gpMTs1rUqAF7VvJgjG8Ga/Sl1/uDlMgDAxgTFll9E3CSfgDlC2Q2OkgC0YxvBxVlhnynT8cmZLggAbEpQbDWZd4sJinXDRBUAS8i2q/THYE0JgZoaj096qQEA0CmCYqtxhJLS2SkG1OjHIJj7WXtKrWv3OwBgY4Jiq2gSmT8m/gR2i9XfR2fJ+yjQjgdVsLHZFn5GhsDOqT4MANRKUGx1jlBSuokqAN6QbZfNj7uV+gWUabaFn1FeYGfaG7o8AICuEBRbXeagmImuxS5ARj8enzxRJS0oO+3CRAMBAJsSFFvVYJ45KHYY057dYvWzUADeMlMFRdRh6Q8xzjQzAFAzQbH1fElcdkGx2jW57wBeM0tW3v4f/6uU3UtNDsdNf0aJebGGSfqEnGIAwMYExdYjrxilu1UFQEW+PS5p9xIRg7lUAQDAxgTF1uMIJaWzWACMEbtzt8WfVfJDjKGmBgBqJii2jua4w3XiTyAoVr+JKgDeuI/lMu31CyrNbIs/q7S2yLAT785FDABsg6DY+ryFkpLZBQLUpu8e1oqjBGWcaSYAYBsExdaXOSh2EtOenCw1k2sFeNu1KljbbIs/q+TxeqipAYCaCYqtq3nrVOZk5iONaMELkEi/oLLMtvizHtTzyjz4AQC2QlBsM95CSckmqgB4Rba8Yv3Ff+103q0TfRcAWEHquZmg2GYcoaRknqTvymA+UQkYI/bmqLK6K3k8eecyAQDecJi58IJimy2MbyL3G5BGGrFqE1UAVKSkBzl171Qq602fP+OhD9AlR6oAdkdQbHOOUFKmwfwhvLYeeNks6aKgr+l2rvQ6dnwS6BKne2CHBMU2N0lc9pMET4PZjKfpwEtmae9dNY2tpR7HnvaGLhEAoHaCYptPZq8i4jHxJ7BbrG4TVQBUopwn5c1O3JqVfVRHXkcAKMLT5XH6472CYtuR+QjlSPNVzU4xoJbx4TCmPXlV2uGoDgCbmKkCc4YsBMW2I3NQ7NQRyop5mg4lKWt3Uc7dTiVMvG538DOv1fXSHgNo00wVoN9QM0Gx7ZgkL78jlHW7VQU7kfUlBtl32gzTlrx5YzGb+VRAGbqS5L3UscJ1BO2aqQLgFf3sH0BQbDsLnYeI+JL4E4w0YtUmqsAk8Runmo5vXCcr73tN1oqhKgCMZ8Xoa0b0z525ExTbnuxHKOVpqZen6gBlj6mTAie4pe4in+mCQMecqAIK1k9e/pmg2PZcJS+/I5T1mqgCvjPtZU6I+S5puUvNg/TgglBnLyzASt1VOtMFgRV48G+sZrf62T+AoNi2NEcoM+duEhSrt2/OQmLiXci8A88EUX+poR/XRHAScP/ajdRvxnu6PM5a/plLpzPeZf8AgmLbNU5c9veOUJrQ0JlFbM4J1rQ31O0owMQY7X4G5ju0xPqMYj1dHvdrmFcIim2XI5R0aRFHXn3ltqhYmLkccC0BFcu+i+VME6J/7nZeISi2Tc0xNUcoKdFEFWxd5t0KWW9gff1l62Yu5TImZKoAcJ/YjeS7WVKW/eD83tqjG4Y1fAhBse3LPAA4Qlkvx00sYr+VNSg21O3Yu8F8soOfaYzeZ/0DLzo4v59V8DH65mxgbv6CiaDY9o11bApcRGR/EUSJMgfFDmPayzhBzDwxlGgfAKxvVpXx+OedLle/xQ7M0xo+i6DYtjVPezMPBI5Q1svid/vXugliW6a9s4g4TFzfD4X2Y8f2yuEtweoISnVtztM+b57EddVOfxUU243MCfcFxeolKGaBlvlGlv3Ga4JoYWiMVkfAfkgbAdtXRdzg4PxeUGxHJonLfhjTnsCYfkn9C7Rs13nuiWHzIpZSXbuUAah0vhMRcfh0eZxxHpF17mPNUbnF0cn3FXyUuwjHJ3e1+LmK3DtIBMXq7JeesG9f9rxiOSZbzQtAMt945dag9vGkLTNVAManDq1v3ut6FGpU07xCUGx3HKGkRHaEbFf2QGOWG1r2Man0hbxgzPImxhPXEpjvWN/s2tPlcea5z8QlU6+ny+OjiPhU09gmKLY7mYNieXaQYNGlPjebIDa7sEo30k/0YwD2poaHJyfJEteP9BcK9Slyv/zqT31VUGx3JukXy+iX1H7TPyz+Wm/eOvkueT3PXCquef1kKwRwwbW36WK+eNnzNR2c3xurK7Xom58q+kiTCEGx3Wlec/8l8ScQFDOp4e3rfFLBp7gwge38dTdzMRfRltrhbXYfwB4cnN8/RO58yc8+Lo5+lW6UuI7lUa3bOOrZJfbH3EtQbLcyH6E8WezQoCbNG/DcrNz8f7zWy5x8TXv9iPhYQR8RFAPAvawMRT9sqyBfkzlFpZ4ujz9F/tMb3zk4v59FCIrt2lXy8o80oUkNnajPi0Jzi40rqNvHxc5h6uD45D7VsTsXzHf269PiCFix5YvcO3GM0xVavPjhH5V9rD9eQCcottvJ20NE3Cb+BI5QmtTQjfo8idKOUU57H6KOp1E3yljVff1mhz97poKBgtUyRh1GxOcSC7Z4EcCv+gmF9cth1PGg+sX5r6DY7mXuQI5Q1mmiCnYzoCb312LeOtscmxy73lpiJxs5PKoCMN/ZkveLnS/WjfoJr3i6PB5FxD+jrjxif+qrgmK7l/0Ipd1itXH8ZNtqqs+rvQfCm2OcVxXdfE0O69FGUEbOR9cSFOng/L62+eN4sTOrCE+Xx58j4rSCfmKsrsDT5fHR0+XxVUT81oV5haDYrjXHIRyhpDS3qmBr1/hDRQvZw4gY7y2/WPN7JzVMChMu5K9dzEW05Uw1AwWrKXB/GE1gbO85VRe7cf5qfUEBffHo6fL4YjEfeV/xR338NoArKNaOSeKyny6OMmFxRzfq8zQiJq3vGKszIHYnTxRsjWsJrGl2MufZZ2BsERD7Tf9gn54uj4dPl8fjxb3216jzuOSLa7dfdIFWjCN39P9DFJqQko1uWh9Vw1brs6anKc+BsVEM5rs/At4E4MZRV0As2+RQXrEy6mgWlb3ufMt1A+x/IVnb/PE0Im6eLo8/tH30b3Fk8q+V9Q8Ktnjzaj8ijiLiLCKGi/8edqwqvpujC4q1YTC/iWnvLpo3vGU0CkGxGic17GhgrcRhRPxPTHtfImK0k2Tsze6wT5H/TUs1XGc3Ufc2+SztOVPNgPlO606i2TF2cXB+v/M1zyIwMY76HoJYXyzvn0+Xx2qhkLHM8Uk3kWU4QlmbwfwmvMlLfS7nfUTMYtr7vLVxYNo7imnvIr5u0TbuAxZbULjKk6gfRsQ/ni6Pb54uj4e7+AXf5Gv636gvIPYoyT6J+up3c3Q7xdpzFbm3GztCWecCwzGd7ZlEvTttDqPZ3v/XmPZuo3m6OVkEA5fTBNSGi7GkCzuS7laqn/2buYTf1MbxSQuK/dY/8LbryuePp9Hs4rldrH2uDs7vNxp/Fm+5/LSYA9V6TG3i0iBrXxUUa8tgfhXT3mPigXAYgmI1DgiCYtutzy4Ee04j4h8RETHtPU+OX5oMncXXnAWdzlWQwMwl/KY2AlYCP4D5Yznznd8i4rdFgGyy+PPw4y6Tb32Ts+ls8afmQFjmeQ/dHsO+IyjWrsy7xd7HtHe0k7xC1LzA69r1/Y8Ofu53P/wXk0PYvsHcNQXlzHd+7dhnPl38+WtEhFxQ5j2kH8O+I6eYwWIVHzSh/siLC7ZZRNypCF664RZOkPxtM+0AdN0ib5S8tHzrTj4xkrg9OL//03xOUMwiaRWCYjVpdv0J4rjG2cENN92uWruAl6mjmXbYGwtwKMtEFaA/kND4Z38pKNb+ouNL4k/QHKHETYyVBlr0A2AjdiBAWTwERH+gmr4qKGbQWJXdYhYavKR526Ddd2Qd56813YvavK5vVTfgPkciE1VAAj89OhkhKGbQWJ2gWF0ExUwU2fINt5VjdrStzTZ1hHK/9Q+84eD8/iE8SKHxZdEfoHTjl/5BUKxtzWIp81PgoUasqj9OVEJ7Ay7aH1jLTBVAcTwERD+gir4qKGbRtKrDmPbsFquLJ33b5AilG25eE833olmLv8sOXsD9Dv0AtufLS0cnIwTFDB7rERSriwXY9o1VQTdvuI5OVqvNdnUMxX0KirdYYH5RE92e9zg6SQ1rM0GxfWgWTZl3kgiKWWywwcBLtbI/8DCxRd8EunTfw3yX+t0dnN+/OlYJirmJrMMRyrpMVMGWNYFvT0+75TEG8+yTQwHyl82MyQA/Xc88qoZuznveCjRAIT6/9QWCYvuTffEkKFaLJoBjQuMaZ8c3XFKbqYK93qcmKgHKszg6JzBingulelymrwqK7W+Clz0Z91AjVsWCY/vX+FVIuG9ymMtMMwKwIg+FtDsU20+XyXsnKLZfk8RlP4lp70wTVsOxqd24UAWd8HsVCfa9JKCMMdKuqB/ZyQwFOzi/vwlvMu+a69fe5AcFzR+WCt4Kiu1X9u3GI01YDYuw3V3jFnT187S0doO5RO/746ENlG+sCjrlQhWQYX6+7NtRBcX2O8nOvmCWV8yig7cX0gImdbteHIevxa0mBWAVB+f345AyoivuDs7vJ6qBwi29SyxCUKwEmXeLOUJZiyZ4YzG8G5/DbrGaXVT2eeyI+rN9jI2OIn01UwXgfoh2hlXWX8vuEosQFCvBJHn5R5qwGnaL7YLdYjW7lv+pEwQK92umCiAFKSPqd7fYFQil99OLVb5BUKyMG0hmQ01YDUGx3fkcjhXU6FOFn2miWQFY1WJXhoeAdbtQBdQ4PxcU27dmF8mXxJ/gNKa9voa0GObN69xEoi6/V5ZLjJfto52Nx/utf2ANi90ZHgLWyS4xMvhycH6/8qYjQbEyZN8tJuF+DSzwd12/45C3rRaPUW+Q01FBdaL+gU1cqIIqfVIFJJifr9VPBcXKMEle/pEmrIbkziYUvO1zDOazSj+b4HgZBIKAlBa7iTwErGx9sM7uG2jZxcH5/Vrzc0GxEjSLq8w3D0co6zFRBTu91icR8buKSO02BvML1dApNx35nSWPm0AuHgJqT2jTl4Pz+7VzGgqKlWOcvPyOUFr8sfzEwtuZTAxLNdPEf2LXFsAKDs7vJ5E7ZzJf/ffB+b31ASV7jA1PrgmKlSP7ltSRJqyCm96uNUn3XS9JJ4bV71qp91hoNgJxXye6QN61gWs4/xh8oRoo3HDx9tu1CYqVtRDJ/LaW05j2jjSkfshS9XwVjlFmc2ti2NnrdbKH3+kBRUM9QFKLRapjd7mNNg02wI79bRs7GQXFyuItlFiEdMenEIBMNTFc7PLrAgmSAdjYIum+Y5Q5fZFcn8L9vkkesW8JipVlnLz8gmJ1mKiCFjQBFtdMDn/r2M4dT4XL4NiRHHdQg5HxLJ27kOqDsl0fnN9vrY8KipW1SL6J3DtH3jtCWQU7xdq95v9LRRTt9xjMP6uG7k66jMV7NVMFkNvi+J2HgLl8cGySgt1ue0wRFCvPJPsgqgmTqz2ReHn1PQ75xUq+6XYxH4oxAICtWbyN8u9qIoW/edskhc/Nh9sO2gqKlUdeMUoZcGjLYD6K/e5I4c8eI2LYoTxilEffs1sOqnFwfn9hrlO8reVogh2tT4e72MUoKFbe4vgqcp+7f68RqzBRBa37EIKRpeh6QEwwpoyxUEBIXwRzHdrS1d3x5Omfw10d6xUUMwnfvmnPbrH8LMba1gRghiaLe/ccELtx/QPA9nyTX0zi/bLcxQ4DDrCh6133T0GxMjlCiUVxFzWBsZHJ4l596nhAjHJYnMhxCdU5OL+fRfMQ0FynDI8hsT7l+v3g/H7nAVtBsTIJirHvhciNycpe695kcT/+a/Hig66bqYI/TPb4uwVngSotErmb6+zfYzQ7cNxvKNHfDs7vR238IkGxMhfFDxHxJfEnOHSEsgpukPsbA24ioh+OUrY5KfwPAbE/+t9MJQCwSwJjRcx9BMQotW/+pc2XPgiKlWuSvPyCYvogm5BjrNVJoSOTvGCfx0lmHa97b6mDygmM7XfuIyBGgb5ERP/g/L7VdaigWLkcoWTfJqpgz74Gxn5XGTtxGxFnAmIv1g377Bt27AEdIDDWuuek+uY+lOQxIv7z4Px+L/ntBMXKnYjPki9KDmPaG2rI1NwsyxgLHmIwH0XE31TGVv0ezQ6xmar4KQl30QeBViwCNGfhgcyu3UbEmYAYBc7J+wfn93vbFCQoVrZx8vLbLZZZs0vpTkUU0x6fI+Iv4UnqNvwtBvPRoo/DS0q41ro8Blu0QYd881bKL2pjJ36PZoeYuQ+luI4md9ho3/1SUKxsk+TlFxTTB9mmwXwSTQJ+E8b13EaTUP+zqnDtL6GEoMxMMwBdcXB+/3Bwfv8h7I7ftr+VEHiAhbuI+K+D8/th27nDXiIokoOYdAAAA1FJREFUVvYC+CZyPyU+iWnvTENaFLLVceEhBvMPEfGfYdfYKv4eg7n8YZDHTBVANy3eOvcf4cTCpm4j4j/afIsfvOI5GNY/OL8fl1QwQbHyZU+4P9KEqQkglGowv4pm15gk/K+7jmZ32IWqWImnyWXUwazD9T/TBaG7vskz9t9qYy3/HRLqU4Yv0RyTLC4Y9kxQrHzj5OV3hDKz5rge5bbPcxL+v0QT/OGru4j4rxjMh3aHrUWdOT4JsFeL45SfFvMcu8aW87w77JPjkux5Hv73iPg/izdKFr2m/EV7Fb/ovYlp7zEiDpN+guYIpUVpZtcR8U41FD1OTCJiuHjj6zgiTjpcG48RcSFvGKRn3gBERMRiQd1/ujy+iIhPiddFu57/fCp1Jw6dcBfNKbdxth2KdorlkP0I5VATWpjQgsF8EoN5P5p8Y13bOdbsDIvoC4htxUwVOD655/HMDgfgOwfn9xfRpI74e8ir+uxxUR99ATH24HrR//5jcTzyU8Yju3aK5XAVER8Tl38UERapeU0i4q+qIdVi8ioirhYvuviUfPxY5mb8efGZ2V4fmsW01/VacHwSoDCLI4EXT5fHnxdznK7uHHtcrK8+OyZJS+4Wc6ObiJiUfiRyFb9EE9nLqDsTxcH8Kqa9v3fsovu7fljUwrBr/a+WseMmIkYx7X2KJr/fp4g4reSmPI6IcQzmggbG4ZrH91lH28F1Dbzqh+DYaDHH6UL6iLtogmFjwTB25Pm0ySSaXfM3EXFTc3/7t3/961+aHaArpr1+NAGyD5ErV9zt4uY8lqMQyObp8rgfud/IPavxaFYF7RJR2Y6NDdvzeX5T2w75x/iaq0lbN209DCl6NvEc7Pp2jJ91tTIExQC6ato7Wkwonv+UtIvsLpogWPPHjjAAYAlPl8dH8fUB4PukH+NxMQe6iogru8JgdwTFAPiqeYPl2eJPf/HfXefquI7muNRsMQG8kWQbANiGxQ6yYZT3APBHz7viJwfn93KlQksExQB4WxMsi2iCZEeL/320+P9vmcX3OYImi/8KfgEArVnsIhsu5i/DaB4A7iMX2XdJy6PynE1QMkExAAAAOmuRo+r5Yd+3D/36sV7Q7C6+PhC8ia85nB7kBYOy/F84L7Llak4KWAAAAABJRU5ErkJggg=="></img></div></h1><div class="pg-loading-html"></div></div></div></div>';
+            } else {
+                pleaseWaitConfig.template = '<div class="pg-loading-inner"><div class="pg-loading-center-outer"><div class="pg-loading-center-middle">      <h1 class="pg-loading-logo-header"><div class="pg-loading-logo"><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 678 182"><defs><style>.cls-1{fill:#ffc709;}.cls-2{fill:#f8981d;}</style></defs><path class="cls-1" d="M73.54,108.66l-6.9,16V178.3H44.31V3.57H66.64V79.21H67L95.88,3.57h22.33L87.15,81.45l31.06,96.85H95.27Z"/><path class="cls-1" d="M144.6,51.75h-.41V178.3h-20.1V3.57h28l22.54,104.59h.41V3.57h19.9V178.3H172Z"/><path class="cls-1" d="M205.1,45.51c0-28,12-43.93,33.9-43.93s33.9,16,33.9,43.93v90.86c0,28-12,43.93-33.9,43.93s-33.9-16-33.9-43.93Zm22.33,92.61c0,12.48,4.47,17.22,11.57,17.22s11.57-4.74,11.57-17.22V43.76c0-12.48-4.47-17.22-11.57-17.22s-11.57,4.74-11.57,17.22Z"/><path class="cls-1" d="M333,85.2h-.41l-7.92,93.11H294L278.19,3.57h21.72l11.78,137.79h.41L322.65,3.57h21.52l11,138.79h.41L366.9,3.57h19.49L370.56,178.3H340.92Z"/><path class="cls-2" d="M419,178.71H396.11V3.39H419V78.52h26V3.39h23.32V178.71H445.05V103.57H419Z"/><path class="cls-2" d="M502.73,3.39V138.63c0,12.52,4.58,17,11.87,17s11.87-4.51,11.87-17V3.39h21.66V136.88c0,28.05-11.66,44.08-34.15,44.08s-34.15-16-34.15-44.08V3.39Z"/><path class="cls-2" d="M628.1,43.71V50c0,18-4.58,29.3-14.79,35.06v.5c12.29,5.76,17.08,18.78,17.08,37.32v14.28c0,27-11.87,41.58-34.78,41.58h-36V3.39h34.57C617.89,3.39,628.1,16.66,628.1,43.71ZM582.49,28.43V74.77h9c8.54,0,13.75-4.51,13.75-18.53V46.46c0-12.52-3.54-18-11.66-18Zm0,71.38v53.85h13.12c7.71,0,11.87-4.26,11.87-17.28V121.1c0-16.28-4.37-21.29-14.79-21.29Z"/></svg></div></h1><div class="pg-loading-html"></div></div></div></div>';
+            }
+        }
+
+        window.loadingScreen = window.pleaseWait(pleaseWaitConfig);
+    }
+
+</script>
+
+<!-- build:css / -->
+<!-- NOTE: not injected automatically -->
+<link rel='stylesheet' type="text/css" href='common/css/bootstrap.css'/>
+<link rel='stylesheet' type="text/css" href='node_modules/fullcalendar/dist/fullcalendar.css'/>
+<link rel="stylesheet" type="text/css" href="node_modules/croppie/croppie.css">
+<link rel="stylesheet" type="text/css" href="node_modules/ui-select/dist/select.css">
+
+<!-- inject:css -->
+<link rel="stylesheet" href="common/css/animations.css">
+<link rel="stylesheet" href="common/css/common.css">
+<link rel="stylesheet" href="common/css/font-awesome.css">
+<link rel="stylesheet" href="common/css/lato.css">
+<link rel="stylesheet" href="sections/account/account.css">
+<link rel="stylesheet" href="sections/blocked-user/blocked-user.css">
+<link href="sections/contact-us/contact-us.css" rel="stylesheet">
+<link rel="stylesheet" href="sections/forgotten-password/forgotten-password.css">
+<link rel="stylesheet" href="sections/guide/guide.css">
+<link href="sections/home/home.css" rel="stylesheet">
+<link rel="stylesheet" href="sections/manage/manage.css">
+<link href="sections/pending-action-verification/pending-action-verification.css" rel="stylesheet">
+<link rel="stylesheet" href="sections/ready-to-go/ready-to-go.css">
+<link rel="stylesheet" href="sections/search/search.css">
+<link rel="stylesheet" href="common/components/alert-viewer/alert-viewer.css">
+<link rel="stylesheet" href="common/components/app-footer/app-footer.css">
+<link rel="stylesheet" href="common/components/auth-modal/auth-modal.css">
+<link href="common/components/cookie-alert/cookie-alert.css" rel="stylesheet">
+<link rel="stylesheet" href="common/components/country-picker/country-picker.css">
+<link href="common/components/collapsable-alert/collapsable-alert.css" rel="stylesheet">
+<link rel="stylesheet" href="common/components/date-range-picker/date-range-picker.css">
+<link href="common/components/doc-renderer/doc-renderer.css" rel="stylesheet">
+<link rel="stylesheet" href="common/components/expert-profile-editor/expert-profile-editor.css">
+<link href="common/components/expert-profile-viewer/expert-profile-viewer.css" rel="stylesheet">
+<link href="common/components/info-point/info-point.css" rel="stylesheet">
+<link rel="stylesheet" href="common/components/inline-expert-profile-viewer/inline-expert-profile-viewer.css">
+<link rel="stylesheet" href="common/components/language-picker/language-picker.css">
+<link href="common/components/locale-picker/locale-picker.css" rel="stylesheet">
+<link rel="stylesheet" href="common/components/markdown-syntax-modal/markdown-syntax-modal.css">
+<link href="common/components/nav-bar/nav-bar.css" rel="stylesheet">
+<link href="common/components/policies-update-alert/policies-update-alert.css" rel="stylesheet">
+<link href="common/components/proficiency-picker/proficiency-picker.css" rel="stylesheet">
+<link rel="stylesheet" href="common/components/pre-prod-welcome-page/pre-prod-welcome-page.css">
+<link href="common/components/proficiency-viewer/proficiency-viewer.css" rel="stylesheet">
+<link rel="stylesheet" href="common/components/profile-picture-loader/profile-picture-loader.css">
+<link rel="stylesheet" href="common/components/promise-button/promise-button.css">
+<link rel="stylesheet" href="common/components/seeker-profile-viewer/seeker-profile-viewer.css">
+<link rel="stylesheet" href="common/components/session-price-limit-modal/session-price-limit-modal.css">
+<link href="common/components/seeker-profile-editor/seeker-profile-editor.css" rel="stylesheet">
+<link href="common/components/spinner/spinner.css" rel="stylesheet">
+<link rel="stylesheet" href="common/components/tos-questions/tos-questions.css">
+<link rel="stylesheet" href="common/components/video-call-modal/video-call-modal.css">
+<link href="common/components/tags-picker/tags-picker.css" rel="stylesheet">
+<link rel="stylesheet" href="common/util/draggable-elem/draggable-elem.css">
+<link href="sections/account/tab-preferences/tab-preferences.css" rel="stylesheet">
+<link href="sections/account/tab-profile/tab-profile.css" rel="stylesheet">
+<link rel="stylesheet" href="sections/account/tab-credentials/tab-credentials.css">
+<link rel="stylesheet" href="sections/account/tab-promo-codes/tab-promo-codes.css">
+<link rel="stylesheet" href="sections/account/tab-support-dashboard/tab-support-dashboard.css">
+<link rel="stylesheet" href="sections/home/promo-video-modal/promo-video-modal.css">
+<link href="sections/manage/accept-session-checklist-modal/accept-session-checklist-modal.css" rel="stylesheet">
+<link rel="stylesheet" href="sections/manage/complete-session-modal/complete-session-modal.css">
+<link href="sections/manage/call-buttons/call-buttons.css" rel="stylesheet">
+<link href="sections/manage/invoice-config-modal/invoice-config-modal.css" rel="stylesheet">
+<link href="sections/manage/session-chat/session-chat.css" rel="stylesheet">
+<link href="sections/manage/session-price-modal/session-price-modal.css" rel="stylesheet">
+<link rel="stylesheet" href="sections/manage/session-files-manager/session-files-manager.css">
+<link rel="stylesheet" href="sections/manage/session-purchase-modal/session-purchase-modal.css">
+<link href="sections/manage/sharing-session/sharing-session.css" rel="stylesheet">
+<link rel="stylesheet" href="sections/manage/session-rescheduling-modal/session-rescheduling-modal.css">
+<link href="sections/manage/tab-availability/tab-availability.css" rel="stylesheet">
+<link rel="stylesheet" href="sections/manage/tab-dashboard/tab-dashboard.css">
+<link href="sections/manage/signature-modal/signature-modal.css" rel="stylesheet">
+<link href="sections/manage/tab-log/tab-log.css" rel="stylesheet">
+<link href="sections/manage/tab-feedback/tab-feedback.css" rel="stylesheet">
+<link rel="stylesheet" href="sections/manage/user-metric-viewer/user-metric-viewer.css">
+<link rel="stylesheet" href="common/components/expert-profile-editor/image-upload-modal/image-upload-modal.css">
+<link rel="stylesheet" href="common/components/info-point/info-modal/info-modal.css">
+<link href="common/components/inline-expert-profile-viewer/session-request-modal/session-request-modal.css"
+      rel="stylesheet">
+<link rel="stylesheet" href="common/components/inline-expert-profile-viewer/bookmark-button/bookmark-button.css">
+<link rel="stylesheet" href="sections/account/tab-profile/payout-details-editor/payout-details-editor.css">
+<link href="sections/account/tab-profile/payout-details-viewer/payout-details-viewer.css" rel="stylesheet">
+<link rel="stylesheet" href="sections/manage/session-files-manager/file-upload-modal/file-upload-modal.css">
+<!-- endinject -->
+<!-- endbuild -->
+
+<!-- build:js / -->
+<!-- NOTE: not injected automatically -->
+<script src='node_modules/jquery/dist/jquery.min.js'></script>
+<script src="node_modules/angular/angular.min.js"></script>
+<script src="node_modules/angular-route/angular-route.min.js"></script>
+<script src="node_modules/angular-cookies/angular-cookies.min.js"></script>
+<script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="node_modules/angular-messages/angular-messages.min.js"></script>
+<script src="node_modules/angular-animate/angular-animate.min.js"></script>
+<script src="node_modules/angular-touch/angular-touch.min.js"></script>
+<script src="node_modules/fastclick/lib/fastclick.js"></script>
+<script src="node_modules/jwt-decode/build/jwt-decode.min.js"></script>
+<script src="node_modules/twilio-video/dist/twilio-video.min.js"></script>
+<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+<script src="node_modules/showdown/dist/showdown.min.js"></script>
+<script src="node_modules/ui-select/dist/select.min.js"></script>
+<script src="node_modules/angular-dynamic-locale/dist/tmhDynamicLocale.min.js"></script>
+<script src='node_modules/moment/min/moment.min.js'></script>
+<script src='node_modules/moment-timezone/builds/moment-timezone-with-data-2012-2022.min.js'></script>
+<script src="node_modules/angular-translate/dist/angular-translate.min.js"></script>
+<script src="node_modules/angular-translate-handler-log/angular-translate-handler-log.min.js"></script>
+<script src="node_modules/angular-translate-loader-partial/angular-translate-loader-partial.min.js"></script>
+<script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+<script src='node_modules/angular-update-meta/dist/update-meta.min.js'></script>
+<script src="node_modules/croppie/croppie.min.js"></script>
+<script src="node_modules/angular-google-analytics/dist/angular-google-analytics.min.js"></script>
+<script src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
+<script src="node_modules/angular-number-picker/dist/angular-number-picker.min.js"></script>
+<script src="node_modules/fuse.js/src/fuse.min.js"></script>
+<script src='node_modules/fullcalendar/dist/fullcalendar.min.js'></script>
+<script src='node_modules/fullcalendar/dist/locale/it.js'></script>
+<script src='node_modules/jquery-awesome-cursor/dist/jquery.awesome-cursor.min.js'></script>
+<script src="node_modules/rangyinputs/rangyinputs-jquery-src.js"></script>
+<script src='node_modules/jquery.scrollto/jquery.scrollTo.min.js'></script>
+<script src='node_modules/fontfaceobserver/fontfaceobserver.js'></script>
+<script src='node_modules/howler/dist/howler.core.min.js'></script>
+
+<!-- end build -->
+
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+    });
+
+</script>
+
+<script>
+    //Browser update alert: Configure browser version thresholds here: https://browser-update.org/
+    // DO NOT CHANGE VAR
+    var $buoop = {
+        required: {
+            i: 100,
+            e: -3,
+            f: -4,
+            o: -4,
+            s: -2,
+            c: -4
+        },
+        insecure: true,
+        api: 2019.03,
+        test: false,
+        reminder: 0,
+        nomessage: true,
+        onshow: function () {
+            window._khIsObsoleteBrowser = true;
+        }
+    };
+    var e = document.createElement("script");
+    e.src = "//browser-update.org/update.min.js";
+    document.body.appendChild(e);
+</script>
+
+
+<!-- build:js / -->
+<!-- inject:js -->
+<script src="app-module.js"></script>
+<script src="common/constants/app.js"></script>
+<script src="common/constants/countries.js"></script>
+<script src="common/constants/emails.js"></script>
+<script src="common/constants/env.js"></script>
+<script src="common/constants/http-error.js"></script>
+<script src="common/constants/language-proficiency-levels.js"></script>
+<script src="common/constants/languages.js"></script>
+<script src="common/constants/live-notification-type.js"></script>
+<script src="common/constants/locales.js"></script>
+<script src="common/constants/payout-status.js"></script>
+<script src="common/constants/session-status.js"></script>
+<script src="common/constants/skill-proficiency-levels.js"></script>
+<script src="common/constants/user-role.js"></script>
+<script src="common/constants/user-status.js"></script>
+<script src="common/constants/user-type.js"></script>
+<script src="common/constants/util.js"></script>
+<script src="common/decorators/exceptionHandler.js"></script>
+<script src="common/decorators/localStorageService.js"></script>
+<script src="common/decorators/location.js"></script>
+<script src="common/decorators/uibModal.js"></script>
+<script src="common/interceptors/auth.js"></script>
+<script src="common/interceptors/http-exception.js"></script>
+<script src="common/interceptors/payload-cleanup.js"></script>
+<script src="common/interceptors/rev-mapper.js"></script>
+<script src="common/interceptors/spinner.js"></script>
+<script src="common/util/a.js"></script>
+<script src="common/util/augment.js"></script>
+<script src="common/util/isolate-form.js"></script>
+<script src="common/util/memory-form.js"></script>
+<script src="common/util/mf-src.js"></script>
+<script src="common/util/modal.js"></script>
+<script src="common/util/ng-lazy-show.js"></script>
+<script src="common/util/ng-scroll.js"></script>
+<script src="common/util/on-click-outside.js"></script>
+<script src="common/util/on-file-change.js"></script>
+<script src="common/util/src-error.js"></script>
+<script src="sections/account/account.js"></script>
+<script src="sections/blocked-user/blocked-user.js"></script>
+<script src="sections/contact-us/contact-us.js"></script>
+<script src="sections/forgotten-password/forgotten-password.js"></script>
+<script src="sections/guide/guide.js"></script>
+<script src="sections/home/home.js"></script>
+<script src="sections/manage/manage.js"></script>
+<script src="sections/pending-action-verification/pending-action-verification.js"></script>
+<script src="sections/privacy/privacy.js"></script>
+<script src="sections/ready-to-go/ready-to-go.js"></script>
+<script src="sections/registration/registration.js"></script>
+<script src="sections/search/search.js"></script>
+<script src="sections/terms-of-service/terms-of-service.js"></script>
+<script src="common/components/alert-viewer/alert-viewer.js"></script>
+<script src="common/components/abuse-report-modal/abuse-report-modal.js"></script>
+<script src="common/components/app/app.js"></script>
+<script src="common/components/app-footer/app-footer.js"></script>
+<script src="common/components/answer-button/answer-button.js"></script>
+<script src="common/components/auth-modal/auth-modal.js"></script>
+<script src="common/components/cookie-alert/cookie-alert.js"></script>
+<script src="common/components/become-expert-modal/become-expert-modal.js"></script>
+<script src="common/components/country-picker/country-picker.js"></script>
+<script src="common/components/collapsable-alert/collapsable-alert.js"></script>
+<script src="common/components/date-range-picker/date-range-picker.js"></script>
+<script src="common/components/doc-renderer/doc-renderer.js"></script>
+<script src="common/components/expert-profile-editor/expert-profile-editor.js"></script>
+<script src="common/components/expert-profile-viewer/expert-profile-viewer.js"></script>
+<script src="common/components/info-point/info-point.js"></script>
+<script src="common/components/currency-picker/currency-picker.js"></script>
+<script src="common/components/inline-expert-profile-viewer/inline-expert-profile-viewer.js"></script>
+<script src="common/components/language-picker/language-picker.js"></script>
+<script src="common/components/locale-picker/locale-picker.js"></script>
+<script src="common/components/markdown-syntax-modal/markdown-syntax-modal.js"></script>
+<script src="common/components/nav-bar/nav-bar.js"></script>
+<script src="common/components/policies-update-alert/policies-update-alert.js"></script>
+<script src="common/components/proficiency-picker/proficiency-picker.js"></script>
+<script src="common/components/pre-prod-welcome-page/pre-prod-welcome-page.js"></script>
+<script src="common/components/proficiency-viewer/proficiency-viewer.js"></script>
+<script src="common/components/profile-picture-loader/profile-picture-loader.js"></script>
+<script src="common/components/promise-button/promise-button.js"></script>
+<script src="common/components/seeker-profile-viewer/seeker-profile-viewer.js"></script>
+<script src="common/components/session-price-limit-modal/session-price-limit-modal.js"></script>
+<script src="common/components/seeker-profile-editor/seeker-profile-editor.js"></script>
+<script src="common/components/spinner/spinner.js"></script>
+<script src="common/components/tos-questions/tos-questions.js"></script>
+<script src="common/components/video-call-modal/video-call-modal.js"></script>
+<script src="common/components/tags-picker/tags-picker.js"></script>
+<script src="common/components/unallowed-country-alert/unallowed-country-alert.js"></script>
+<script src="common/filters/escape-html/escape-html.js"></script>
+<script src="common/filters/code-to-language/code-to-language.js"></script>
+<script src="common/filters/file-size/file-size.js"></script>
+<script src="common/filters/md-to-html/md-to-html.js"></script>
+<script src="common/services/alert/alert.js"></script>
+<script src="common/services/cache/cache.js"></script>
+<script src="common/services/browser-utils/browser-utils.js"></script>
+<script src="common/services/draggable-elem/draggable-elem.js"></script>
+<script src="common/services/files/files.js"></script>
+<script src="common/services/live-notifications/live-notifications.js"></script>
+<script src="common/services/missingTranslation/missingTranslation.js"></script>
+<script src="common/services/profiling/profiling.js"></script>
+<script src="common/services/promo-codes/promoCodes.js"></script>
+<script src="common/services/routing/routing.js"></script>
+<script src="common/services/search/search.js"></script>
+<script src="common/services/sharing-session-reporting/sharing-session-reporting.js"></script>
+<script src="common/services/social-sharing/social-sharing.js"></script>
+<script src="common/services/sharing-session-workflow/sharing-session-workflow.js"></script>
+<script src="common/services/spinner/spinner.js"></script>
+<script src="common/services/stripe/stripe.js"></script>
+<script src="common/services/support/support.js"></script>
+<script src="common/services/user/user.js"></script>
+<script src="common/services/user-auth/user-auth.js"></script>
+<script src="common/services/user-basic-info/user-basic-info.js"></script>
+<script src="common/services/video-call/video-call.js"></script>
+<script src="common/util/draggable-elem/draggable-elem.js"></script>
+<script src="common/validation/validators/array-maxlength.js"></script>
+<script src="common/validation/validators/array-minlength.js"></script>
+<script src="common/validation/validators/date-range.js"></script>
+<script src="common/validation/validators/email.js"></script>
+<script src="common/validation/validators/must-match.js"></script>
+<script src="common/validation/validators/ngTruePredicate.js"></script>
+<script src="common/validation/validators/not-user-email.js"></script>
+<script src="common/validation/validators/password.js"></script>
+<script src="sections/account/tab-preferences/tab-preferences.js"></script>
+<script src="sections/account/tab-profile/tab-profile.js"></script>
+<script src="sections/account/tab-credentials/tab-credentials.js"></script>
+<script src="sections/account/tab-promo-codes/tab-promo-codes.js"></script>
+<script src="sections/account/tab-support-dashboard/tab-support-dashboard.js"></script>
+<script src="sections/home/promo-video-modal/promo-video-modal.js"></script>
+<script src="sections/manage/accept-session-checklist-modal/accept-session-checklist-modal.js"></script>
+<script src="sections/manage/complete-session-modal/complete-session-modal.js"></script>
+<script src="sections/manage/call-buttons/call-buttons.js"></script>
+<script src="sections/manage/invoice-config-modal/invoice-config-modal.js"></script>
+<script src="sections/manage/session-chat/session-chat-editor.js"></script>
+<script src="sections/manage/session-chat/session-chat.js"></script>
+<script src="sections/manage/session-price-modal/session-price-modal.js"></script>
+<script src="sections/manage/session-files-manager/session-files-manager.js"></script>
+<script src="sections/manage/session-purchase-modal/session-purchase-modal.js"></script>
+<script src="sections/manage/sharing-session/sharing-session.js"></script>
+<script src="sections/manage/session-rescheduling-modal/session-rescheduling-modal.js"></script>
+<script src="sections/manage/session-rejection-modal/session-rejection-modal.js"></script>
+<script src="sections/manage/tab-availability/tab-availability.js"></script>
+<script src="sections/manage/tab-dashboard/tab-dashboard.js"></script>
+<script src="sections/manage/signature-modal/signature-modal.js"></script>
+<script src="sections/manage/tab-log/tab-log.js"></script>
+<script src="sections/manage/tab-feedback/tab-feedback.js"></script>
+<script src="sections/manage/user-metric-viewer/user-metric-viewer.js"></script>
+<script src="common/components/expert-profile-editor/experience-editor/experience-editor.js"></script>
+<script src="common/components/expert-profile-editor/image-upload-modal/image-upload-modal.js"></script>
+<script src="common/components/date-range-picker/date-range-picker-modal/date-range-picker-modal.js"></script>
+<script src="common/components/info-point/info-modal/info-modal.js"></script>
+<script src="common/components/inline-expert-profile-viewer/session-request-modal/session-request-modal.js"></script>
+<script src="common/components/inline-expert-profile-viewer/bookmark-button/bookmark-button.js"></script>
+<script src="common/components/expert-profile-editor/link-modal/link-modal.js"></script>
+<script src="sections/account/tab-profile/payout-details-editor/payout-details-editor.js"></script>
+<script src="sections/account/tab-profile/payout-details-viewer/payout-details-viewer.js"></script>
+<script src="sections/manage/session-files-manager/file-upload-modal/file-upload-modal.js"></script>
+<script src="sections/manage/session-files-manager/file-deletion-modal/file-deletion-modal.js"></script>
+<!-- endinject -->
+<!-- endbuild -->
+
+<script src="https://cdn.auth0.com/js/auth0/9.11/auth0.min.js"></script>
+<script src="https://cdn.auth0.com/js/lock/11.17.2/lock.min.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<!-- Keep Firebase version aligned with firebase-messaging-sw.js -->
+<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-messaging.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+<script src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
+<script src="https://apis.google.com/js/platform.js"></script>
+
+<!-- html2js templates -->
+
+<noscript>
+
+    <div class="logo text-center">
+        <img src="/common/images/logo.png">
+    </div>
+    <div class="text text-center">
+        <br>
+        <h2>Javascript is disabled</h2>
+        <h4>We use modern web technologies to offer you a high quality website. In order for them to
+            properly work, they require Javascript to be enabled on your browser.</h4>
+        <h3>Enable Javascript to access KnowHub</h3>
+        <br>
+        <h2>Javascript è disabilitato</h2>
+        <h4>Al fine di offrirti un sito di qualità, utilizziamo tecnologie web moderne. Affinché queste
+            possano operare correttamente, è necessario che Javascript sia abilitato nel tuo browser.</h4>
+        <h3>Abilita Javascript per accedere a KnowHub</h3>
+        <br>
+    </div>
+
+</noscript>
+
+</body>
+
+</html>

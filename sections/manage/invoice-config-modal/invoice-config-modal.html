@@ -1,0 +1,109 @@
+<form novalidate name="$ctrl.invoiceConfigForm" on-memory-form-loaded="angular.noop">
+    <div class="modal-header">
+        <h3 class="modal-title" ng-bind="'INVOICE_CONFIG_TITLE' | translate"></h3>
+    </div>
+    <div class="modal-body invoice-config-modal" ng-if="!$ctrl.receiptGenerated">
+        <div class="intro-text" ng-bind-html="'INVOICE_CONFIG_TEXT' | translate"></div>
+
+        <div class="form-group"
+             ng-class="{'has-error': $ctrl.invoiceConfigForm.code.$touched && $ctrl.invoiceConfigForm.code.$invalid}">
+            <label required class="control-label"
+                   ng-bind="'INVOICE_CONFIG_CODE' | translate" for="code"></label>
+            <info-point message-key="INVOICE_CONFIG_CODE_TOOLTIP" append-to-body="false"></info-point>
+            <input class="form-control" id="code" name="code" type="text"
+                   ng-model="$ctrl.invoiceConfigData.code" required ng-minlength="1" ng-maxlength="20">
+            <div ng-show="$ctrl.invoiceConfigForm.code.$touched"
+                 ng-messages="$ctrl.invoiceConfigForm.code.$error"
+                 class="help-block text-danger">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label"
+                   ng-bind="'INVOICE_CONFIG_EXPERT_ADDRESS' | translate" for="code"></label>
+            <info-point message-key="INVOICE_CONFIG_EXPERT_ADDRESS_TOOLTIP" append-to-body="false"></info-point>
+            <div>
+                <answer-button options="$ctrl.expertAdressOptions"
+                               ng-model="$ctrl.invoiceConfigData.includeExpertAddress">
+                </answer-button>
+            </div>
+        </div>
+
+        <div class="form-group"
+             ng-class="{'has-error': $ctrl.invoiceConfigForm.seekerAddress.$touched && $ctrl.invoiceConfigForm.seekerAddress.$invalid}">
+            <label required class="control-label"
+                   ng-bind="'INVOICE_CONFIG_SEEKER_ADDRESS' | translate"></label>
+            <info-point message-key="INVOICE_CONFIG_SEEKER_ADDRESS_TOOLTIP" append-to-body="false"></info-point>
+            <textarea class="form-control" rows="5" id="seekerAddress" name="seekerAddress" ng-minlength=5
+                      ng-maxlength=1000 ng-model="$ctrl.invoiceConfigData.seekerAddress"></textarea>
+            <div ng-show="$ctrl.invoiceConfigForm.seekerAddress.$touched"
+                 ng-messages="$ctrl.invoiceConfigForm.seekerAddress.$error"
+                 class="help-block text-danger">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label"
+                   ng-bind="'INVOICE_CONFIG_SIGNATURE' | translate" for="code"></label>
+            <info-point message-key="INVOICE_CONFIG_SIGNATURE_TOOLTIP" append-to-body="false"></info-point>
+            <div ng-if="$ctrl.invoiceConfigData.signatureDataUrl || $ctrl.invoiceConfigData.signatureUrl">
+                <img class="signature" format="png"
+                     mf-src="{{$ctrl.invoiceConfigData.signatureDataUrl || $ctrl.invoiceConfigData.signatureUrl}}">
+                <button type="button" class="btn btn-primary" type="button" ng-click="$ctrl.showSignatureModal()"
+                        ng-bind="'INVOICE_CONFIG_REWRITE_SIGNATURE' | translate"></button>
+                <button type="button" class="btn btn-danger" type="button" ng-click="$ctrl.removeSignature()"
+                        ng-bind="'INVOICE_CONFIG_DISCARD_SIGNATURE' | translate"></button>
+            </div>
+            <div ng-if="!$ctrl.invoiceConfigData.signatureDataUrl && !$ctrl.invoiceConfigData.signatureUrl">
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.showSignatureModal()"
+                        ng-bind="'INVOICE_CONFIG_WRITE_SIGNATURE' | translate"></button>
+            </div>
+        </div>
+
+        <div class="form-group"
+             ng-class="{'has-error': $ctrl.invoiceConfigForm.additionalNotes.$touched && $ctrl.invoiceConfigForm.additionalNotes.$invalid}">
+            <label required class="control-label"
+                   ng-bind="'INVOICE_CONFIG_ADDITIONAL_NOTES' | translate"></label>
+            <info-point message-key="INVOICE_CONFIG_ADDITIONAL_NOTES_TOOLTIP" append-to-body="false"></info-point>
+            <textarea class="form-control" rows="5" id="additionalNotes" name="additionalNotes" ng-minlength=5
+                      ng-maxlength=5000 ng-model="$ctrl.invoiceConfigData.additionalNotes"></textarea>
+            <div ng-show="$ctrl.invoiceConfigForm.additionalNotes.$touched"
+                 ng-messages="$ctrl.invoiceConfigForm.additionalNotes.$error"
+                 class="help-block text-danger">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-body invoice-config-modal" ng-if="$ctrl.receiptGenerated">
+        <div ng-bind-html="'INVOICE_CONFIG_RECEIPT_GENERATED' | translate"></div>
+    </div>
+
+    <div class="modal-footer invoice-config-modal">
+        <promise-button ng-if="!$ctrl.receiptGenerated"
+                        spinner="invoice-config-spinner"
+                        on-confirm="$ctrl.createSessionReceipt"
+                        on-cancel="$ctrl.dismiss"
+                        confirm-text-key="INVOICE_CONFIG_CREATE_RECEIPT"
+                        form="$ctrl.invoiceConfigForm"></promise-button>
+
+        <div ng-if="$ctrl.receiptGenerated" class="btns-after-generation">
+            <spinner name="receipt-to-files-spinner"></spinner>
+            <button class="btn btn-primary"
+                    ng-bind="'INVOICE_CONFIG_DOWNLOAD_RECEIPT' | translate" ng-click="$ctrl.downloadFile()">
+            </button>
+            <button class="btn btn-primary"
+                    ng-bind="'INVOICE_CONFIG_ADD_TO_SESSION_FILES' | translate"
+                    ng-click="$ctrl.addSessionReceiptToSessionFiles()"
+                    ng-disabled="$ctrl.addingToSessionFiles">
+            </button>
+            <button class="btn btn-default"
+                    ng-bind="'COMMON_CLOSE' | translate"
+                    ng-click="$ctrl.close()"
+                    ng-disabled="$ctrl.addingToSessionFiles">
+            </button>
+        </div>
+    </div>
+</form>

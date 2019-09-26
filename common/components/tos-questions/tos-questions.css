@@ -1,0 +1,14 @@
+tos-questions .answer-option {
+  margin-left: 27px; }
+tos-questions h3 {
+  margin-top: 0; }
+
+tos-questions h3 .label {
+    font-size: 12px;
+    position: relative;
+    bottom: 4px;
+}
+tos-questions .questionnaire-btns {
+  margin: 12px 6px 0; }
+
+/*# sourceMappingURL=tos-questions.css.map */

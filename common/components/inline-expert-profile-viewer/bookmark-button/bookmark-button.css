@@ -1,0 +1,9 @@
+bookmark-button {
+  cursor: pointer; }
+  bookmark-button .bookmarked {
+    color: #ff9800; }
+  bookmark-button .processing {
+    opacity: 0.5;
+    cursor: default; }
+
+/*# sourceMappingURL=bookmark-button.css.map */

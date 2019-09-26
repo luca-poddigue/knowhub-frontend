@@ -1,0 +1,17 @@
+locale-picker .btn {
+  overflow: inherit; }
+locale-picker .ui-select-container img {
+  bottom: 1px;
+  margin-right: 5px;
+  position: relative;
+  width: 26px; }
+locale-picker .ui-select-choices-row > a div {
+  display: inline; }
+locale-picker .ui-select-choices-row-inner div {
+  display: inline; }
+locale-picker .ui-select-match div {
+  display: inline; }
+locale-picker .ui-select-match-text {
+  color: #555; }
+
+/*# sourceMappingURL=locale-picker.css.map */

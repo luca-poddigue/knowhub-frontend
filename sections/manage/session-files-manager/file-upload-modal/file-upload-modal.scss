@@ -1,0 +1,62 @@
+@import '../../../../common/css/cvars';
+
+.file-upload-modal {
+
+  .top-controls {
+
+    width: 100%;
+
+    .message {
+      > * {
+        margin: 0;
+      }
+    }
+    
+    .btns {
+      vertical-align: top;
+      width: 1px;
+      padding-right: 15px;
+    }
+
+    @media screen and (max-width: 380px) {
+      .message {
+        margin-top: 8px;
+        display: block;
+      }
+
+      .btns {
+        display: block;
+      }
+    }
+  }
+  
+  .files-list {
+    margin-top: 15px;
+    margin-bottom: 0;
+    
+    .list-group-item {
+      display: table;
+      width: 100%;
+      
+      > * {
+        display: table-cell;
+        
+        &.type-icon {
+          width: 1px;
+          padding-right: 10px;
+        }
+
+        &.result {
+          text-align: right;
+          white-space: nowrap;
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+
+
+  
+  
+
+}

@@ -1,0 +1,34 @@
+@import '../../css/cvars';
+
+info-point {
+  cursor: pointer;
+}
+
+.info-point {
+  z-index: $info-point-z-sm;
+  @media screen and (min-width: $screen-xs) {
+    z-index: $info-point-z-lg;
+  }
+  max-width: 380px;
+
+  .popover-content {
+    text-align: justify;
+
+    .question-mark {
+      margin-left: 5px;
+    }
+
+    .dont-break-out {
+      line-height: normal;
+    }
+
+    .well {
+      margin: 10px -6px;
+      padding: 6px;
+    }
+
+    code {
+      background-color: transparent;
+    }
+  }
+}

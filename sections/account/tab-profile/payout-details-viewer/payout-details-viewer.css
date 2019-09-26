@@ -1,0 +1,41 @@
+payout-details-viewer .user-data-block {
+    margin-top: 20px;
+    margin-bottom: 0;
+    vertical-align: top;
+}
+
+payout-details-viewer .user-data-block.inline {
+    display: inline-block;
+    margin: 5px 35px 0 0;
+}
+payout-details-viewer .id-doc .fa-check-circle {
+    color: #26a942;
+    font-size: 125%;
+    position: relative;
+    top: 1px;
+}
+payout-details-viewer .details:first-child {
+    margin-top: 20px;
+}
+payout-details-viewer .form-control-static {
+    margin: 0 0 6px;
+    min-height: 0;
+    padding: 0;
+}
+payout-details-viewer img.signature {
+    display: block;
+    margin-bottom: 10px;
+    max-width: 300px;
+    width: 100%;
+    image-rendering: -moz-crisp-edges;
+    /* Firefox */
+    image-rendering: -o-crisp-edges;
+    /* Opera */
+    image-rendering: -webkit-optimize-contrast;
+    /* Webkit (non-standard naming) */
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+    /* IE (non-standard property) */
+}
+
+/*# sourceMappingURL=payout-details-viewer.css.map */

@@ -1,0 +1,17 @@
+alert-viewer .alerts-container {
+  margin: 0;
+  max-width: 300px;
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  z-index: 1200; }
+  alert-viewer .alerts-container .alert {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 9px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px; }
+alert-viewer .btn:hover, alert-viewer .btn:focus {
+    color: white;
+  margin-top: 0; }
+alert-viewer .btn span:focus {
+  outline: 0; }
+
+/*# sourceMappingURL=alert-viewer.css.map */

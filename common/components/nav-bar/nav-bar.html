@@ -1,0 +1,159 @@
+<nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+        <a href="/home" class="logo">
+            <img mf-src="/common/images/logo">
+        </a>
+        <div class="loading-spinner">
+            <spinner name="general-spinner"></spinner>
+        </div>
+        <button id="burger-btn" type="button" ng-click="$ctrl.isCollapsed = !$ctrl.isCollapsed" class="navbar-toggle">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse user-account-widget" uib-collapse="$ctrl.isCollapsed">
+        <ul class="nav navbar-nav navbar-btns">
+            <li ng-repeat="section in ::$ctrl.sections"
+                ng-class="{'active': $ctrl.activePath === section.path || $ctrl.location.path() === section.path}">
+                <a ng-href="{{$ctrl.location.path() === section.path ? '#' : section.path}}"
+                   ng-bind="section.key | translate" ng-click="$ctrl.activePath = section.path"></a>
+            </li>
+            <li ng-if="$ctrl.showBecomeExpertButton()">
+                <a ng-click="$ctrl.becomeExpert()" ng-bind="'EXPERT_PROFILE_BECOME_EXPERT' | translate"></a>
+            </li>
+        </ul>
+        <ul ng-if="$ctrl.showAccountWidget()" class="nav navbar-nav navbar-right">
+            <li ng-if="!$ctrl.isUserSignedIn()">
+                <a ng-click="$ctrl.showAuthModal()" ng-bind="'AUTH_LOGIN' | translate"></a>
+            </li>
+            <li uib-dropdown ng-if="$ctrl.showMenus()">
+
+                <a uib-dropdown-toggle class="menu account-menu">
+                    <table>
+                        <tr>
+                            <td class="text-right name-col-left">
+                                <h5 class="text-ellipsis text"
+                                    ng-bind="$ctrl.userBasicInfo().firstName + ' ' + $ctrl.userBasicInfo().lastName"></h5>
+                                <h6 class="text text-ellipsis" ng-bind="$ctrl.authInfo().email"></h6>
+                            </td>
+                            <td class="picture-col">
+                                <img class="picture img-circle" ng-if="$ctrl.userBasicInfo().profilePictureUrl"
+                                     ng-src="{{$ctrl.userBasicInfo().profilePictureUrl}}">
+                                <i ng-if="!$ctrl.userBasicInfo().profilePictureUrl"
+                                   class="missing-picture fa fa-user-circle-o" aria-hidden="true"></i>
+                            </td>
+                            <td class="text-left name-col-right">
+                                <h5 class="text-ellipsis text"
+                                    ng-bind="$ctrl.userBasicInfo().firstName + ' ' + $ctrl.userBasicInfo().lastName"></h5>
+                                <h6 class="text text-ellipsis" ng-bind="$ctrl.authInfo().email"></h6>
+                            </td>
+                        </tr>
+                    </table>
+                </a>
+                <ul class="dropdown-menu account-dropdown" uib-dropdown-menu role="menu"
+                    aria-labelledby="single-button">
+                    <li role="menuitem">
+                        <a href="/account?mode=profile">
+                            <div class="dropdown-entry">
+                                <i class="icon-left fa fa-user-circle-o" aria-hidden="true"></i>
+                                <div ng-bind="'COMMON_PROFILE' | translate"></div>
+                                <i class="icon-right fa fa-user-circle-o" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a href="/account?mode=credentials">
+                            <div class="dropdown-entry">
+                                <i class="icon-left fa fa-key" aria-hidden="true"></i>
+                                <div ng-bind="'COMMON_CREDENTIALS' | translate"></div>
+                                <i class="icon-right fa fa-key" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a href="/account?mode=preferences">
+                            <div class="dropdown-entry">
+                                <i class="icon-left fa fa-cog" aria-hidden="true"></i>
+                                <div ng-bind="'COMMON_PREFERENCES' | translate"></div>
+                                <i class="icon-right fa fa-cog" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a href="/account?mode=promoCodes">
+                            <div class="dropdown-entry">
+                                <i class="icon-left fa fa-ticket" aria-hidden="true"></i>
+                                <div ng-bind="'COMMON_PROMO_CODES' | translate"></div>
+                                <i class="icon-right fa fa-ticket" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li role="menuitem" ng-if="$ctrl.showSupportSection()">
+                        <a href="/account?mode=supportDashboard">
+                            <div class="dropdown-entry">
+                                <i class="icon-left fa fa-life-ring" aria-hidden="true"></i>
+                                <div ng-bind="'COMMON_SUPPORT_DASHBOARD' | translate"></div>
+                                <i class="icon-right fa fa-life-ring" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li role="menuitem">
+                        <a ng-click="$ctrl.signOut()">
+                            <div class="dropdown-entry">
+                                <i class="icon-left fa fa-sign-out" aria-hidden="true"></i>
+                                <div ng-bind="'COMMON_SIGN_OUT' | translate"></div>
+                                <i class="icon-right fa fa-sign-out" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!--<li uib-dropdown ng-if="$ctrl.showMenus()">
+                <a uib-dropdown-toggle ng-class="{'has-unread-messages': $ctrl.hasUnreadMessages}"
+                   class="menu messages-menu" ng-click="$ctrl.hasUnreadMessages = false">
+                    <table>
+                        <tr>
+                            <td class="picture-col">
+                                <i class="picture fa fa-bell" aria-hidden="true"></i>
+                            </td>
+                            <td class="text-left name-col-right">
+                                <h5 class="text-ellipsis text" ng-bind="'NAV_BAR_NEW_MESSAGES' | translate"></h5>
+                            </td>
+                        </tr>
+                    </table>
+                </a>
+                <ul class="dropdown-menu messages-dropdown" uib-dropdown-menu role="menu"
+                    aria-labelledby="single-button">
+                    <li ng-if="$ctrl.messages.length" class="clear-all" role="menuitem">
+                        <a ng-click="$ctrl.clearMessages()">
+                            <div class="dropdown-entry">
+                                <i class="icon-left fa fa-trash-o" aria-hidden="true"></i>
+                                <div ng-bind="'NAV_BAR_CLEAR_MESSAGES' | translate"></div>
+                                <i class="icon-right fa fa-trash-o" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li ng-if="!$ctrl.messages.length" class="no-messages" role="menuitem">
+                        <span ng-bind="'NAV_BAR_NO_MESSAGES' | translate"></span>
+                    </li>
+                    <li ng-repeat="message in $ctrl.messages track by $index" ng-switch="message.type" role="menuitem">
+                        <a ng-switch-when="CHAT_MESSAGE"
+                           ng-click="$ctrl.onMessageClick('/manage?mode=dashboard&session='+message.details.SESSION_ID, $index)">
+                            <div class="dropdown-entry">
+                                <i class="icon-left fa fa-comment-o" aria-hidden="true"></i>
+                                <div ng-bind-html="$ctrl.buildMessage('NAV_BAR_MESSAGE_CHAT_MESSAGE', message)"></div>
+                                <i class="icon-right fa fa-comment-o" aria-hidden="true"></i>
+                            </div>
+                            <i class="message-timestamp"
+                               ng-bind="(message.timestamp | date : 'd MMMM') + ', ' + (message.timestamp | date : 'shortTime')"></i>
+                        </a>
+                    </li>
+                </ul>&ndash;&gt;
+            </li>-->
+            <li ng-if="$ctrl.isUserSignedIn() && !$ctrl.showMenus()">
+                <a ng-click="$ctrl.signOut()" ng-bind="'COMMON_SIGN_OUT' | translate"></a>
+            </li>
+        </ul>
+    </div>
+</nav>

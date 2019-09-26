@@ -1,0 +1,39 @@
+@import '../../../../common/css/mixins';
+@import '../../../../common/css/cvars';
+
+payout-details-editor {
+  .save-btns {
+    margin-top: 13px;
+  }
+
+  h4 {
+    margin-top: 5px;
+  }
+
+  .birthdate-picker {
+    .input-group {
+      margin-bottom: 0;
+    }
+  }
+
+  .id-doc {
+    .fa-check-circle {
+      color: $green-success;
+      font-size: 125%;
+      position: relative;
+      top: 1px;
+    }
+
+    .help-block {
+      margin-bottom: 0;
+    }
+  }
+
+  .form-group.iban {
+    .help-block.current-iban {
+      color: $gray-help-block;
+      margin-top: -2px;
+    }
+  }
+
+}

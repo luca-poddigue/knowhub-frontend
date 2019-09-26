@@ -1,0 +1,30 @@
+@import '../../css/cvars';
+
+alert-viewer {
+
+  .alerts-container {
+    margin: 0;
+    max-width: 300px;
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    z-index: $alert-z;
+
+    .alert {
+      box-shadow: $shadow-bottom;
+      margin-bottom: 10px;
+    }
+  }
+
+  .btn {
+    &:hover,
+    &:focus {
+      color: white;
+      margin-top: 0;
+    }
+
+    span:focus {
+      outline: 0;
+    }
+  }
+}

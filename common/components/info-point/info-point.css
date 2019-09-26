@@ -1,0 +1,22 @@
+info-point {
+  cursor: pointer; }
+
+.info-point {
+  z-index: 1100;
+  max-width: 380px; }
+  @media screen and (min-width: 500px) {
+    .info-point {
+      z-index: 900; } }
+  .info-point .popover-content {
+    text-align: justify; }
+    .info-point .popover-content .question-mark {
+      margin-left: 5px; }
+    .info-point .popover-content .dont-break-out {
+      line-height: normal; }
+    .info-point .popover-content .well {
+      margin: 10px -6px;
+      padding: 6px; }
+    .info-point .popover-content code {
+      background-color: transparent; }
+
+/*# sourceMappingURL=info-point.css.map */

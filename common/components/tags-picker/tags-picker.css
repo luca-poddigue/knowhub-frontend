@@ -1,0 +1,80 @@
+tags-picker .proficiency-picker {
+    background-color: white;
+}
+tags-picker .highlight {
+  font-weight: bold; }
+tags-picker .matching-tags-container {
+  margin-bottom: 0;
+  padding: 3px;
+  position: absolute;
+  z-index: 1100;
+  left: 0;
+  right: 0; }
+tags-picker .dropdown > .form-group {
+  margin-bottom: 0;
+  min-height: inherit; }
+tags-picker .matching-tag {
+  cursor: pointer;
+  display: inline-block;
+  margin: 1px;
+  font-size: inherit; }
+tags-picker .more-tags-message {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+  padding-right: 5px;
+  padding-top: 5px; }
+tags-picker .no-tags-message {
+  display: block;
+  font-size: 14px;
+  padding: 8px; }
+tags-picker .selected-tags {
+  margin-top: 5px; }
+  tags-picker .selected-tags .selected-tag {
+    transition: color .5s; }
+    tags-picker .selected-tags .selected-tag proficiency-viewer {
+      margin-left: 2px; }
+tags-picker div > .tag {
+  display: inline-block;
+  margin-right: 12px;
+  margin-top: 5px;
+  white-space: nowrap; }
+  tags-picker div > .tag.editable {
+    cursor: pointer; }
+    tags-picker div > .tag.editable .label:hover {
+      background-color: #f59200; }
+  tags-picker div > .tag .star {
+    position: relative;
+    top: 1px; }
+tags-picker .delete-tag-button {
+  cursor: pointer;
+  position: relative;
+  top: 1px;
+  vertical-align: middle; }
+  tags-picker .delete-tag-button:hover {
+    color: #c91111; }
+tags-picker .input-group.input-only {
+  width: 100%; }
+  tags-picker .input-group.input-only input:first-child {
+    border-radius: 4px; }
+tags-picker .input-group .input-group-btn .btn-proficiency {
+  cursor: default;
+  background-color: inherit;
+  outline: 0;
+  overflow: visible;
+  z-index: 5;
+  border-radius: 0; }
+  tags-picker .input-group .input-group-btn .btn-proficiency:hover {
+    background-color: inherit;
+    border-color: #e6e6e6;
+    border-width: 0 1px 3px; }
+  tags-picker .input-group .input-group-btn .btn-proficiency:active {
+      background-color: white;
+    border-color: #e6e6e6;
+    border-width: 0 1px 3px; }
+  tags-picker .input-group .input-group-btn .btn-proficiency:focus {
+    border-color: #e6e6e6;
+    outline: 0; }
+
+/*# sourceMappingURL=tags-picker.css.map */

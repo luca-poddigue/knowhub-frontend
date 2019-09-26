@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-bind="::'EXPERT_PROFILE_BECOME_EXPERT' | translate"></h3>
+</div>
+
+<div class="modal-body" ng-bind-html="'BECOME_EXPERT_MODAL_TEXT' | translate">
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$ctrl.goToQuestionnaire()"
+            ng-bind="'BECOME_EXPERT_MODAL_TEXT_GO_TO_GUIDE' | translate"></button>
+    <button class="btn btn-danger" type="button" ng-click="$ctrl.dismiss()"
+            ng-bind="'COMMON_CANCEL' | translate"></button>
+</div>

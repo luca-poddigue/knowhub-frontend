@@ -1,0 +1,81 @@
+<div class="profile-views" ng-if="$ctrl.expertProfile.viewsCount !== '0'">
+    <i class="fa fa-info-circle" aria-hidden="true"></i>
+    <span class="text" ng-bind-html="$ctrl.formatProfileViewsCount()"></span>
+</div>
+
+<div class="user-data-block form-group">
+    <label class="control-label" for="languages"
+           ng-bind="$ctrl.expertProfile.availableLanguages.length > 1 ? 'EXPERT_PROFILE_PROFILE_LANGUAGES' : 'EXPERT_PROFILE_PROFILE_LANGUAGE' | translate"></label>
+    <div class="profile-language">
+        <language-picker ng-if="$ctrl.expertProfile.availableLanguages.length > 1"
+                         ng-model="$ctrl.profileDisplayLanguage"
+                         available-languages="$ctrl.expertProfile.availableLanguages" allow-clear="false"
+                         disable-search="true"></language-picker>
+        <p id="profile-language" ng-if="$ctrl.expertProfile.availableLanguages.length === 1" class="form-control-static"
+           ng-bind="::$ctrl.languages[$ctrl.expertProfile.availableLanguages[0]].nativeName"></p>
+    </div>
+</div>
+
+<div class="user-data-block form-group">
+    <label class="control-label" for="languages" ng-bind="'EXPERT_PROFILE_LANGUAGES' | translate"></label>
+    <div class="form-control-static">
+        <div ng-repeat="langObj in $ctrl.expertProfile.spokenLanguages track by $index" id="languages"
+             class="language-block">
+            <span ng-bind="::$ctrl.languages[langObj.tagName].nativeName"></span>
+            <proficiency-viewer levels="$ctrl.languageProficiencyLevels" proficiency="langObj.proficiency"
+                                show-proficiency-label="true"></proficiency-viewer>
+        </div>
+    </div>
+</div>
+<div class="user-data-block form-group">
+    <label class="control-label" for="skills" ng-bind="'EXPERT_PROFILE_SKILLS' | translate"></label>
+    <div id="skills">
+        <div class="skill-block"
+             ng-repeat="skillObj in $ctrl.expertProfile.skills[$ctrl.profileDisplayLanguage] track by $index">
+            <span ng-bind="skillObj.tagName"></span>
+            <proficiency-viewer levels="$ctrl.skillProficiencyLevels" proficiency="skillObj.proficiency"
+                                show-proficiency-label="true"></proficiency-viewer>
+        </div>
+    </div>
+</div>
+
+<div ng-if="$ctrl.expertProfile.education[$ctrl.profileDisplayLanguage].length" class="user-data-block form-group">
+    <label class="control-label" ng-bind="'EXPERT_PROFILE_EDUCATION' | translate"></label>
+    <div>
+        <div ng-repeat="education in $ctrl.expertProfile.education[$ctrl.profileDisplayLanguage] track by $index"
+             class="education">
+            <h4 ng-bind="education.certificate"></h4>
+            <div ng-if="education.grade" ng-bind="education.grade"></div>
+            <div ng-if="education.school" ng-bind="education.school"></div>
+            <div ng-if="education.location" ng-bind="education.location"></div>
+            <div ng-if="education.datesAttended">
+                <span ng-bind="education.datesAttended[0] | date:'longDate'"></span>&nbsp;
+                <i class="fa fa-arrows-h" aria-hidden="true"></i>&nbsp;
+                <span ng-bind="education.datesAttended[1] ? (education.datesAttended[1] | date:'longDate') : ('INLINE_EXPERT_PROFILE_VIEWER_PRESENT' | translate)"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-if="$ctrl.expertProfile.experiences[$ctrl.profileDisplayLanguage].length" class="user-data-block form-group">
+    <label class="control-label" ng-bind="'EXPERT_PROFILE_EXPERIENCES' | translate"></label>
+    <div>
+        <div ng-repeat="experience in $ctrl.expertProfile.experiences[$ctrl.profileDisplayLanguage] track by $index"
+             class="experience">
+            <h4 ng-bind="experience.position"></h4>
+            <div ng-if="experience.company" ng-bind="experience.company"></div>
+            <div ng-if="experience.location" ng-bind="experience.location"></div>
+            <div ng-if="experience.datesAttended">
+                <span ng-bind="experience.datesAttended[0] | date:'longDate'"></span>&nbsp;
+                <i class="fa fa-arrows-h" aria-hidden="true"></i>&nbsp;
+                <span ng-bind="experience.datesAttended[1] ? (experience.datesAttended[1] | date:'longDate') : ('INLINE_EXPERT_PROFILE_VIEWER_PRESENT' | translate)"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-if="$ctrl.expertProfile.about[$ctrl.profileDisplayLanguage].text" class="user-data-block about form-group">
+    <label class="control-label" for="about" ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_ABOUT' | translate"></label>
+    <div id="about" class="markdown-output form-control-static"
+         ng-bind-html="$ctrl.expertProfile.about[$ctrl.profileDisplayLanguage].text | mdToHtml"></div>
+</div>

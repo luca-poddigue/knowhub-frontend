@@ -1,0 +1,13 @@
+<ui-select ng-model="$ctrl.locale" on-select="$ctrl.changeLocale()" search-enabled="false" remove-selected="false"
+           skip-focusser="true">
+    <ui-select-match>
+        <img ng-if="$ctrl.getCountryCode($select.selected)"
+             mf-src="{{'/common/components/locale-picker/images/'+$ctrl.getCountryCode($select.selected).toLowerCase()}}"/>
+        <div ng-if="!$ctrl.iconOnly" ng-bind="$ctrl.formatLocaleString($ctrl.locale)"></div>
+    </ui-select-match>
+    <ui-select-choices repeat="locale in $ctrl.supportedLocales">
+        <img ng-if="$ctrl.getCountryCode(locale)"
+             mf-src="{{'/common/components/locale-picker/images/'+$ctrl.getCountryCode(locale).toLowerCase()}}"/>
+        <div ng-bind="$ctrl.formatLocaleString(locale)"></div>
+    </ui-select-choices>
+</ui-select>

@@ -1,0 +1,15 @@
+.signature-modal {
+
+  .modal-body {
+    padding: 0;
+    height: 205px;
+
+    @media screen and (max-height: 350px) {
+      height: calc(100vh - 145px);
+    }
+  }
+
+  canvas::selection {
+    background: transparent;
+  }
+}

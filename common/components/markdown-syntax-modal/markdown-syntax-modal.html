@@ -1,0 +1,237 @@
+<div class="modal-header">
+    <h2 class="modal-title" id="modal-title" ng-bind="'EXPERT_PROFILE_MARKDOWN_SYNTAX_REFERENCE' | translate"></h2>
+    <span ng-bind-html="'EXPERT_PROFILE_MARKDOWN_REFERENCE_TEXT' | translate"></span>
+</div>
+<div class="markdown-reference">
+    <!-- ENGLISH TRANSLATION -->
+    <div ng-if="$ctrl.locale.startsWith('en_')">
+        <h3>Phrase Emphasis</h3>
+        <pre><code>*italic*   **bold**
+_italic_   __bold__
+</code></pre>
+        <h3>Links</h3>
+        <p>Inline (title is optional):</p>
+        <pre><code>An [example](http://url.com/ "Title")
+</code></pre>
+        <p>Reference-style (title is optional):</p>
+        <pre><code>An [example][id]. Then, anywhere else in the doc, define the link:
+    
+[id]: http://example.com/  "Title"
+</code></pre>
+        <h3>Images</h3>
+        <p>Inline (title is optional):</p>
+        <pre><code>![alt text](/path/img.jpg "Title")
+</code></pre>
+        <p>Sizes:</p>
+        <pre><code>![foo](foo.jpg =100x80)    Fix both width and height
+![bar](bar.jpg =100x*)     Fix width and maintain ratio
+![baz](baz.jpg =80%x*)     Fill 80% of the page width and maintain ratio
+</code></pre>
+        <p>Reference-style:</p>
+        <pre><code>![alt text][id]
+    
+[id]: /url/to/img.jpg "Title"
+</code></pre>
+        <h3>Headers</h3>
+        <p>Setext-style:</p>
+        <pre><code>Header 1
+========
+
+Header 2
+--------
+</code></pre>
+        <p>atx-style (closing #'s is optional):</p>
+        <pre><code># Header 1 #
+    
+## Header 2 ##
+
+###### Header 6
+</code></pre>
+        <h3>Lists</h3>
+        <p>Ordered, without paragraphs:</p>
+        <pre><code>1.  Foo
+2.  Bar
+</code></pre>
+        <p>Unordered, with paragraphs:</p>
+
+        <pre><code>*   A list item.
+    
+    With multiple paragraphs.
+*   Bar
+</code></pre>
+        <p>You can nest them:</p>
+        <pre><code>*   Abacus
+    * answer
+*   Bubbles
+    1.  bunk
+    2.  bupkis
+        * BELITTLER
+    3. burper
+*   Cunning
+</code></pre>
+        <h3>Blockquotes</h3>
+        <pre><code>&gt; Email-style angle brackets are used for blockquotes.
+    
+&gt; &gt; And, they can be nested.
+
+&gt; #### Headers in blockquotes
+&gt;
+&gt; * You can quote a list.
+&gt; * Etc.
+</code></pre>
+        <h3>Code Spans</h3>
+        <pre><code>`&lt;code&gt;` spans are delimited by backticks.
+
+You can include literal backticks like `` `this` ``.
+</code></pre>
+        <h3>Preformatted Code Blocks</h3>
+        <p>Indent every line of a code block by at least 4 spaces or 1 tab.</p>
+        <pre><code>This is a normal paragraph.
+    
+    This is a preformatted code block.
+</code></pre>
+        <h3>Horizontal Rules</h3>
+        <p>Three or more dashes or asterisks:</p>
+        <pre><code>---
+    
+* * *
+
+- - - -
+</code></pre>
+        <h3>Manual Line Breaks</h3>
+        <p>End a line with two or more spaces:</p>
+        <pre><code>Roses are red,
+Violets are blue.
+</code></pre>
+        <h3>Tables</h3>
+        <pre><code>Fruit    |Color
+---------|----------
+Apples   |Red
+Pears	 |Green
+Bananas  |Yellow</code></pre>
+        <h3>Definition Lists</h3>
+        <pre><code>Term 1
+: Definition 1
+
+Term 2
+: Definition 2</code></pre>
+    </div>
+
+
+    <!-- ITALIAN TRANSLATION -->
+    <div ng-if="$ctrl.locale.startsWith('it_')">
+        <h3>Enfasi di frase</h3>
+        <pre><code>*corsivo*   **grassetto**
+_corsivo_   __grassetto__
+</code></pre>
+        <h3>Link</h3>
+        <p>In linea (titolo opzionale):</p>
+        <pre><code>Un [esempio](http://url.com/ "Titolo")
+</code></pre>
+        <p>Stile citazione (titolo opzionale):</p>
+        <pre><code>Un [esempio][id]. Poi, da qualsiasi altra parte nel documento, definisci il link:
+  
+[id]: http://esempio.com/  "Titolo"
+</code></pre>
+        <h3>Immagini</h3>
+        <p>In linea (titolo ozionale):</p>
+        <pre><code>![alt text](/persorso/img.jpg "Titolo")
+</code></pre>
+        <p>Dimensioni:</p>
+        <pre><code>![foo](foo.jpg =100x80)    Fissa larghezza e altezza
+![bar](bar.jpg =100x*)     Fissa larghezza e mantieni proporzioni
+![baz](baz.jpg =80%x*)     Riempi l'80% della pagina in larghezza e mantieni proporzioni
+</code></pre>
+        <p>Stile citazione:</p>
+        <pre><code>![alt text][id]
+    
+[id]: /url/img.jpg "Titolo"
+</code></pre>
+        <h3>Intestazioni</h3>
+        <p>Setext:</p>
+        <pre><code>Intestazione 1
+========
+
+Intestazione 2
+--------
+</code></pre>
+        <p>atx (chiusura con # opzionale):</p>
+        <pre><code># Intestazione 1 #
+    
+## Intestazione 2 ##
+
+###### Intestazione 6
+</code></pre>
+        <h3>Liste</h3>
+        <p>Ordinata, senza paragrafi:</p>
+        <pre><code>1.  Mela
+2.  Pera
+</code></pre>
+        <p>Non ordinata, con paragrafi:</p>
+        <pre><code>*   Mela
+    
+    Con paragrafi multipli.
+    
+*   Pera
+</code></pre>
+        <p>Puoi anche innestarli:</p>
+        <pre><code>*   Pera
+    * Kaiser
+*   Mela
+    1.  Verde 
+    2.  Gialla
+        * Golden
+    3. Rossa
+*   Banana
+</code></pre>
+        <h3>Blocco citazioni</h3>
+        <pre><code>&gt; Per definire un blocco citazione usa le parentesi angolate.
+    
+&gt; &gt; Puoi anche innestarli.
+
+&gt; #### Intestazioni in blocchi citazione
+&gt;
+&gt; * Puoi citare una lista.
+&gt; * Ecc.
+</code></pre>
+        <h3>Codice in linea</h3>
+        <pre><code>`&lt;code&gt;` Il codice in linea si delimita con apici inversi.
+    
+Puoi includere gli apici inversi nel codice `` `così` ``.
+</code></pre>
+        <h3>Blocchi di codice preformattato</h3>
+        <p>Indenta ogni linea del blocco di codice di almeno 4 spazi o un tab.</p>
+        <pre><code>Paragrafo normale.
+    
+    Blocco di codice preformattato.
+</code></pre>
+        <h3>Filetto orizzontale</h3>
+        <p>Tre o più trattini o asterischi:</p>
+        <pre><code>---
+    
+* * *
+
+- - - -
+</code></pre>
+        <h3>Interruzione di riga manuale</h3>
+        <p>Termina la riga con due o più spazi:</p>
+        <pre><code>Prima riga,
+Seconda riga.
+</code></pre>
+        <h3>Tabelle</h3>
+        <pre><code>Frutta    |Colore
+----------|----------
+Mele      |Rosso
+Pere	  |Verde
+Banane    |Giallo</code></pre>
+        <h3>Lista di definizioni</h3>
+        <pre><code>Termine 1
+: Definizione 1
+
+Termine 2
+: Definizione 2</code></pre>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()" ng-bind="'COMMON_CLOSE' | translate"></button>
+</div>

@@ -1,0 +1,5 @@
+<div class="btn-group">
+    <button ng-repeat="option in $ctrl.options track by $index"
+            class="btn {{option === $ctrl.selectedOption ? option.activeClass || 'btn-default active' : 'btn-default'}}"
+            ng-click="$ctrl.setOption(option)" ng-bind="option.key | translate"></button>
+</div>

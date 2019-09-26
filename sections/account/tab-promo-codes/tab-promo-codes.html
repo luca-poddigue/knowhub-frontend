@@ -1,0 +1,70 @@
+<div>
+    <div class="jumbotron">
+        <h1 ng-bind="'ACCOUNT_PROMO_CODES_TITLE' | translate"></h1>
+        <p ng-bind="'ACCOUNT_PROMO_CODES_SUBTITLE' | translate"></p>
+    </div>
+
+    <div ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}" class="content">
+
+        <div>
+            <h2 ng-bind-html="'ACCOUNT_PROMO_CODES_ENTER_PROMO_CODE' | translate"></h2>
+            <h4 ng-bind-html="'ACCOUNT_PROMO_CODES_ENTER_PROMO_TEXT' | translate"></h4>
+            <form name="$ctrl.promoCodeForm" novalidate class="promo-code-form">
+                <div class="form-group promo-code"
+                     ng-class="{'has-error': $ctrl.promoCodeForm.promoCode.$touched && $ctrl.promoCodeForm.promoCode.$invalid}">
+                    <label class="control-label" for="promoCode" ng-bind="'ACCOUNT_PROMO_CODES_PROMO_CODE' | translate"></label>
+                    <input type="text" name="promoCode" id="promoCode" class="form-control"
+                           ng-model="$ctrl.promoCode" required autocomplete="off" />
+                    <div ng-show="$ctrl.promoCodeForm.promoCode.$touched"
+                         ng-messages="$ctrl.promoCodeForm.promoCode.$error"
+                         class="help-block text-danger">
+                        <div ng-messages-include="common/validation/messages/common.html"></div>
+                    </div>
+                </div>
+                <promise-button class="activate-btn" on-confirm="$ctrl.activatePromoCode" confirm-text-key="ACCOUNT_PROMO_CODES_ACTIVATE"
+                                    form="$ctrl.promoCodeForm"></promise-button>
+            </form>
+        </div>
+
+        <div>
+            <h2 ng-bind-html="'ACCOUNT_PROMO_CODES_YOUR_PROMO' | translate"></h2>
+
+            <div>
+                <div ng-if="$ctrl.promoList.promo.length === 0" class="alert alert-info no-promo-alert"
+                     ng-bind-html="'ACCOUNT_PROMO_CODES_NO_PROMO_TEXT' | translate"></div>
+
+                <div ng-repeat="promo in $ctrl.promoList.promo" class="panel panel-default promo">
+                    <div class="panel-body">
+                        <div class="status-label label"
+                             ng-class="{'label-success': $ctrl.promoList.timestamp < promo.expirationDate, 'label-default': $ctrl.promoList.timestamp >= promo.expirationDate}">
+                            <span ng-bind="$ctrl.promoList.timestamp < promo.expirationDate ? 'ACCOUNT_PROMO_CODES_ACTIVE' : 'ACCOUNT_PROMO_CODES_EXPIRED' | translate"></span>
+                        </div>
+                        <h3 class="promo-name">
+                            <span ng-bind="'ACCOUNT_PROMO_CODES_TYPE_'+promo.type | translate"></span>
+                        </h3>
+                        <div class="data-blocks">
+                            <div class="data-block">
+                                <label class="control-label"
+                                       ng-bind="'ACCOUNT_PROMO_CODES_DESCRIPTION' | translate"></label>
+                                <div ng-bind="'ACCOUNT_PROMO_CODES_TYPE_DESCRIPTION_'+promo.type | translate"></div>
+                            </div>
+                        </div>
+
+                        <div class="data-blocks">
+                            <div class="data-block">
+                                <label class="control-label"
+                                       ng-bind="'ACCOUNT_PROMO_CODES_ACTIVATION_DATE' | translate"></label>
+                                <div ng-bind="promo.activationDate | date:'mediumDate'"></div>
+                            </div>
+                            <div class="data-block">
+                                <label class="control-label"
+                                       ng-bind="'ACCOUNT_PROMO_CODES_EXPIRATION_DATE' | translate"></label>
+                                <div ng-bind="promo.expirationDate | date:'mediumDate'"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

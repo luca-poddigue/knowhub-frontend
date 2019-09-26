@@ -1,0 +1,85 @@
+<div>
+    <div class="jumbotron">
+        <h1 ng-bind="'ACCOUNT_PREFERENCES_TITLE' | translate"></h1>
+        <p ng-bind="'ACCOUNT_PREFERENCES_SUBTITLE' | translate"></p>
+    </div>
+
+    <div ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}" class="content">
+
+        <div id="live-notifications" class="live-notifications">
+            <h2 ng-bind="'PREFERENCES_LIVE_NOTIFICATIONS' | translate"></h2>
+            <span class="help-block" ng-bind-html="'PREFERENCES_LIVE_NOTIFICATIONS_TEXT' | translate"></span>
+            <div class="notifications switch">
+                <answer-button ng-if="$ctrl.getNotificationsStatus() !== 'unsupported'"
+                               options="$ctrl.liveNotificationsOptions"
+                               ng-model="$ctrl.notificationsPreferences.notificationsEnabled"
+                               ng-change="$ctrl.updateNotificationsPreferences(true)"></answer-button>
+            </div>
+            <div class="alerts" ng-if="$ctrl.notificationsPreferences.notificationsEnabled">
+                <div ng-if="$ctrl.getNotificationsStatus() === 'enabled'" class="alert alert-success"
+                     ng-bind-html="'PREFERENCES_LIVE_NOTIFICATIONS_ENABLED' | translate"></div>
+                <div ng-if="$ctrl.getNotificationsStatus() === 'blocked'" class="alert alert-warning"
+                     ng-bind-html="'PREFERENCES_LIVE_NOTIFICATIONS_NO_PERMISSION' | translate"></div>
+                <div ng-if="$ctrl.getNotificationsStatus() === 'unsupported'" class="alert alert-danger"
+                     ng-bind-html="'PREFERENCES_LIVE_NOTIFICATIONS_NOT_SUPPORTED' | translate"></div>
+                <div ng-if="$ctrl.getNotificationsStatus() === 'error'" class="alert alert-danger"
+                     ng-bind-html="'PREFERENCES_LIVE_NOTIFICATIONS_ERROR' | translate"></div>
+                <div ng-if="$ctrl.getNotificationsStatus() === 'invalid-user-status'" class="alert alert-warning"
+                     ng-bind-html="'PREFERENCES_LIVE_NOTIFICATIONS_INVALID_USER_STATUS' | translate"></div>
+            </div>
+
+            <div class="switch notification-sound"
+                 ng-if="$ctrl.notificationsPreferences.notificationsEnabled">
+                <div class="checkbox">
+                    <label class="control control--checkbox">
+                        <span ng-bind="'PREFERENCES_LIVE_NOTIFICATIONS_SOUND' | translate"></span>
+                        <input type="checkbox" ng-model="$ctrl.notificationsPreferences.playNotificationSound"
+                               ng-change="$ctrl.updateNotificationsPreferences(false)">
+                        <div class="control__indicator"></div>
+                    </label>
+                </div>
+                <info-point message-key="PREFERENCES_LIVE_NOTIFICATIONS_SOUND_TEXT"></info-point>
+            </div>
+        </div>
+
+        <div id="emails" class="emails">
+            <h2 ng-bind="'PREFERENCES_EMAIL_PREFERENCES' | translate"></h2>
+            <form name="$ctrl.emailPreferencesForm" novalidate>
+                <span class="help-block" ng-bind-html="'PREFERENCES_EMAIL_PREFERENCES_TEXT' | translate"></span>
+                <div class="form-group">
+                    <div class="checkbox" ng-repeat="email in $ctrl.emails track by email.id">
+                        <label class="control control--checkbox">
+                            <span ng-bind="'PREFERENCES_'+email.key | translate"></span>
+                            <input type="checkbox" ng-model="email.enabled" ng-change="$ctrl.updateEmailPreferences()">
+                            <div class="control__indicator"></div>
+                        </label>
+                    </div>
+                </div>
+                <div class="alert alert-info" ng-bind="'PREFERENCES_STILL_RECEIVE_EMAILS' | translate"></div>
+            </form>
+        </div>
+
+        <div id="session-price-limit" class="session-price-limit"
+             ng-if="$ctrl.currentUserType === $ctrl.userType.expert">
+            <h2 ng-bind="'PREFERENCES_SESSION_PRICE_LIMIT' | translate"></h2>
+            <span class="help-block" ng-bind-html="'PREFERENCES_SESSION_PRICE_LIMIT_TEXT' | translate"></span>
+            <div>
+                <user-metric-viewer>
+                    <number ng-bind="$ctrl.sessionPriceLimitPreferences.limit"></number>
+                    <meaning ng-bind="'PREFERENCES_CURRENT_LIMIT' | translate"></meaning>
+                </user-metric-viewer>
+                <user-metric-viewer ng-if="$ctrl.sessionPriceLimitPreferences.requestedLimit">
+                    <number ng-bind="$ctrl.sessionPriceLimitPreferences.requestedLimit"></number>
+                    <meaning ng-bind="'PREFERENCES_REQUESTED_LIMIT' | translate"></meaning>
+                </user-metric-viewer>
+                <button ng-if="!$ctrl.sessionPriceLimitPreferences.requestedLimit" class="btn btn-primary"
+                        ng-bind="'PREFERENCES_INCREASE_LIMIT' | translate"
+                        ng-click="$ctrl.showSessionPriceLimitModal()"></button>
+            </div>
+            <div ng-if="$ctrl.sessionPriceLimitPreferences.requestedLimit"
+                 class="alert alert-info pending-approval-alert"
+                 ng-bind="'PREFERENCES_REQUEST_BEING_APPROVED' | translate">
+            </div>
+        </div>
+    </div>
+</div>

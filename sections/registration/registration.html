@@ -1,0 +1,11 @@
+<update-title title="{{$ctrl.applicationName+' | '+('SECTION_REGISTRATION' | translate)}}"></update-title>
+<update-meta name="description" content=""></update-meta>
+
+
+<div class="container">
+    <div ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}" class="content">
+        <div>
+            <seeker-profile-editor user-info="$ctrl.userInfo" mode='REGISTER'></seeker-profile-editor>
+        </div>
+    </div>
+</div>

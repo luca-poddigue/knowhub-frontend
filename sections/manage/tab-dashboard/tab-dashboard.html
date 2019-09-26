@@ -1,0 +1,141 @@
+<div>
+    <div class="jumbotron">
+        <h1 ng-bind="'DASHBOARD_TITLE' | translate"></h1>
+        <p ng-bind="'DASHBOARD_SUBTITLE' | translate"></p>
+    </div>
+
+    <div ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}" class="content">
+        <div>
+
+            <div class="stats" ng-if="!$ctrl.isSingleSession">
+                <div>
+                    <user-metric-viewer>
+                        <number ng-bind="$ctrl.overviewBoxes.COMPLETED_SESSIONS"></number>
+                        <meaning ng-bind="'SHARING_SESSION_COMPLETED_SESSIONS' | translate"></meaning>
+                    </user-metric-viewer>
+
+                    <user-metric-viewer>
+                        <number ng-bind="$ctrl.overviewBoxes.OPEN_SESSIONS"></number>
+                        <meaning ng-bind="'SHARING_SESSION_OPEN_SESSIONS' | translate"></meaning>
+                    </user-metric-viewer>
+
+                    <user-metric-viewer ng-if="$ctrl.currentUserType === $ctrl.userType.expert"
+                                        info-key="{{$ctrl.overviewBoxes.REPUTATION ? '' : 'DASHBOARD_HIDDEN_REPUTATION_TEXT'}}">
+                        <number ng-if="!$ctrl.overviewBoxes.REPUTATION"
+                                ng-bind="'DASHBOARD_HIDDEN' | translate"></number>
+                        <number ng-if="$ctrl.overviewBoxes.REPUTATION"
+                                ng-bind="$ctrl.overviewBoxes.REPUTATION"></number>
+                        <meaning ng-bind="'SHARING_SESSION_REPUTATION' | translate"></meaning>
+                    </user-metric-viewer>
+                </div>
+            </div>
+
+            <form ng-if="!$ctrl.isSingleSession" memory-form on-memory-form-loaded="$ctrl.loadSessions()" class="sessions-search-form" name="$ctrl.sessionsFiltersForm"
+                  novalidate>
+
+                <div class="row">
+                    <div ng-if="$ctrl.currentUserType === $ctrl.userType.expert" class="col-sm-3">
+                        <div class="form-group">
+                            <label class="control-label" for="userType"
+                                   ng-bind="'DASHBOARD_SHOW_SESSIONS_AS' | translate"></label>
+                            <div>
+                                <answer-button id="userType" name="userType" options="$ctrl.userTypeOptions"
+                                               ng-model="$ctrl.sessionsFilters.userType"
+                                               ng-change="$ctrl.loadSessions(true)"></answer-button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-class="{'col-sm-9': $ctrl.currentUserType === $ctrl.userType.expert, 'col-sm-12': $ctrl.currentUserType === $ctrl.userType.seeker}">
+
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                           ng-bind="'DASHBOARD_SESSION_STATUS' | translate"></label>
+                                    <ui-select required id="status" name="status" search-enabled="false"
+                                               ng-model="$ctrl.sessionsFilters.status" ng-change="$ctrl.loadSessions()"
+                                               remove-selected="false" skip-focusser="true">
+                                        <ui-select-match allow-clear="true">
+                                            <div ng-bind="$ctrl.formatStatus($ctrl.sessionsFilters.status)"></div>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="status in $ctrl.sessionStatus track by $index">
+                                            <div ng-bind="::$ctrl.formatStatus(status)"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-7">
+                                <div class="form-group">
+                                    <label class="control-label"
+                                           ng-bind="'COMMON_'+($ctrl.sessionsFilters.userType === $ctrl.userType.seeker ? $ctrl.userType.expert : $ctrl.userType.seeker) | translate"></label>
+                                    <ui-select id="otherUser" name="otherUser"
+                                               ng-model="$ctrl.sessionsFilters.otherUser"
+                                               ng-change="$ctrl.loadSessions()" remove-selected="false"
+                                               skip-focusser="true">
+                                        <ui-select-match placeholder="{{'COMMON_TYPE_FOR_OPTIONS' | translate}}"
+                                                         allow-clear="true">
+                                            <div ng-bind="$ctrl.sessionsFilters.otherUser.firstName+' '+$ctrl.sessionsFilters.otherUser.lastName"></div>
+                                        </ui-select-match>
+                                        <ui-select-choices refresh="$ctrl.refreshOtherUserFilterChoices($select.search)"
+                                                           refresh-delay="200"
+                                                           repeat="otherUser in $ctrl.sessionFiltersData.otherUsers[$ctrl.sessionsFilters.userType] | filter: {'$': $ctrl.delayedSearchOtherUsers}  track by $index">
+                                            <div ng-bind-html="otherUser.firstName+' '+otherUser.lastName | highlight: $ctrl.delayedSearchOtherUsers"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label"
+                                   ng-bind="'DASHBOARD_SESSION_TOPIC' | translate"></label>
+                            <ui-select id="topic" name="topic" ng-model="$ctrl.sessionsFilters.topic"
+                                       ng-change="$ctrl.loadSessions()" remove-selected="false" skip-focusser="true">
+                                <ui-select-match placeholder="{{'COMMON_TYPE_FOR_OPTIONS' | translate}}"
+                                                 allow-clear="true">
+                                    <div ng-bind="$ctrl.sessionsFilters.topic"></div>
+                                </ui-select-match>
+                                <ui-select-choices refresh="$ctrl.refreshTopicFilterChoices($select.search)"
+                                                   refresh-delay="200"
+                                                   repeat="topic in $ctrl.sessionFiltersData.topics[$ctrl.sessionsFilters.userType] | filter: {'$': $ctrl.delayedSearchTopics}  track by $index">
+                                    <div ng-bind-html="topic | highlight: $ctrl.delayedSearchTopics"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+
+
+                    </div>
+                </div>
+            </form>
+
+            <div class="show-all-btn">
+                <button ng-if="$ctrl.isSingleSession" class="btn btn-primary"
+                        ng-click="$ctrl.exitSingleMode()">
+                    <i class="fa fa-2x fa-chevron-circle-left" aria-hidden="true"></i>
+                    <span ng-bind="'DASHBOARD_SHOW_ALL_SESSIONS' | translate"></span>
+                </button>
+            </div>
+
+            <div class="overviews" ng-scroll="$ctrl.loadMoreSessions()" ng-scroll-mode="page">
+
+                <div ng-if="($ctrl.isSingleSession && (!$ctrl.sessionOverviews || !$ctrl.sessionOverviews.length)) ||
+                (!$ctrl.isSingleSession && $ctrl.loadedUserType && (!$ctrl.sessionOverviews || !$ctrl.sessionOverviews.length))"
+                     class="alert alert-warning" ng-bind-html="$ctrl.formatWarningAlert()">
+                </div>
+
+                <div id="{{'session-'+sessionOverview.id}}" class="panel panel-info"
+                     ng-repeat="sessionOverview in $ctrl.sessionOverviews">
+                    <div class="panel-body">
+                        <sharing-session session-overview="sessionOverview"
+                                         on-show-chat="$ctrl.showSessionChat($event)" available-points="$ctrl.overviewBoxes.AVAILABLE_POINTS"></sharing-session>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+tab-feedback .pending-feedback-card {
+  margin: 15px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 9px 0 rgba(0, 0, 0, 0.2); }
+tab-feedback .alert.no-pending-feedbacks {
+  margin-top: 0; }
+tab-feedback .feedback-form {
+  padding: 20px; }
+  tab-feedback .feedback-form .control-label {
+    color: #555; }
+  tab-feedback .feedback-form .comment {
+    margin-top: 30px; }
+    tab-feedback .feedback-form .comment .help-block {
+      margin-top: -2px; }
+  tab-feedback .feedback-form .question-text {
+    display: block;
+    margin-bottom: 3px; }
+  tab-feedback .feedback-form .alert.unheld-session {
+    margin-top: 10px; }
+  tab-feedback .feedback-form .question {
+    margin-top: 15px; }
+  tab-feedback .feedback-form .btns {
+    margin-top: 20px; }
+tab-feedback .card-header {
+  cursor: pointer;
+  padding: 15px;
+  margin: auto;
+  text-align: center; }
+  tab-feedback .card-header .message {
+    font-size: 16px;
+    margin-top: 10px;
+    display: block;
+    font-weight: bold; }
+  tab-feedback .card-header h3,
+  tab-feedback .card-header h4 {
+    margin-top: 0; }
+  tab-feedback .card-header .btns {
+    margin-top: 5px; }
+  tab-feedback .card-header:hover, tab-feedback .card-header.open {
+      color: white;
+    background: linear-gradient(to right, #ff9800 0%, #ffc437 90%); }
+    tab-feedback .card-header:hover h3,
+    tab-feedback .card-header:hover h4,
+    tab-feedback .card-header:hover i, tab-feedback .card-header.open h3,
+    tab-feedback .card-header.open h4,
+    tab-feedback .card-header.open i {
+        color: white;
+    }
+
+/*# sourceMappingURL=tab-feedback.css.map */

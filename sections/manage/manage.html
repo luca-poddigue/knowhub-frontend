@@ -1,0 +1,30 @@
+<update-title title="{{$ctrl.applicationName+' | '+('SECTION_MANAGE' | translate)}}"></update-title>
+<update-meta name="description" content=""></update-meta>
+
+<uib-tabset class="container" active="$ctrl.mode">
+    <uib-tab index="'dashboard'" ng-click="$ctrl.setMode('dashboard')">
+        <uib-tab-heading ng-bind="'COMMON_DASHBOARD' | translate"></uib-tab-heading>
+        <div ng-if="$ctrl.mode === 'dashboard'">
+            <tab-dashboard></tab-dashboard>
+        </div>
+    </uib-tab>
+    <uib-tab ng-if="$ctrl.currUserType === $ctrl.userType.expert" index="'availability'"
+             ng-click="$ctrl.setMode('availability')">
+        <uib-tab-heading ng-bind="'COMMON_AVAILABILITY' | translate"></uib-tab-heading>
+        <div ng-if="$ctrl.mode === 'availability'">
+            <tab-availability></tab-availability>
+        </div>
+    </uib-tab>
+    <uib-tab index="'feedback'" ng-click="$ctrl.setMode('feedback')">
+        <uib-tab-heading ng-bind="'COMMON_FEEDBACK' | translate"></uib-tab-heading>
+        <div ng-if="$ctrl.mode === 'feedback'">
+            <tab-feedback></tab-feedback>
+        </div>
+    </uib-tab>
+    <uib-tab index="'log'" ng-click="$ctrl.setMode('log')">
+        <uib-tab-heading ng-bind="'COMMON_LOG' | translate"></uib-tab-heading>
+        <div ng-if="$ctrl.mode === 'log'">
+            <tab-log></tab-log>
+        </div>
+    </uib-tab>
+</uib-tabset>

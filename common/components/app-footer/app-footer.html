@@ -1,0 +1,22 @@
+<div class="text-nowrap">
+    <div class="links">
+        <a ng-bind="'SECTION_TOS' | translate" ng-class="{'selected': $ctrl.isCurrentPath('/termsOfService')}"
+           ng-click="$ctrl.goTo('/termsOfService')"></a>
+        <a ng-bind="'SECTION_PRIVACY_POLICY' | translate" ng-class="{'selected': $ctrl.isCurrentPath('/privacy')}"
+           ng-click="$ctrl.goTo('/privacy')"></a>
+        <a ng-bind="'SECTION_CONTACT_US' | translate" ng-class="{'selected': $ctrl.isCurrentPath('/contactUs')}"
+           ng-click="$ctrl.goTo('/contactUs')"></a>
+    </div>
+    <div class="locale" ng-show="!$ctrl.isUserSignedIn()">
+        <div class="locale-container">
+            <locale-picker class="locale-picker" ng-model="$ctrl.locale"></locale-picker>
+        </div>
+    </div>
+    <div class="owls-line" ng-show="$ctrl.isUserSignedIn()">
+        <img mf-src="/common/images/owls-line">
+    </div>
+    <div class="vat-number">
+        <span ng-bind="'P.IVA ' + $ctrl.pIva"></span>
+    </div>
+
+</div>

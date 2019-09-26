@@ -1,0 +1,19 @@
+/* line 3, C:/Users/lucap/Documents/GitHub/easyknow-frontend-test/src/main/webapp-unbuilt/common/components/expert-profile-editor/signature-modal/signature-modal.scss */
+.signature-modal .modal-body {
+    padding: 0;
+    height: 205px;
+}
+
+@media screen and (max-height: 350px) {
+    /* line 3, C:/Users/lucap/Documents/GitHub/easyknow-frontend-test/src/main/webapp-unbuilt/common/components/expert-profile-editor/signature-modal/signature-modal.scss */
+    .signature-modal .modal-body {
+        height: calc(100vh - 145px);
+    }
+}
+
+/* line 12, C:/Users/lucap/Documents/GitHub/easyknow-frontend-test/src/main/webapp-unbuilt/common/components/expert-profile-editor/signature-modal/signature-modal.scss */
+.signature-modal canvas::selection {
+    background: transparent;
+}
+
+/*# sourceMappingURL=signature-modal.css.map */

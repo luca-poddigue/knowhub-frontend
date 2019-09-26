@@ -1,0 +1,204 @@
+@import '../../common/css/cvars';
+@import '../../common/css/mixins';
+
+home-page {
+
+  $gradient: linear-gradient(to left, $knowhub-light-orange 0%, $knowhub-orange 90%);
+
+  .home-content {
+    padding-bottom: 85px;
+
+    @media screen and (min-width: $screen-sm) {
+      padding-bottom: 44px;
+    }
+  }
+
+  p {
+    font-size: 110%;
+  }
+
+  > div {
+    padding-bottom: 63px;
+    @media screen and (min-width: $screen-sm) {
+      padding-bottom: 63px;
+    }
+  }
+
+  section {
+    padding: 0 15px;
+
+    &-heading {
+      margin-top: 0;
+    }
+  }
+
+  .service-box {
+    max-width: 400px;
+    margin: 50px auto 0;
+
+    @media (min-width: 992px) {
+      margin: 20px auto 0;
+    }
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  header {
+    margin: 0 auto auto;
+    max-width: 777px;
+    height: calc(100vh - 88px);
+
+    @media screen and (max-width: ($screen-sm)-1) {
+      height: calc(100vh - 122px);
+    }
+
+    .logo-block {
+      transform: translateY(-56%);
+      position: relative;
+      top: 50%;
+
+      margin: 0 40px;
+
+      img {
+        will-change: transform;
+      }
+
+      @media screen and (max-width: ($fixed-footer-threshold)-1) {
+        margin: 0 15px;
+      }
+
+      > * {
+        width: 100%;
+      }
+
+      .logo {
+        margin-bottom: 18px;
+      }
+    }
+
+    @media screen and (max-height: 680px) and (min-aspect-ratio: 20/18),
+    screen and (max-width: ($fixed-footer-threshold)-1) {
+      margin: 52px auto 65px auto;
+      height: inherit;
+
+      .logo-block {
+        transform: inherit;
+      }
+    }
+  }
+
+  .features {
+    background-color: white;
+    padding: 45px 10px 30px;
+
+    &.expert {
+      padding-bottom: 40px;
+    }
+
+    @media screen and (min-width: $screen-md) {
+      padding-left: 80px;
+      padding-right: 80px;
+    }
+
+    ::selection {
+      background: $knowhub-orange;
+      color: white;
+    }
+
+    i {
+      color: $knowhub-orange;
+    }
+  }
+
+  .join-us {
+    background: $gradient;
+    margin: 40px auto -10px;
+    padding: 40px 10px 62px;
+    font-size: 110%;
+    text-transform: uppercase;
+    color: white;
+    @include text-shadow();
+
+    h2 {
+      color: white;
+    }
+
+    .btn {
+      padding-top: 12px;
+      font-size: 120%;
+    }
+  }
+
+  .intro {
+    padding: 25px 50px 30px 50px;
+    background: $gradient;
+    color: white;
+    @include text-shadow();
+
+    .btn-container {
+
+      .btn {
+        @include text-shadow();
+        padding-left: 0;
+        font-size: 150%;
+        position: relative;
+        bottom: 5px;
+
+        @media screen and (min-width: $screen-xs) {
+          font-size: 170%;
+        }
+      }
+    }
+
+    .text {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    p, h2 {
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-top: 15px;
+      color: white;
+
+      @media screen and (min-width: $screen-xs) {
+        font-size: 270%;
+      }
+    }
+
+    strong {
+      font-size: 120%;
+    }
+
+    @media screen and (max-width: ($screen-sm)-1) {
+      .users {
+        margin-top: 30px;
+      }
+    }
+
+    .social-buttons {
+      max-width: 600px;
+      margin: 25px auto 0;
+      display: table;
+      width: 100%;
+      color: white;
+
+      > div {
+        display: table-cell;
+        text-align: center;
+
+        .btn {
+          padding: 5px;
+          height: auto;
+          color: white;
+          @include text-shadow();
+        }
+      }
+    }
+  }
+
+}

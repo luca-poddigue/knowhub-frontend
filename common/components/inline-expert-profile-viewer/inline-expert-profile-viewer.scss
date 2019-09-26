@@ -1,0 +1,166 @@
+@import '../../../common/css/cvars';
+@import '../../../common/css/mixins';
+
+inline-expert-profile-viewer {
+  .fa.high-reputation {
+    margin-left: 4px;
+    color: $knowhub-orange;
+  }
+
+  bookmark-button {
+    position: relative;
+    top: 2px;
+    margin-left: 4px;
+  }
+
+  .overview-container {
+    display: table;
+    width: 100%;
+  }
+
+  .supporter-medal-block {
+    @include supporter-medal-block();
+  }
+
+  language-picker .ui-select-container {
+    max-width: 250px;
+  }
+
+  .btn.session-request {
+    margin: 8px 0;
+    position: relative;
+  }
+
+  .profile-picture {
+    display: table-cell;
+
+    @media screen and (max-width: $screen-xs) {
+      display: block;
+    }
+
+    .placeholder {
+      font-size: 100px;
+    }
+  }
+
+  h1 {
+    margin-top: 6px;
+  }
+
+  .name {
+    @media screen and (max-width: $screen-xs) {
+      margin-top: 5px;
+    }
+
+    h3 {
+      display: inline;
+    }
+  }
+
+  .overview {
+    display: table-cell;
+    padding: 0 0 0 16px;
+    vertical-align: top;
+    width: 100%;
+    position: relative;
+
+    @media screen and (max-width: $screen-xs) {
+      display: block;
+      padding: 0;
+    }
+  }
+
+  .user-data-blocks {
+    margin-top: -20px;
+
+    &.more-details {
+      margin-top: -15px;
+    }
+
+    .user-data-block {
+      display: inline-block;
+      margin: 25px 18px -8px 0;
+      vertical-align: top;
+
+      &.full-row {
+        display: block;
+        margin-top: 25px;
+        margin-bottom: 0;
+      }
+    }
+
+    .control-label {
+      margin: 0;
+      padding: 0;
+    }
+
+    .form-control-static {
+      margin: 0 0 6px;
+      min-height: 0;
+      padding: 0;
+    }
+  }
+
+  .language-block,
+  .skill-block {
+    margin: 0 0 5px 0;
+
+    > span {
+      padding-right: 5px;
+    }
+  }
+
+  .additional-details {
+    margin: 0 0 0 116px;
+    @media screen and (max-width: $screen-xs) {
+      margin-left: 0;
+    }
+  }
+
+  .comments-container {
+    margin-top: 6px;
+    max-height: 300px;
+    overflow-y: auto;
+
+    blockquote {
+      margin-bottom: 10px;
+      padding: 8px 18px;
+      font-size: inherit;
+
+      p {
+        white-space: pre-wrap;
+      }
+    }
+
+    footer {
+      font-size: 95%;
+
+      &::before {
+        content: '';
+      }
+    }
+  }
+
+  .education,
+  .experience {
+    border-bottom: solid 2px;
+    @include h-gradient-border($knowhub-orange, white);
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+
+    h4 {
+      margin-bottom: 0;
+    }
+  }
+
+  .details-btn {
+    margin: 28px -10px 0 -6px;
+    text-align: right;
+
+    .report-abuse-btn {
+      position: relative;
+      top: 5px;
+    }
+  }
+
+}

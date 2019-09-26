@@ -1,0 +1,33 @@
+<div ng-if="!$ctrl.isSessionComplete">
+    <div class="modal-header">
+        <h3 class="modal-title" ng-bind="'COMPLETE_SESSION_TITLE' | translate"></h3>
+    </div>
+    <div class="modal-body">
+        <div ng-bind-html="'COMPLETE_SESSION_TEXT' | translate"></div>
+    </div>
+    <div class="modal-footer">
+        <promise-button spinner="complete-session-spinner"
+        on-confirm="$ctrl.completeSession" on-cancel="$ctrl.dismiss"
+        confirm-text-key="COMPLETE_SESSION_COMPLETE"></promise-button>
+    </div>
+</div>
+
+<div ng-show="$ctrl.isSessionComplete">
+    <div class="modal-header">
+        <h3 class="modal-title" ng-bind="'SESSION_COMPLETE_TITLE' | translate"></h3>
+    </div>
+    <div class="modal-body complete-session">
+        <div ng-bind-html="'SESSION_COMPLETE_TEXT' | translate"></div>
+        <div>
+            <button class="share-session-on-facebook-btn share-btn" ng-click="$ctrl.shareOnFacebook()">
+                <i class="fa fa-facebook"></i><span ng-bind="'COMPLETE_SESSION_SHARE' | translate"></span>
+            </button>
+
+            <div id="share-session-on-twitter-btn" class="share-btn"></div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.close()"
+                ng-bind="'COMMON_CLOSE' | translate"></button>
+    </div>
+</div>

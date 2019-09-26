@@ -1,0 +1,8 @@
+<span class="hidden-xxs" id="info-point-{{$id}}">
+  <i class="fa fa-question-circle-o question-mark" aria-hidden="true" popover-class="info-point"
+     popover-append-to-body="$ctrl.appendToBody" popover-placement="{{'auto ' + $ctrl.placement}}"
+     uib-popover-html="$ctrl.message" popover-trigger="'outsideClick'" popover-is-open="$ctrl.popoverOpen"></i>
+</span>
+<span class="visible-xxs-inline">
+  <i class="fa fa-question-circle-o question-mark" aria-hidden="true" ng-click="$ctrl.showInfoModal()"></i>
+</span>

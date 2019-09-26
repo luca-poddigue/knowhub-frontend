@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h3>
+            <span ng-bind-html="('TOS_QUESTIONS_'+$ctrl.currentQuestion.id) | translate"></span>
+            <span ng-if="$ctrl.currentQuestion.type === 'multi'" class="label label-info"
+                  ng-bind="'TOS_QUESTIONS_CHECK_ALL_THAT_APPLY' | translate"></span>
+        </h3>
+        <div ng-repeat="i in $ctrl.ngRepeatToForArray($ctrl.currentQuestion.numAnswers)" class="answer-option">
+      <span ng-switch="$ctrl.currentQuestion.type">
+      <div ng-switch-when="multi" class="checkbox">
+          <label class="control control--checkbox">
+              <span ng-bind-html="('TOS_QUESTIONS_'+$ctrl.currentQuestion.id + '_A' + ($index+1)) | translate"></span>
+              <input ng-model="$ctrl.currentAnswer.value[$index]" type="checkbox" ng-change="$ctrl.markAnswered()">
+              <div class="control__indicator"></div>
+          </label>
+        </div>
+        <div ng-switch-when="single" class="radio">
+        <label class="control control--radio">
+              <span ng-bind-html="('TOS_QUESTIONS_'+$ctrl.currentQuestion.id + '_A' + ($index+1)) | translate"></span>
+              <input ng-model="$ctrl.currentAnswer.value" type="radio" value="{{$index+1}}"
+                     ng-change="$ctrl.markAnswered()">
+              <div class="control__indicator"></div>
+          </label>
+        </div>
+      </span>
+        </div>
+        <div class="questionnaire-btns text-right">
+            <button class="btn btn-primary" ng-disabled="!$ctrl.currentAnswer.answered"
+                    ng-if="$ctrl.currentQuestionNum < $ctrl.numQuestions" ng-click="$ctrl.nextQuestion()"
+                    ng-bind="'TOS_QUESTIONS_NEXT_QUESTION' | translate"></button>
+            <promise-button ng-if="$ctrl.currentQuestionNum === $ctrl.numQuestions" on-confirm="$ctrl.submitQuestions"
+                            confirm-text-key="TOS_QUESTIONS_SUBMIT_QUESTIONS"
+                            btn-disabled="!$ctrl.currentAnswer.answered"></promise-button>
+        </div>
+    </div>
+</div>

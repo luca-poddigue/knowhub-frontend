@@ -1,0 +1,23 @@
+search-page .container .content > div {
+  margin-top: 10px; }
+search-page language-picker > div {
+    max-width: none;
+}
+search-page .results-panel .panel-body {
+  padding-bottom: 2px; }
+search-page hr {
+  margin: 10px 0; }
+search-page .form-group[disabled] .control-label {
+  color: inherit; }
+search-page .form-group[disabled] .form-control {
+  border-color: #ccc; }
+search-page .form-group[disabled] .input-group-addon {
+  background-color: #eee;
+  border-color: #ccc;
+  color: inherit; }
+search-page .search-form {
+  margin-bottom: 20px; }
+  search-page .search-form .btn.on-off {
+    width: 50px; }
+
+/*# sourceMappingURL=search.css.map */

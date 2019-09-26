@@ -1,0 +1,36 @@
+/* line 2, C:/Users/lucap/Documents/GitHub/easyknow-frontend-test/src/main/webapp-unbuilt/common/components/collapsable-alert/collapsable-alert.scss */
+collapsable-alert .panel {
+    margin-bottom: 15px;
+}
+
+/* line 5, C:/Users/lucap/Documents/GitHub/easyknow-frontend-test/src/main/webapp-unbuilt/common/components/collapsable-alert/collapsable-alert.scss */
+collapsable-alert .panel .panel-heading {
+    position: relative;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
+/* line 10, C:/Users/lucap/Documents/GitHub/easyknow-frontend-test/src/main/webapp-unbuilt/common/components/collapsable-alert/collapsable-alert.scss */
+collapsable-alert .panel .panel-heading .panel-caret {
+    position: absolute;
+    bottom: 8px;
+    right: 23px;
+}
+
+/* line 16, C:/Users/lucap/Documents/GitHub/easyknow-frontend-test/src/main/webapp-unbuilt/common/components/collapsable-alert/collapsable-alert.scss */
+collapsable-alert .panel .panel-heading .title {
+    font-size: 18px;
+    padding-right: 28px;
+}
+
+/* line 22, C:/Users/lucap/Documents/GitHub/easyknow-frontend-test/src/main/webapp-unbuilt/common/components/collapsable-alert/collapsable-alert.scss */
+collapsable-alert .panel .panel-body {
+    padding-bottom: 8px;
+}
+
+/* line 27, C:/Users/lucap/Documents/GitHub/easyknow-frontend-test/src/main/webapp-unbuilt/common/components/collapsable-alert/collapsable-alert.scss */
+collapsable-alert .panel .btn-hide:hover, collapsable-alert .panel .btn-hide:focus {
+    color: inherit;
+}
+
+/*# sourceMappingURL=collapsable-alert.css.map */

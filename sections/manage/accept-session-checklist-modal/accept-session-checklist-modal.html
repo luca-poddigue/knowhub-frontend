@@ -1,0 +1,44 @@
+<form novalidate name="$ctrl.acceptSessionForm">
+    <div class="modal-header">
+        <h3 class="modal-title" ng-bind="'ACCEPT_SESSION_TITLE' | translate"></h3>
+    </div>
+
+    <div class="modal-body accept-session-checklist-modal">
+        <div class="intro-text" ng-bind-html="'ACCEPT_SESSION_TEXT' | translate"></div>
+
+        <div class="checklist">
+            <div class="checkbox">
+                <label class="control control--checkbox">
+                        <span ng-bind-html="'ACCEPT_SESSION_CHECKLIST_REQUIREMENTS' | translate">
+                        </span>
+                    <input id="check2" name="check2" type="checkbox" ng-model="$ctrl.acceptReceiptNumber"
+                           ng-true-predicate>
+                    <div class="control__indicator"></div>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="control control--checkbox">
+                        <span ng-bind-html="'ACCEPT_SESSION_CHECKLIST_PRICE' | translate">
+                        </span>
+                    <input id="check1" name="check1" type="checkbox" ng-model="$ctrl.acceptPrice" ng-true-predicate>
+                    <div class="control__indicator"></div>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label class="control control--checkbox">
+                        <span ng-bind-html="'ACCEPT_SESSION_CHECKLIST_TAX_RESPONSIBILITY' | translate">
+                        </span>
+                    <input id="check4" name="check4" type="checkbox" ng-model="$ctrl.acceptTaxResponsibility"
+                           ng-true-predicate>
+                    <div class="control__indicator"></div>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <promise-button spinner="accept-session-spinner" on-confirm="$ctrl.acceptSession"
+                        on-cancel="$ctrl.dismiss"
+                        confirm-text-key="SHARING_SESSION_ACCEPT"
+                        form="$ctrl.acceptSessionForm" btn-disabled="$ctrl.acceptSessionForm.$invalid"></promise-button>
+    </div>
+</form>

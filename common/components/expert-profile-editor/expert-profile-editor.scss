@@ -1,0 +1,143 @@
+@import '../../../common/css/cvars';
+@import '../../../common/css/mixins';
+
+expert-profile-editor {
+
+  .multilang-profile {
+
+    div[ng-messages] {
+      margin: 0;
+
+      > div[ng-message] {
+        margin-bottom: 4px;
+      }
+    }
+
+    .profile-lang-switch {
+      .btn-success,
+      .btn-danger {
+        font-size: 120%;
+        line-height: 15px;
+      }
+    }
+
+    h3 {
+      margin-top: 8px;
+    }
+
+    p {
+      margin-top: 12px;
+    }
+
+    label {
+      display: block;
+    }
+
+    .form-group {
+      display: inline-block;
+      margin: 0 20px 9px 0;
+    }
+  }
+
+  h3 {
+    color: $knowhub-orange;
+    margin-top: 30px;
+  }
+
+  h4 {
+    margin-top: 15px;
+    color: $knowhub-orange;
+  }
+
+  .panel.about {
+    div[ng-messages] {
+      margin-bottom: 0;
+    }
+  }
+
+  .markdown-toolbar .btn {
+    margin-bottom: 5px;
+  }
+
+  .markdown-textarea {
+    height: 200px;
+  }
+
+  .btn-block {
+    display: inline;
+    margin-right: 10px;
+  }
+
+  .btn.add-element {
+    margin-bottom: 12px;
+
+    &.full-width {
+      margin-top: 20px;
+      width: 100%;
+    }
+  }
+
+  .save-button {
+    margin: 40px 0 30px 0;
+  }
+
+  .sub-form {
+    margin-top: 18px;
+    padding: 6px 0 15px 0;
+    border-top: solid 1px $light-gray;
+    border-radius: 4px;
+    box-shadow: $shadow-bottom;
+    position: relative;
+
+    .form-group {
+      margin-bottom: 0;
+
+      label {
+        margin: 9px 0 0 0;
+      }
+
+      label + * + div {
+        margin: 0;
+      }
+    }
+
+    @media screen and (min-width: $screen-sm) {
+      .col-sm-4,
+      .col-sm-6,
+      .col-sm-8,
+      .col-sm-12 {
+        display: inline-block;
+        margin: -1px;
+        vertical-align: top;
+        float: none;
+      }
+    }
+
+    .actions {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+
+      .btn {
+        position: relative;
+        z-index: 10;
+      }
+
+      .delete-element {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  tags-picker.skills {
+    .label span {
+      text-transform: lowercase;
+    }
+  }
+
+  promise-button {
+    display: block;
+    margin-top: 30px;
+  }
+
+}

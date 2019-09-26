@@ -1,0 +1,26 @@
+@import "../../common/css/cvars";
+
+guide-page {
+  .container .content .questionnaire {
+    margin-top: 30px;
+  }
+
+  .panel-heading h4 {
+    margin-bottom: 0;
+    margin-top: 4px;
+  }
+
+  .panel-body .well {
+    margin-bottom: 0;
+  }
+
+  .btn.begin-questionnaire {
+    margin: 15px 0;
+    width: 74%;
+  }
+
+  .yt-video {
+    box-shadow: $shadow-bottom;
+    margin-bottom: 40px;
+  }
+}

@@ -1,0 +1,17 @@
+/* line 3, C:/Users/lucap/Documents/GitHub/knowhub-test/src/main/webapp-unbuilt/sections/pending-action-verification/pending-action-verification.scss */
+verify-pending-action-page .verification-code {
+    margin: auto;
+    max-width: 330px;
+}
+
+/* line 8, C:/Users/lucap/Documents/GitHub/knowhub-test/src/main/webapp-unbuilt/sections/pending-action-verification/pending-action-verification.scss */
+verify-pending-action-page .discard-section {
+    margin-top: 37px;
+}
+
+/* line 11, C:/Users/lucap/Documents/GitHub/knowhub-test/src/main/webapp-unbuilt/sections/pending-action-verification/pending-action-verification.scss */
+verify-pending-action-page .discard-section .btn {
+    margin-top: 10px;
+}
+
+/*# sourceMappingURL=pending-action-verification.css.map */

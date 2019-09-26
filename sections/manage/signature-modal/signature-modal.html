@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-bind="'INVOICE_CONFIG_WRITE_YOUR_SIGNATURE' | translate"></h3>
+</div>
+<div class="modal-body">
+    <canvas></canvas>
+</div>
+<div class="modal-footer">
+    <button ng-disabled="$ctrl.isEmpty" class="btn btn-default pull-left" ng-click="$ctrl.clear()"
+            ng-bind="'INVOICE_CONFIG_REWRITE_SIGNATURE' | translate"></button>
+    <div>
+        <button ng-disabled="$ctrl.isEmpty" class="btn btn-primary" ng-click="$ctrl.confirm()"
+                ng-bind="'COMMON_CONFIRM' | translate"></button>
+        <button class="btn btn-danger" ng-click="$ctrl.dismiss()" ng-bind="'COMMON_CANCEL' | translate"></button>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+@import '../../../../common/css/cvars';
+
+bookmark-button {
+  cursor: pointer;
+
+  .bookmarked {
+    color: $knowhub-orange;
+  }
+
+  .processing {
+    opacity: 0.5;
+    cursor: default;
+  }
+}

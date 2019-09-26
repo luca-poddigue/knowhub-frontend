@@ -1,0 +1,47 @@
+@media (min-width: 768px) {
+  seeker-profile-viewer > div {
+    display: table-row; }
+  seeker-profile-viewer .profile-picture {
+    display: table-cell; }
+  seeker-profile-viewer .details {
+    padding-left: 16px;
+    display: table-cell; } }
+seeker-profile-viewer .user-email {
+    font-size: 16px;
+    padding: 3px 0 0 2px;
+}
+seeker-profile-viewer .profile-picture {
+  margin-bottom: 15px;
+  vertical-align: top; }
+  @media (max-width: 767px) {
+    seeker-profile-viewer .profile-picture {
+      width: 100%; } }
+  seeker-profile-viewer .profile-picture.placeholder {
+    height: 100px;
+    font-size: 100px;
+    line-height: 126px; }
+    @media (min-width: 768px) {
+      seeker-profile-viewer .profile-picture.placeholder {
+        width: 100px; } }
+  seeker-profile-viewer .profile-picture img {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 9px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    top: 11px; }
+seeker-profile-viewer .details {
+  margin-left: 12px; }
+  seeker-profile-viewer .details .form-group {
+    margin-bottom: 0; }
+  seeker-profile-viewer .details .form-control-static {
+    padding: 0; }
+  @media (max-width: 767px) {
+    seeker-profile-viewer .details {
+      display: block;
+      margin-left: 0; } }
+seeker-profile-viewer .main-details {
+  margin-bottom: 10px; }
+  seeker-profile-viewer .main-details .name {
+    margin: 0;
+    padding: 0;
+    transform: translateY(11px); }
+
+/*# sourceMappingURL=seeker-profile-viewer.css.map */

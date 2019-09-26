@@ -1,0 +1,55 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-bind="'SESSION_FILES_MANAGER_ADD_FILES' | translate"></h3>
+</div>
+
+<div class="modal-body drop-box" ngf-drop="$ctrl.uploadFiles($files)" ngf-multiple="true" ngf-allow-dir="true"
+     ngf-drag-over-class="'dragover'">
+    <div class="dragover-overlay">
+        <div class="message label label-primary" ng-bind="'SESSION_FILES_MANAGER_DRAG_FILE_MESSAGE' | translate">
+        </div>
+    </div>
+
+    <table class="top-controls">
+        <tr>
+            <td class="btns">
+                <button class="btn btn-default" ngf-select="$ctrl.uploadFiles($files)" ngf-multiple="true"
+                        ngf-allow-dir="true" ng-bind="'COMMON_SELECT' | translate"
+                        ng-if="$ctrl.uploadStatus !== 'PROGRESS'"></button>
+                <button class="btn btn-danger" ng-show="$ctrl.isUploadInProgress()" ng-click="$ctrl.cancelUpload()"
+                        ng-bind="'SESSION_FILES_MANAGER_CANCEL_UPLOAD' | translate"></button>
+            </td>
+            <td class="message">
+                <span ng-if="$ctrl.uploadStatus === 'PENDING'" class="help-block"
+                      ng-bind="'SESSION_FILES_MANAGER_INSTRUCTIONS' | translate"></span>
+                <div ng-if="$ctrl.uploadStatus !== 'PENDING'" class="progress">
+                    <div class="progress-bar" style="width:{{$ctrl.progress}}%"
+                         ng-class="{'progress-bar-striped active': $ctrl.uploadStatus === 'PROGRESS', 'progress-bar-success': $ctrl.uploadStatus === 'COMPLETED', 'progress-bar-danger': $ctrl.uploadStatus === 'ERROR', 'progress-bar-warning': $ctrl.uploadStatus === 'WARNING'}"
+                         ng-bind="$ctrl.uploadStatus === 'ERROR' ? ('SESSION_FILES_MANAGER_FILE_UPLOAD_ERROR'|translate) : ($ctrl.progress + '%')"></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+    <ul ng-if="$ctrl.files && $ctrl.files.length" class="files-list list-group">
+        <li class="list-group-item" ng-repeat="file in $ctrl.files track by $index">
+            <span class="type-icon fa {{$ctrl.getFileTypeIcon(file.type)}}"></span>
+            <span class="dont-break-out" ng-bind="file.name"></span>
+            <div class="result" ng-if="$ctrl.uploadResults">
+        <span ng-if="!$ctrl.uploadResults[$index].startsWith('SUCCESS')" class="text-danger text-right"
+              ng-bind="'SESSION_FILES_MANAGER_'+ $ctrl.uploadResults[$index] | translate">
+        </span>
+                <span ng-if="$ctrl.uploadResults[$index] === 'SUCCESS_REPLACED'" class="text-success text-right"
+                      ng-bind="'SESSION_FILES_MANAGER_SUCCESS_REPLACED' | translate">
+        </span> &nbsp;
+                <span class="fa"
+                      ng-class="{'fa-check text-success': $ctrl.uploadResults[$index].startsWith('SUCCESS'), 'fa-exclamation-circle text-danger': !$ctrl.uploadResults[$index].startsWith('SUCCESS')}"></span>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div class="modal-footer">
+    <button ng-disabled="$ctrl.isUploadInProgress()" class="btn btn-default" ng-click="$ctrl.close()"
+            ng-bind="'COMMON_CLOSE' | translate"></button>
+</div>

@@ -1,0 +1,283 @@
+@import '../../../common/css/cvars';
+@import '../../../common/css/mixins';
+
+session-chat {
+
+  $chat-bar-height: 55px;
+  $new-message-container-height: 135px;
+
+  @mixin container() {
+    position: absolute;
+    top: $chat-bar-height;
+    bottom: $new-message-container-height;
+    left: 0;
+    right: 0;
+    padding: 10px 10px 0 10px;
+    margin-bottom: 10px;
+    overflow-y: auto;
+    border-width: 1px 0;
+    border-style: solid;
+    border-color: $gray-input;
+  }
+
+  .chat-container {
+    display: block;
+    position: fixed;
+    bottom: 39px;
+    right: 10px;
+    max-width: 380px;
+    width: 100%;
+    z-index: $session-chat-bar-z;
+
+    .session-chat-overlay {
+      background-color: rgba(0, 0, 0, 0.5);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: none;
+
+      @media screen and (max-width: $screen-sm) {
+        display: block;
+      }
+    }
+
+    .chat {
+      background-color: white;
+      height: 450px;
+      box-shadow: -2px 0px 10px 0 rgba(0, 0, 0, 0.13);
+
+      @media screen and (max-width: $screen-sm) {
+        $small-chat-margins: 13px;
+        height: inherit;
+
+        position: fixed;
+        top: $small-chat-margins;
+        bottom: $small-chat-margins;
+        left: $small-chat-margins;
+        right: $small-chat-margins;
+      }
+    }
+
+    .chat-bar {
+      margin-left: auto;
+      background-color: lighten($light-gray, 6%);
+      width: 100%;
+      padding: 10px 50px 10px 10px;
+      height: $chat-bar-height;
+
+      h4 {
+        margin: 0;
+      }
+
+      h5 {
+        margin: 3px 0 0 0;
+        color: lighten($text-body, 5%);
+        font-size: 95%;
+      }
+
+      .btn-close-chat {
+        font-size: 120%;
+        display: inline-block;
+        position: absolute;
+        right: -1px;
+        top: -2px;
+      }
+
+      .btn-reload-chat {
+        font-size: 120%;
+        display: inline-block;
+        position: absolute;
+        right: -1px;
+        top: 20px;
+      }
+    }
+
+    .new-message-container {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: $new-message-container-height;
+    }
+
+    .spinner {
+      position: absolute;
+      left: 50%;
+      top: $chat-bar-height + 15px;
+      transform: translateX(-50%) scale(0.7);
+      z-index: 5;
+    }
+
+    .scroll-to-bottom-btn {
+      position: absolute;
+      right: 0px;
+      bottom: $new-message-container-height +8px;
+      z-index: 5;
+      font-size: 10px;
+
+      i {
+        color: $knowhub-light-orange;
+      }
+    }
+
+    .messages-container {
+      @include container();
+
+      @mixin message-style($color, $align) {
+        text-align: $align;
+
+        > div {
+          text-align: left;
+          display: inline-block;
+          background-color: $color;
+          padding: 8px;
+          border-radius: 8px 0 8px 0;
+          max-width: 280px;
+
+          @media screen and (max-width: $screen-sm) {
+            max-width: calc(100vw - 170px);
+          }
+
+          @media screen and (max-width: 400px) {
+            max-width: calc(100vw - 70px);
+          }
+        }
+      }
+
+      &.initializing {
+        visibility: hidden;
+      }
+
+      .message {
+        margin-bottom: 15px;
+        word-wrap: break-word;
+        cursor: pointer;
+
+        &:last-child {
+          margin-bottom: 10px;
+        }
+
+        &.sent-by-user {
+          @include message-style(lighten($light-gray, 2%), right);
+        }
+
+        &.sent-by-other-user {
+          @include message-style(lighten($light-gray, 6%), left);
+        }
+
+        &.has-error {
+          > div {
+            background-color: rgba(255, 0, 0, 0.15);
+          }
+
+          .error-msg {
+            color: $red-danger;
+            font-size: 85%;
+            font-weight: bold;
+          }
+        }
+
+        .msg-date {
+          margin-top: 3px;
+          text-align: right;
+          font-size: 85%;
+          color: lighten($text-body, 20%);
+        }
+      }
+    }
+
+    .emoji-container {
+      @include container();
+      background-color: white;
+
+      > div {
+        padding-bottom: 10px;
+      }
+
+      .btn-emoji {
+        padding: 4px;
+      }
+    }
+
+    img.emoji {
+      width: 30px;
+      height: 30px;
+    }
+
+    #newMessageEditor {
+      padding: 6px;
+      cursor: text;
+      @include word-wrap();
+    }
+
+    #newMessageEditor,
+    .messages-container {
+      img.emoji {
+        margin: 0 2px;
+      }
+    }
+
+    .input-box {
+      padding: 0 10px;
+
+      > div {
+        display: inline-block;
+
+        &.message {
+          width: calc(100% - 35px);
+
+          .form-control {
+            height: auto;
+            max-height: 94px;
+            min-height: 94px;
+            overflow-y: auto;
+          }
+        }
+
+        &.btn-send-message {
+          vertical-align: bottom;
+
+          .btn {
+            height: 26px;
+            padding: 0;
+            margin: 0 0 6px 5px;
+          }
+        }
+      }
+
+      img::selection,
+      canvas::selection {
+        background: $knowhub-orange;
+        color: $knowhub-orange;
+      }
+    }
+
+    .validation-messages {
+      position: absolute;
+      padding: 1px;
+      left: 15px;
+      bottom: 32px;
+      background-color: white;
+    }
+
+    .emoji-categories {
+      margin: -4px 10px 5px 10px;
+
+      .btn-emoji-category {
+        padding: 0 5px;
+        font-size: 120%;
+
+        &.active {
+          color: $knowhub-orange;
+        }
+      }
+    }
+
+    &.open {
+      @media screen and (max-width: $screen-sm) {
+        z-index: $session-chat-z;
+      }
+    }
+  }
+}

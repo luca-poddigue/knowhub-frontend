@@ -1,0 +1,13 @@
+proficiency-viewer {
+  display: inline-block; }
+  proficiency-viewer > div {
+    display: inline; }
+
+proficiency-viewer .stars {
+    margin-right: 2px;
+}
+  proficiency-viewer .proficiency-level {
+    position: relative;
+    top: -2px; }
+
+/*# sourceMappingURL=proficiency-viewer.css.map */

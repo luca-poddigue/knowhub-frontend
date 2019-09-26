@@ -1,0 +1,18 @@
+steps:
+  - id: 'Decrypt env constants'
+    name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'kms'
+      - 'decrypt'
+      - '--ciphertext-file=common/constants/env.js.enc'
+      - '--plaintext-file=common/constants/env.js'
+      - '--location=global'
+      - '--keyring=build'
+      - '--key=frontend-env-dev'
+  - id: 'Install dependencies'
+    name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+  - id: 'Gulp build'
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args: ['gulp' 'build']

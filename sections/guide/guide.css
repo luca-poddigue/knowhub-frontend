@@ -1,0 +1,16 @@
+guide-page .container .content .questionnaire {
+  margin-top: 30px; }
+guide-page .panel-heading h4 {
+  margin-bottom: 0;
+  margin-top: 4px; }
+guide-page .panel-body .well {
+  margin-bottom: 0; }
+guide-page .btn.begin-questionnaire {
+    margin: 15px 0;
+  width: 74%; }
+guide-page .yt-video {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 9px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 40px;
+}
+
+/*# sourceMappingURL=guide.css.map */

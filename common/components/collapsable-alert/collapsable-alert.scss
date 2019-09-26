@@ -1,0 +1,33 @@
+collapsable-alert {
+  .panel {
+    margin-bottom: 15px;
+
+    .panel-heading {
+      position: relative;
+      padding-bottom: 5px;
+      cursor: pointer;
+
+      .panel-caret {
+        position: absolute;
+        bottom: 8px;
+        right: 23px;
+      }
+
+      .title {
+        font-size: 18px;
+        padding-right: 28px;
+      }
+    }
+
+    .panel-body {
+      padding-bottom: 8px;
+    }
+
+    .btn-hide {
+      &:hover,
+      &:focus {
+        color: inherit;
+      }
+    }
+  }
+}

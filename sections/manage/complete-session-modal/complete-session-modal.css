@@ -1,0 +1,18 @@
+.modal-dialog .complete-session .share-btn {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 5px;
+  height: 28px; }
+.modal-dialog .complete-session .share-session-on-facebook-btn {
+  display: inline-block;
+  background-color: #3b5998;
+  color: white;
+  border-radius: 5px;
+  padding: 4px 10px;
+  outline: none; }
+  .modal-dialog .complete-session .share-session-on-facebook-btn i {
+    padding-right: 6px; }
+  .modal-dialog .complete-session .share-session-on-facebook-btn:hover {
+    background-color: #2d4373; }
+
+/*# sourceMappingURL=complete-session-modal.css.map */

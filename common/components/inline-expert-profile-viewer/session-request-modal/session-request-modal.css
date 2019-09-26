@@ -1,0 +1,58 @@
+.session-request-modal .form-group.time-span {
+    margin-bottom: 0;
+}
+
+.session-request-modal .form-group.time-span .time-span-validation .help-block {
+    margin: 10px 0 0 0;
+}
+.session-request-modal [name=session-request-calendar-spinner] .spinner-container {
+    margin-top: 10px;
+}
+.session-request-modal .form-control-static {
+  padding: 0; }
+.session-request-modal .calendar-btns {
+  margin-bottom: 9px; }
+  .session-request-modal .calendar-btns > div {
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 6px; }
+.session-request-modal .calendar a {
+  text-decoration: none; }
+  .session-request-modal .calendar a:hover {
+    text-decoration: none; }
+.session-request-modal .fc-today,
+.session-request-modal th.fc-today,
+.session-request-modal td.fc-today {
+  background-color: inherit; }
+.session-request-modal .fc-bgevent {
+  background-color: #ccc;
+  cursor: not-allowed; }
+.session-request-modal .fc-event {
+  cursor: default;
+  background-color: #ff9800;
+  border-color: #ff9800; }
+  .session-request-modal .fc-event.session-event {
+    cursor: not-allowed;
+    background-color: #37bc9b;
+    border-color: #37bc9b;
+    border-radius: 0; }
+    .session-request-modal .fc-event.session-event .fc-time {
+      visibility: hidden; }
+
+.session-request-modal .fc-event.session-request-event .fc-title {
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.session-request-modal .fc-event.future-availability-event {
+    cursor: not-allowed;
+    background-color: #d8b0d0;
+    border-color: #d8b0d0;
+    border-radius: 0;
+}
+
+.session-request-modal .fc-event.future-availability-event .fc-time {
+    visibility: hidden;
+}
+
+/*# sourceMappingURL=session-request-modal.css.map */

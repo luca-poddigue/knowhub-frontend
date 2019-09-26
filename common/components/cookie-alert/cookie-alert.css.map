@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,qBAAsB;EACpB,MAAM,EAAE,GAAG;EACX,MAAM,EAAE,CAAC;EACT,SAAS,EAAE,KAAK;EAChB,QAAQ,EAAE,KAAK;EACf,KAAK,EAAE,IAAI;EACX,OAAO,EC2CQ,IAAI",
+"sources": ["cookie-alert.scss","../../css/_cvars.scss"],
+"names": [],
+"file": "cookie-alert.css"
+}

@@ -1,0 +1,8 @@
+@import '../../css/cvars';
+@import '../../css/mixins';
+
+// Refer to bower_components/flag-icon-css to add new flags.
+
+locale-picker {
+  @include picker-with-img();
+}

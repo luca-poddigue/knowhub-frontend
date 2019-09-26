@@ -1,0 +1,124 @@
+<div>
+
+    <div class="jumbotron">
+        <h1 ng-bind="'ACCOUNT_PROFILE_TITLE' | translate"></h1>
+        <p ng-bind="'ACCOUNT_PROFILE_SUBTITLE' | translate"></p>
+    </div>
+
+    <div ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}" class="content">
+
+        <div ng-if="$ctrl.userInfo" id="seeker-profile" class="seeker-profile">
+            <h2 ng-bind="'COMMON_USER_PROFILE' | translate"></h2>
+            <div class="edit-btns">
+                <button ng-if="!$ctrl.isSeekerProfileEdit" class="btn btn-primary"
+                        ng-click="$ctrl.isSeekerProfileEdit = true"
+                        ng-bind="'ACCOUNT_PROFILE_EDIT_PROFILE' | translate"></button>
+            </div>
+
+            <div class="supporter-medal-block" ng-if="$ctrl.showSupporterBadge()">
+                <img class="medal" mf-src="/common/images/medal">
+                <div class="explanation" ng-bind-html="::'ACCOUNT_PROFILE_SUPPORTER_BADGE_TEXT' | translate"></div>
+            </div>
+
+            <seeker-profile-viewer user-info="$ctrl.userInfo" ng-if="!$ctrl.isSeekerProfileEdit"
+                                   mode="UPDATE"></seeker-profile-viewer>
+            <seeker-profile-editor user-info="$ctrl.userInfo" ng-if="$ctrl.isSeekerProfileEdit" mode="UPDATE"
+                                   on-save="$ctrl.onSeekerProfileSave(userInfo)"
+                                   on-cancel="$ctrl.onSeekerProfileCancel()"></seeker-profile-editor>
+        </div>
+
+        <div ng-if="$ctrl.expertProfile">
+            <h2 ng-bind="'COMMON_EXPERT_PROFILE' | translate">
+            </h2>
+            <div class="edit-btns" ng-if="!$ctrl.isExpertProfileEdit">
+                <promise-button btn-style="default" on-confirm="$ctrl.becomeSeeker"
+                                confirm-text-key="EXPERT_PROFILE_BECOME_SEEKER"></promise-button>
+            </div>
+            <div ng-if="$ctrl.showExpertProfile">
+                <div id="expert-profile" class="expert-profile">
+                    <h3 class="title" ng-bind="'EXPERT_PROFILE_PUBLIC_PROFILE' | translate"></h3>
+                    <div class="alert alert-warning"
+                         ng-if="!$ctrl.isExpertProfileEdit && !$ctrl.expertProfile.valid"
+                         ng-bind="'EXPERT_PROFILE_COMPLETE_PROFILE' | translate"></div>
+                    <div ng-if="!$ctrl.isExpertProfileEdit">
+                        <button class="btn btn-primary" ng-click="$ctrl.isExpertProfileEdit = true"
+                                ng-bind="'ACCOUNT_PROFILE_EDIT_PROFILE' | translate"></button>
+                    </div>
+                    <expert-profile-viewer ng-if="!$ctrl.isExpertProfileEdit && $ctrl.expertProfile.valid"
+                                           expert-profile="$ctrl.expertProfile"></expert-profile-viewer>
+                    <expert-profile-editor expert-profile="$ctrl.expertProfile" ng-if="$ctrl.isExpertProfileEdit"
+                                           on-save="$ctrl.onExpertProfileSave(expertProfile)"
+                                           on-cancel="$ctrl.onExpertProfileCancel()"></expert-profile-editor>
+                </div>
+
+                <div id="payout-details" class="payout-details">
+                    <h3 class="title">
+                        <span ng-bind="'EXPERT_PROFILE_PAYOUT_DETAILS' | translate"></span>
+                        <info-point message-key="EXPERT_PROFILE_PAYOUT_DETAILS_TOOLTIP"></info-point>
+                    </h3>
+
+                    <div class="payout-status" ng-if="$ctrl.payoutDetails.filledAtLeastOnce">
+                        <user-metric-viewer ng-if="$ctrl.payoutDetails.payoutEnabled"
+                                            info-key="EXPERT_PROFILE_PAYOUT_ENABLED_INFO" class="enabled">
+                            <number>
+                                <i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;<span
+                                    ng-bind="'EXPERT_PROFILE_PAYOUT_ENABLED' | translate"></span>
+                            </number>
+                            <meaning ng-bind="'EXPERT_PROFILE_PAYOUT_STATUS' | translate"></meaning>
+                        </user-metric-viewer>
+                        <user-metric-viewer ng-if="!$ctrl.payoutDetails.payoutEnabled"
+                                            info-key="EXPERT_PROFILE_PAYOUT_DISABLED_INFO" class="disabled">
+                            <number>
+                                <i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;<span
+                                    ng-bind="'EXPERT_PROFILE_PAYOUT_DISABLED' | translate"></span>
+                            </number>
+                            <meaning ng-bind="'EXPERT_PROFILE_PAYOUT_STATUS' | translate"></meaning>
+                        </user-metric-viewer>
+                    </div>
+
+                    <div class="alert alert-info"
+                         ng-if="!$ctrl.isPayoutDetailsEdit
+                            && $ctrl.payoutDetails.filledAtLeastOnce
+                            && $ctrl.payoutDetails.verificationStatus === 'PENDING'"
+                         ng-bind-html="'EXPERT_PROFILE_PAYOUT_DETAILS_PENDING_VALIDATION' | translate">
+                    </div>
+                    <div class="alert alert-danger"
+                         ng-if="!$ctrl.isPayoutDetailsEdit && $ctrl.payoutDetails.verificationErrorCode"
+                         ng-bind-html="'EXPERT_PROFILE_ID_VALIDATION_' + $ctrl.payoutDetails.verificationErrorCode.toUpperCase() | translate">
+                    </div>
+                    <div class="alert alert-warning"
+                         ng-if="!$ctrl.isPayoutDetailsEdit && !$ctrl.payoutDetails.filledAtLeastOnce"
+                         ng-bind-html="'EXPERT_PROFILE_MISSING_PAYOUT_DETAILS' | translate">
+                    </div>
+
+                    <div>
+                        <button ng-if="!$ctrl.isPayoutDetailsEdit"
+                                class="btn btn-primary"
+                                ng-click="$ctrl.isPayoutDetailsEdit = true"
+                                ng-bind="'ACCOUNT_PROFILE_EDIT_PROFILE' | translate"
+                                ng-disabled="$ctrl.payoutDetails.filledAtLeastOnce &&
+                        $ctrl.payoutDetails.verificationStatus === 'PENDING'"></button>
+                    </div>
+                    <payout-details-viewer ng-if="!$ctrl.isPayoutDetailsEdit"
+                                           payout-details="$ctrl.payoutDetails"></payout-details-viewer>
+                    <payout-details-editor expert-country="{{$ctrl.userInfo.country}}"
+                                           ng-if="$ctrl.isPayoutDetailsEdit"
+                                           user-full-name="{{$ctrl.userInfo.firstName + ' ' + $ctrl.userInfo.lastName}}"
+                                           payout-details="$ctrl.payoutDetails"
+                                           on-save="$ctrl.onPayoutDetailsSave(payoutDetails)"
+                                           on-cancel="$ctrl.onPayoutDetailsCancel()"></payout-details-editor>
+                </div>
+
+            </div>
+        </div>
+
+        <div ng-if="!$ctrl.initializing && !$ctrl.showExpertProfile">
+            <h4 ng-bind="'EXPERT_PROFILE_NOT_AN_EXPERT' | translate"></h4>
+            <p ng-bind="'EXPERT_PROFILE_NOT_AN_EXPERT_TEXT' | translate"></p>
+            <promise-button on-confirm="$ctrl.becomeExpert"
+                            confirm-text-key="EXPERT_PROFILE_BECOME_EXPERT"></promise-button>
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAMI;mDAAS;EACP,UAAU,EAAE,KAAK;AAIrB,yBAAkC;EAE9B,+CAAa;IACX,UAAU,EAAE,IAAI",
+"sources": ["tab-support-dashboard.scss"],
+"names": [],
+"file": "tab-support-dashboard.css"
+}

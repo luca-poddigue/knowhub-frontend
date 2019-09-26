@@ -1,0 +1,16 @@
+.modal-dialog .session-price .form-group {
+  text-align: center;
+  margin-bottom: 0; }
+
+.modal-dialog .session-price .form-group h-number .input-group {
+    margin: auto;
+    width: 150px; }
+.modal-dialog .session-price .price-limit-alert .alert {
+  margin-top: 16px;
+  margin-bottom: 0; }
+
+.modal-dialog .session-price .service-fee-text {
+    margin-top: 20px;
+}
+
+/*# sourceMappingURL=session-price-modal.css.map */

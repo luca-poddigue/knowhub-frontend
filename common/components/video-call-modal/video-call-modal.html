@@ -1,0 +1,43 @@
+<div class="modal-body" id="video-call-modal" draggable-elem="{{$ctrl.isMinimized}}">
+
+    <div class="status" ng-switch=$ctrl.status>
+        <h4 ng-switch-when="connecting" ng-bind="'VIDEO_CALL_CONNECTING' | translate"></h4>
+        <div ng-switch-when="waitingForOtherUser">
+            <h4 ng-bind="'VIDEO_CALL_WAITING_FOR' | translate"></h4>
+            <h3><strong ng-bind="$ctrl.otherUserName"></strong></h3>
+        </div>
+        <div ng-switch-when="otherUserDisconnected">
+            <h3><strong ng-bind="$ctrl.otherUserName"></strong></h3>
+            <h4 ng-bind="'VIDEO_CALL_HAS_DISCONNECTED' | translate"></h4>
+        </div>
+        <div ng-switch-when="error">
+            <h3 class="error"><strong ng-bind="'VIDEO_CALL_ERROR' | translate"></strong></h3>
+        </div>
+        <spinner name="video-call-spinner"></spinner>
+    </div>
+
+    <div id="remote-media"></div>
+
+        <div class="controls btn-group" uib-dropdown is-open="$ctrl.menuOpen">
+            <button type="button" class="btn btn-no-style" uib-dropdown-toggle>
+                <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+            </button>
+            <ul class="dropdown-menu video-call-dropdown" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-single-button">
+                <li role="menuitem"><a class="btn btn-no-style" ng-click="$ctrl.minimizeVideoCall()" ng-bind="'VIDEO_CALL_REDUCE_WINDOW' | translate"></a></li>
+                <li ng-if="$ctrl.status !== 'error'" role="menuitem"><a class="btn btn-no-style" ng-click="$ctrl.toggleShowLocalMedia()" ng-bind="$ctrl.showLocalMedia ? ('VIDEO_CALL_HIDE_PREVIEW' | translate) : ('VIDEO_CALL_SHOW_PREVIEW' | translate)"></a>
+                </li>
+                <li ng-if="$ctrl.isScreenSharingSupported && ($ctrl.status === 'transmitting' || $ctrl.status === 'waitingForOtherUser') && !$ctrl.isSharingScreen" role="menuitem"><a class="btn btn-no-style" ng-click="$ctrl.toggleScreenSharing($event)" ng-bind="'VIDEO_CALL_SHARE_SCREEN' | translate"></a>
+                    <div class="missing-extension-msg" ng-if="$ctrl.showMissingExtensionMessage" ng-bind-html="'VIDEO_CALL_MISSING_EXTENSION_TEXT' | translate">
+                    </div>
+                </li>
+                <li class="divider"></li>
+                <li role="menuitem"><a class="btn btn-no-style hang-up" ng-click="$ctrl.hangUp()" ng-bind="'VIDEO_CALL_HANG_UP' | translate"></a></li>
+            </ul>
+        </div>
+
+    <button class="btn btn-no-style btn-enlarge" ng-click="$ctrl.enlargeVideoCall()">
+        <i class="fa fa-window-maximize" aria-hidden="true"></i>
+    </button>
+
+    <div ng-show="$ctrl.showLocalMedia" id="local-media" draggable-elem="true" right></div>
+</div>

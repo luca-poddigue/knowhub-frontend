@@ -1,0 +1,53 @@
+tab-log .label {
+  padding: 2px 4px; }
+  tab-log .label.label-user {
+    background-color: #23d200; }
+  tab-log .label.label-seeker {
+    background-color: #34caff; }
+  tab-log .label.label-expert {
+    background-color: #445cb4; }
+tab-log .btn-print {
+  margin-top: 25px; }
+  @media screen and (min-width: 768px) {
+    tab-log .btn-print {
+      text-align: right; } }
+tab-log .user-types.btn-group {
+  display: block;
+  height: 36px; }
+  tab-log .user-types.btn-group.prevent-click .btn-primary {
+    pointer-events: none;
+    cursor: default; }
+tab-log .logs-list div {
+  padding: 0; }
+tab-log .logs-list .header {
+  padding: 0 5px;
+  border-bottom-style: solid;
+  border-color: #ff9800;
+  border-width: 0 0 2px; }
+tab-log .logs-list .title h5,
+tab-log .logs-list .title h4 {
+  font-weight: bold; }
+tab-log .logs-list .log-entry {
+  padding: 10px 5px;
+  border-bottom-style: solid;
+  border-color: #ff9800;
+  border-width: 0 0 1px; }
+
+tab-log .logs-list .log-entry .file-link {
+    font-weight: bold; }
+  tab-log .logs-list .log-entry .label {
+    display: inline-block;
+    margin-bottom: 1px; }
+  tab-log .logs-list .log-entry .action {
+    margin-top: 2px;
+    font-weight: bold; }
+    @media screen and (min-width: 768px) {
+      tab-log .logs-list .log-entry .action {
+        font-size: inherit;
+        margin: 0;
+        line-height: 20px; } }
+  tab-log .logs-list .log-entry .details {
+    margin-top: 15px;
+    margin-bottom: 3px; }
+
+/*# sourceMappingURL=tab-log.css.map */

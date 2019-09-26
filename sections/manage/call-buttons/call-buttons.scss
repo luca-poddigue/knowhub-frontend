@@ -1,0 +1,135 @@
+@import "../../../common/css/cvars";
+@import "../../../common/css/mixins";
+
+call-buttons {
+  display: block;
+
+  .steps {
+    margin: 4px 0 0 6px;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+  }
+
+  .btn-container {
+    .call-id {
+      margin-top: 6px;
+      font-size: 90%;
+
+      .title {
+        font-weight: bold;
+        margin-bottom: -2px;
+      }
+    }
+
+    &.hangouts {
+      .call-id {
+        margin-top: 0;
+      }
+    }
+
+    @media screen and (min-width: 550px) {
+      display: table;
+
+      > div {
+        display: table-cell;
+        vertical-align: middle;
+      }
+
+      .call-id {
+        margin-top: 0;
+      }
+
+      .call-btn {
+        padding-right: 20px;
+      }
+
+      &.hangouts {
+        .call-id {
+          padding-bottom: 3px;
+        }
+      }
+    }
+  }
+
+  .call-method-picker {
+    @include picker-with-img();
+
+    .ui-select {
+      &-container {
+        height: 40px;
+        width: 225px;
+        display: inline-block;
+      }
+
+      &-toggle {
+        height: 40px;
+        padding-top: 0;
+        padding-bottom: 0;
+
+        > .caret {
+          margin-top: -1px;
+        }
+      }
+
+      &-choices-row-inner,
+      &-match-text {
+        display: table;
+        width: 100%;
+      }
+
+      &-match-text > div {
+        height: 43px;
+      }
+      &-placeholder {
+        line-height: 40px;
+      }
+
+      &-choices-row > a div {
+        img {
+          bottom: 0;
+        }
+      }
+
+      &-choices-group div,
+      &-match-text > div {
+        display: block;
+
+        &.choice-img {
+          display: table-cell;
+          vertical-align: top;
+          text-align: center;
+          width: 26px;
+
+          img {
+            width: 100%;
+          }
+        }
+
+        &.choice-text {
+          display: table-cell;
+          vertical-align: middle;
+          padding-left: 12px;
+
+          .reason {
+            font-size: 85%;
+            white-space: pre-wrap;
+            color: $red-danger;
+            font-weight: bold;
+          }
+        }
+      }
+
+      &-match-text > div.choice-img {
+        vertical-align: middle;
+        overflow: visible;
+      }
+    }
+
+    .glyphicon {
+      top: 12px;
+    }
+  }
+}

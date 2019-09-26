@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAGE,yBAAkC;EAChC,sCAAwB;IACtB,UAAU,EAAE,mBAAmB",
+"sources": ["manage.scss"],
+"names": [],
+"file": "manage.css"
+}

@@ -1,0 +1,24 @@
+tab-preferences .live-notifications .switch .control-label {
+    color: inherit;
+    padding-left: 6px;
+}
+tab-preferences .live-notifications .notifications {
+  margin-bottom: 10px; }
+tab-preferences .live-notifications .notification-sound .checkbox {
+    display: inline-block;
+    margin-top: 0;
+}
+tab-preferences .live-notifications .notification-sound info-point {
+    margin-left: 5px;
+}
+
+tab-preferences .session-price-limit user-metric-viewer {
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+tab-preferences .session-price-limit .pending-approval-alert {
+    margin-top: 5px;
+}
+
+/*# sourceMappingURL=tab-preferences.css.map */

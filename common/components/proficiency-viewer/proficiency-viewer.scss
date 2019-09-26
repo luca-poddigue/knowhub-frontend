@@ -1,0 +1,16 @@
+proficiency-viewer {
+  display: inline-block;
+
+  > div {
+    display: inline;
+  }
+
+  .stars {
+    margin-right: 2px;
+  }
+
+  .proficiency-level {
+    position: relative;
+    top: -2px;
+  }
+}

@@ -1,0 +1,12 @@
+<div>
+    <ui-select ng-model="$ctrl.currency" on-select="$ctrl.onSelectCallback($item)" search-enabled="false"
+               remove-selected="false" skip-focusser="true">
+        <ui-select-match>
+            <div ng-bind-html="$ctrl.currency.name +' ('+$ctrl.currency.symbol+')'"></div>
+        </ui-select-match>
+        <ui-select-choices
+                repeat="currency.value as (key, currency) in $ctrl.currencies | filter: {'$': $select.search}  track by $index">
+            <div ng-bind-html="currency.value.name+' ('+currency.value.symbol+')' | highlight: $select.search"></div>
+        </ui-select-choices>
+    </ui-select>
+</div>

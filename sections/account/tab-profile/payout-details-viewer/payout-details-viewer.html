@@ -1,0 +1,85 @@
+<div ng-if="$ctrl.showAddress()" class="details">
+    <h4 class="subtitle" ng-bind="'EXPERT_PROFILE_PERSONAL_DETAILS' | translate"></h4>
+
+    <div class="form-group">
+        <label class="control-label" for="birthDate" ng-bind="'EXPERT_PROFILE_BIRTH_DATE' | translate"></label>
+        <p id="birthDate" class="form-control-static" ng-bind="$ctrl.formattedBirthDate"></p>
+    </div>
+
+    <div class="form-group" ng-if="$ctrl.payoutDetails.address">
+        <label class="control-label" for="address" ng-bind="'EXPERT_PROFILE_STREET_ADDRESS' | translate"></label>
+        <div id="address" class="form-control-static"
+             ng-bind-html="$ctrl.payoutDetails.address"></div>
+    </div>
+
+    <div class="form-group" ng-if="$ctrl.payoutDetails.city">
+        <label class="control-label" for="city" ng-bind="'EXPERT_PROFILE_CITY' | translate"></label>
+        <div id="city" class="form-control-static"
+             ng-bind-html="$ctrl.payoutDetails.city"></div>
+    </div>
+
+    <div class="form-group" ng-if="$ctrl.payoutDetails.state">
+        <label class="control-label" for="state" ng-bind="'EXPERT_PROFILE_STATE' | translate"></label>
+        <div id="state" class="form-control-static"
+             ng-bind-html="$ctrl.payoutDetails.state"></div>
+    </div>
+
+    <div class="form-group" ng-if="$ctrl.payoutDetails.zipCode">
+        <label class="control-label" for="zipCode" ng-bind="'EXPERT_PROFILE_ZIP_CODE' | translate"></label>
+        <div id="zipCode" class="form-control-static"
+             ng-bind-html="$ctrl.payoutDetails.zipCode"></div>
+    </div>
+</div>
+
+<div class="details" ng-if="$ctrl.showBankAccountDetails()">
+    <h4 class="subtitle" ng-bind="'EXPERT_PROFILE_BANK_ACCOUNT' | translate"></h4>
+
+    <div class="form-group" ng-if="$ctrl.payoutDetails.ibanLastFourDigits">
+        <label class="control-label" for="ibanLastFourDigits" ng-bind="'EXPERT_PROFILE_IBAN' | translate"></label>
+        <div id="ibanLastFourDigits" class="form-control-static"
+             ng-bind="('EXPERT_PROFILE_TERMINATES_WITH' | translate) + ' ' + $ctrl.payoutDetails.ibanLastFourDigits"></div>
+    </div>
+</div>
+
+<div class="id-doc" ng-if="$ctrl.payoutDetails.filledAtLeastOnce && !$ctrl.payoutDetails.idDocumentRequired">
+    <h4 ng-bind="'EXPERT_PROFILE_ID_DOC' | translate"></h4>
+    <div class="row">
+        <div class="form-group col-sm-2">
+            <label class="control-label" ng-bind="'EXPERT_PROFILE_FRONT' | translate"></label>
+            <div>
+                <i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;<span
+                    ng-bind="'EXPERT_PROFILE_ID_DOC_PROVIDED' | translate"></span>
+            </div>
+        </div>
+        <div class="form-group col-sm-2">
+            <label class="control-label" ng-bind="'EXPERT_PROFILE_REAR' | translate"></label>
+            <div>
+                <i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;<span
+                    ng-bind="'EXPERT_PROFILE_ID_DOC_PROVIDED' | translate"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="invoicing" ng-if="$ctrl.showInvoicing()">
+    <h4 ng-bind="'EXPERT_PROFILE_INVOICING' | translate"></h4>
+    <div class="row">
+        <div class="form-group col-sm-4" ng-if="$ctrl.payoutDetails.taxCode">
+            <label class="control-label" ng-bind="'EXPERT_PROFILE_TAX_CODE' | translate"></label>
+            <div class="form-control-static" id="taxCode" ng-bind-html="$ctrl.payoutDetails.taxCode"></div>
+        </div>
+        <div class="form-group col-sm-2" ng-if="$ctrl.payoutDetails.vatNumber">
+            <label class="control-label" ng-bind="'EXPERT_PROFILE_VAT_NUMBER' | translate"></label>
+            <div class="form-control-static" id="vatNumber" ng-bind-html="$ctrl.payoutDetails.vatNumber"></div>
+        </div>
+        <div class="form-group col-sm-5" ng-if="$ctrl.payoutDetails.codiceDestinatario">
+            <label class="control-label" ng-bind="'EXPERT_PROFILE_CODICE_DESTINATARIO' | translate"></label>
+            <div class="form-control-static" id="codiceDestinatario"
+                 ng-bind-html="$ctrl.payoutDetails.codiceDestinatario"></div>
+        </div>
+        <div class="form-group col-sm-5" ng-if="$ctrl.payoutDetails.pecAddress">
+            <label class="control-label" ng-bind="'EXPERT_PROFILE_PEC_ADDRESS' | translate"></label>
+            <div class="form-control-static" id="pecAddress" ng-bind-html="$ctrl.payoutDetails.pecAddress"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,337 @@
+<form id="expert-profile-editor" name="$ctrl.expertProfileForm" novalidate>
+    <h4>
+        <span required ng-bind="'EXPERT_PROFILE_LANGUAGES' | translate"></span>
+        <info-point message-key="EXPERT_PROFILE_LANGUAGE_TOOLTIP"></info-point>
+    </h4>
+    <div class="form-group">
+        <tags-picker editable-tags="true" allow-custom-tags="false" id="spokenLanguages" name="spokenLanguages"
+                     no-tags-found-key="EXPERT_PROFILE_EDITOR_LANGUAGE_NO_TAGS_FOUND"
+                     ng-model="$ctrl.expertProfile.spokenLanguages" tags="$ctrl.languages" label-property="nativeName"
+                     proficiency-levels="$ctrl.languageProficiencyLevels" enable-proficiency="true"
+                     on-tags-change="$ctrl.onLanguageTagsChange($event)" ng-array-maxlength="10" ng-array-minlength="1"
+                     required></tags-picker>
+        <div ng-show="$ctrl.expertProfileForm.spokenLanguages.$touched"
+             ng-messages="$ctrl.expertProfileForm.spokenLanguages.$error" class="help-block text-danger">
+            <div ng-message="arrayMaxlength" ng-bind="'EXPERT_PROFILE_TOO_MANY_LANGUAGE_TAGS' | translate"></div>
+            <div ng-message="arrayMinlength" ng-bind="'EXPERT_PROFILE_LANGUAGE_TAGS_REQUIRED' | translate"></div>
+            <div ng-message="required" ng-bind="'EXPERT_PROFILE_LANGUAGE_TAGS_REQUIRED' | translate"></div>
+        </div>
+    </div>
+
+    <div id="multilang-profile" class="well well-sm multilang-profile">
+        <h4>
+            <span ng-bind="'EXPERT_PROFILE_MULTILANGUAGE_PROFILE' | translate"></span>
+        </h4>
+        <div>
+            <div ng-if="$ctrl.expertProfile.spokenLanguages && $ctrl.expertProfile.spokenLanguages.length"
+                 ng-bind-html="'EXPERT_PROFILE_MULTILANGUAGE_PROFILE_TEXT' | translate"></div>
+            <div ng-if="!$ctrl.expertProfile.spokenLanguages || !$ctrl.expertProfile.spokenLanguages.length"
+                 ng-bind-html="'EXPERT_PROFILE_MULTILANGUAGE_PROFILE_NO_LANGS_TEXT' | translate"></div>
+            <div ng-if="$ctrl.expertProfile.spokenLanguages && $ctrl.expertProfile.spokenLanguages.length"
+                 class="form-group">
+                <label class="control-label" ng-bind="'EXPERT_PROFILE_LANGUAGES' | translate"></label>
+                <div ng-if="$ctrl.expertProfile.spokenLanguages && $ctrl.expertProfile.spokenLanguages.length"
+                     class="profile-languages btn-group">
+                    <button ng-repeat="language in $ctrl.getSpokenLanguagesCodes()" type="button"
+                            ng-class="{'active': $ctrl.currentLanguage === language}" class="btn btn-default"
+                            ng-bind="language | codeToLanguage"
+                            ng-click="$ctrl.displayProfileLanguage(language)"></button>
+                </div>
+            </div>
+            <div ng-if="$ctrl.expertProfile.spokenLanguages && $ctrl.expertProfile.spokenLanguages.length"
+                 class="form-group">
+                <label class="control-label" ng-bind="'EXPERT_PROFILE_OFFER_PROFILE' | translate"></label>
+                <div class="btn-group profile-lang-switch">
+                    <button ng-class="{'btn-success': $ctrl.profileLanguageIsAvailable()}" type="button"
+                            class="btn btn-default" ng-bind="'COMMON_YES' | translate"
+                            ng-click="$ctrl.addProfileLanguage()"></button>
+                    <button ng-class="{'btn-danger': !$ctrl.profileLanguageIsAvailable()}" type="button"
+                            class="btn btn-default" ng-bind="'COMMON_NO' | translate"
+                            ng-click="$ctrl.deleteProfileLanguage()"></button>
+                </div>
+            </div>
+            <input type="hidden" name="availableLanguages" id="availableLanguages"
+                   ng-model="$ctrl.expertProfile.availableLanguages" ng-array-minlength="1">
+            <div ng-messages="$ctrl.expertProfileForm.availableLanguages.$touched && $ctrl.expertProfileForm.availableLanguages.$error"
+                 class="help-block text-danger">
+                <div ng-message="arrayMinlength"
+                     ng-bind="'EXPERT_PROFILE_AT_LEAST_ONE_PROFILE_LANGUAGE' | translate"></div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="$ctrl.profileLanguageIsAvailable()">
+        <h4>
+            <span required ng-bind="'EXPERT_PROFILE_SKILLS' | translate"></span>
+            <info-point message-key="EXPERT_PROFILE_SKILLS_TOOLTIP"></info-point>
+        </h4>
+        <div class="form-group">
+            <collapsable-alert name="expert-profile-editor-skills">
+                <alert-title ng-bind="'EXPERT_PROFILE_EDITOR_WRITING_SKILLS_TITLE' | translate"></alert-title>
+                <alert-content ng-bind-html="'EXPERT_PROFILE_EDITOR_WRITING_SKILLS_TEXT' | translate"></alert-content>
+            </collapsable-alert>
+            <tags-picker id="skills" class="skills" name="skills"
+                         ng-model="$ctrl.expertProfile.skills[$ctrl.currentLanguage]" tags="$ctrl.skillTags"
+                         editable-tags="true" proficiency-levels="$ctrl.skillProficiencyLevels" allow-custom-tags="true"
+                         enable-proficiency="true" ng-array-maxlength="20" ng-array-minlength="1"
+                         no-tags-found-key="EXPERT_PROFILE_EDITOR_SKILLS_NO_TAGS_FOUND"
+                         required></tags-picker>
+            <div ng-show="$ctrl.expertProfileForm.skills.$touched" ng-messages="$ctrl.expertProfileForm.skills.$error"
+                 class="help-block text-danger">
+                <div ng-message="arrayMaxlength" ng-bind="'EXPERT_PROFILE_TOO_MANY_SKILL_TAGS' | translate"></div>
+                <div ng-message="arrayMinlength" ng-bind="'EXPERT_PROFILE_SKILL_TAGS_REQUIRED' | translate"></div>
+                <div ng-message="required" ng-bind="'EXPERT_PROFILE_SKILL_TAGS_REQUIRED' | translate"></div>
+            </div>
+        </div>
+
+        <h4 ng-bind="'EXPERT_PROFILE_EDUCATION' | translate"></h4>
+        <div>
+            <div ng-repeat="education in $ctrl.expertProfile.education[$ctrl.currentLanguage]" ng-form="educationForm"
+                 novalidate class="sub-form">
+                <div class="text-right actions">
+                    <div class="btn-group">
+                        <button ng-if="!$first" class="btn btn-default btn-xs"
+                                ng-click="$ctrl.moveElement($ctrl.expertProfile.education[$ctrl.currentLanguage], $index, $index-1)">
+                            <i class="fa fa-level-up" aria-hidden="true"></i></button>
+                        <button ng-if="!$last" class="btn btn-default btn-xs"
+                                ng-click="$ctrl.moveElement($ctrl.expertProfile.education[$ctrl.currentLanguage], $index, $index+1)">
+                            <i class="fa fa-level-down" aria-hidden="true"></i></button>
+                    </div>
+                    <button class="delete-element btn btn-danger btn-xs"
+                            ng-click="$ctrl.deleteElement($ctrl.expertProfile.education[$ctrl.currentLanguage], $index)">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-8"
+                         ng-class="{'has-error': educationForm.certificate.$touched && educationForm.certificate.$invalid}">
+                        <label required class="control-label first-group-label" for="certificate"
+                               ng-bind="'EXPERT_PROFILE_CERTIFICATE' | translate"></label>
+                        <input type="text" class="form-control input-sm" id="certificate" name="certificate"
+                               ng-model="education.certificate" required ng-minlength="1" ng-maxlength="50">
+                        <div ng-show="educationForm.certificate.$touched" ng-messages="educationForm.certificate.$error"
+                             class="help-block text-danger">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4"
+                         ng-class="{'has-error': educationForm.grade.$touched && educationForm.grade.$invalid}">
+                        <label class="control-label" for="grade" ng-bind="'EXPERT_PROFILE_GRADE' | translate"></label>
+                        <input type="text" class="form-control input-sm" id="grade" name="grade"
+                               ng-maxlength="25" ng-minlength="1" ng-model="education.grade">
+                        <div ng-show="educationForm.grade.$touched" ng-messages="educationForm.grade.$error"
+                             class="help-block text-danger">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-6"
+                         ng-class="{'has-error': educationForm.school.$touched && educationForm.school.$invalid}">
+                        <label class="control-label" for="school" ng-bind="'EXPERT_PROFILE_SCHOOL' | translate"></label>
+                        <input type="text" class="form-control input-sm" id="school" name="school"
+                               ng-model="education.school" ng-minlength="1" ng-maxlength="50">
+                        <div ng-show="educationForm.school.$touched" ng-messages="educationForm.school.$error"
+                             class="help-block text-danger">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6"
+                         ng-class="{'has-error': educationForm.location.$touched && educationForm.location.$invalid}">
+                        <label class="control-label" for="location"
+                               ng-bind="'EXPERT_PROFILE_LOCATION' | translate"></label>
+                        <input type="text" class="form-control input-sm" name="location"
+                               ng-model="education.location" ng-minlength="1" ng-maxlength="50">
+                        <div ng-show="educationForm.location.$touched" ng-messages="educationForm.location.$error"
+                             class="help-block text-danger">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group"
+                     ng-class="{'has-error': educationForm.datesAttended.$touched && educationForm.datesAttended.$invalid}">
+                    <div class="col-sm-12">
+                        <label class="control-label" for="datesAttended"
+                               ng-bind="'EXPERT_PROFILE_DATES_ATTENDED' | translate"></label>
+                        <date-range-picker name="datesAttended" ng-model="education.datesAttended"
+                                           ng-date-range input-size="sm" range-limit="pastOnly" resettable="true"
+                                           enable-to-present="true"></date-range-picker>
+                        <div ng-show="educationForm.datesAttended.$touched"
+                             ng-messages="educationForm.datesAttended.$error" class="help-block text-danger">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary add-element" type="button"
+                ng-class="{'full-width': $ctrl.expertProfile.education[$ctrl.currentLanguage].length}"
+                ng-click="$ctrl.addElement($ctrl.expertProfile.education[$ctrl.currentLanguage])"
+                ng-disabled="$ctrl.expertProfile.education[$ctrl.currentLanguage].length >= 20"
+                ng-bind="'EXPERT_PROFILE_ADD_EDUCATION' | translate"></button>
+
+
+        <h4 ng-bind="'EXPERT_PROFILE_EXPERIENCES' | translate"></h4>
+        <div>
+            <div ng-repeat="experience in $ctrl.expertProfile.experiences[$ctrl.currentLanguage]"
+                 ng-form="experienceForm" novalidate class="sub-form">
+                <div class="text-right actions">
+                    <div class="btn-group">
+                        <button ng-if="!$first" class="btn btn-default btn-xs" type="button"
+                                ng-click="$ctrl.moveElement($ctrl.expertProfile.experiences[$ctrl.currentLanguage], $index, $index-1)">
+                            <i class="fa fa-level-up" aria-hidden="true"></i></button>
+                        <button ng-if="!$last" class="btn btn-default btn-xs" type="button"
+                                ng-click="$ctrl.moveElement($ctrl.expertProfile.experiences[$ctrl.currentLanguage], $index, $index+1)">
+                            <i class="fa fa-level-down" aria-hidden="true"></i></button>
+                    </div>
+                    <button class="delete-element btn btn-danger btn-xs" type="button"
+                            ng-click="$ctrl.deleteElement($ctrl.expertProfile.experiences[$ctrl.currentLanguage], $index)">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                </div>
+
+                <div class="form-group"
+                     ng-class="{'has-error': experienceForm.position.$touched && experienceForm.position.$invalid}">
+                    <div class="col-sm-12">
+                        <label required class="control-label first-group-label" for="position"
+                               ng-bind="'EXPERT_PROFILE_POSITION' | translate"></label>
+                        <input type="text" class="form-control input-sm" id="position" name="position"
+                               ng-model="experience.position" required ng-minlength="1" ng-maxlength="50">
+                        <div ng-show="experienceForm.position.$touched" ng-messages="experienceForm.position.$error"
+                             class="help-block text-danger">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div ng-class="{'has-error': experienceForm.company.$touched && experienceForm.company.$invalid}"
+                         class="col-sm-6">
+                        <label class="control-label" for="company"
+                               ng-bind="'EXPERT_PROFILE_COMPANY' | translate"></label>
+                        <input type="text" class="form-control input-sm" id="company" name="company"
+                               ng-model="experience.company" ng-minlength="1" ng-maxlength="50">
+                        <div ng-show="experienceForm.company.$touched" ng-messages="experienceForm.company.$error"
+                             class="help-block text-danger">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+                    <div ng-class="{'has-error': experienceForm.location.$touched && experienceForm.location.$invalid}"
+                         class="col-sm-6">
+                        <label class="control-label" for="location"
+                               ng-bind="'EXPERT_PROFILE_LOCATION' | translate"></label>
+                        <input type="text" class="form-control input-sm" id="location" name="location"
+                               ng-model="experience.location" ng-minlength="1" ng-maxlength="50">
+                        <div ng-show="experienceForm.location.$touched" ng-messages="experienceForm.location.$error"
+                             class="help-block text-danger">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group"
+                     ng-class="{'has-error': experienceForm.datesAttended.$touched && experienceForm.datesAttended.$invalid}">
+                    <div class="col-sm-12">
+                        <label class="control-label" for="datesAttended"
+                               ng-bind="'EXPERT_PROFILE_DATES_ATTENDED' | translate"></label>
+                        <date-range-picker id="datesAttended" name="datesAttended" ng-model="experience.datesAttended"
+                                           ng-date-range input-size="sm" range-limit="pastOnly" resettable="true"
+                                           enable-to-present="true"></date-range-picker>
+                        <div ng-show="experienceForm.datesAttended.$touched"
+                             ng-messages="experienceForm.datesAttended.$error" class="help-block text-danger">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary add-element" type="button"
+                ng-class="{'full-width': $ctrl.expertProfile.experiences[$ctrl.currentLanguage].length}"
+                ng-click="$ctrl.addElement($ctrl.expertProfile.experiences[$ctrl.currentLanguage])"
+                ng-disabled="$ctrl.expertProfile.experiences[$ctrl.currentLanguage].length >= 20"
+                ng-bind="'EXPERT_PROFILE_ADD_EXPERIENCE' | translate"></button>
+
+        <h4 ng-bind="'EXPERT_PROFILE_ABOUT' | translate"></h4>
+
+        <div class="form-group">
+            <collapsable-alert name="expert-profile-editor-markdown">
+                <alert-title ng-bind="'EXPERT_PROFILE_EDITOR_SUPPORTS_MARKDOWN_TITLE' | translate"></alert-title>
+                <alert-content
+                        ng-bind-html="'EXPERT_PROFILE_EDITOR_SUPPORTS_MARKDOWN_TEXT' | translate"></alert-content>
+            </collapsable-alert>
+
+            <div class="panel panel-default about">
+                <div class="panel-body">
+                    <div class="markdown-toolbar">
+                        <div class="btn-block">
+                            <button ng-click="$ctrl.aboutEditorAction('bold')" class="btn btn-default" type="button">
+                                <i class="fa fa-bold" aria-hidden="true"></i>
+                            </button>
+                            <button ng-click="$ctrl.aboutEditorAction('italic')" class="btn btn-default" type="button">
+                                <i class="fa fa-italic" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="btn-block">
+                            <button ng-click="$ctrl.aboutEditorAction('ullist')" class="btn btn-default" type="button">
+                                <i class="fa fa-list-ul" aria-hidden="true"></i>
+                            </button>
+                            <button ng-click="$ctrl.aboutEditorAction('ollist')" class="btn btn-default" type="button">
+                                <i class="fa fa-list-ol" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="btn-block">
+                            <button ng-click="$ctrl.showImageUploadModal()" class="btn btn-default" type="button">
+                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                            </button>
+                            <button ng-click="$ctrl.showLinkModal()" class="btn btn-default" type="button">
+                                <i class="fa fa-link" aria-hidden="true"></i>
+                            </button>
+                            <button ng-click="$ctrl.aboutEditorAction('hr')" class="btn btn-default" type="button">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="btn-block">
+                            <div class="btn-group">
+                                <button ng-click="$ctrl.aboutEditorAction('hlarge')" class="btn btn-default"
+                                        type="button"
+                                        ng-bind="'EXPERT_PROFILE_HEADING_LARGE' | translate"></button>
+                                <button ng-click="$ctrl.aboutEditorAction('hmedium')" class="btn btn-default"
+                                        type="button"
+                                        ng-bind="'EXPERT_PROFILE_HEADING_MEDIUM' | translate"></button>
+                                <button ng-click="$ctrl.aboutEditorAction('hsmall')" class="btn btn-default"
+                                        type="button"
+                                        ng-bind="'EXPERT_PROFILE_HEADING_SMALL' | translate"></button>
+                            </div>
+                        </div>
+
+                        <div class="btn-block">
+                            <button type="button" class="btn btn-default" ng-click="$ctrl.showMarkdownSyntaxModal()"><i
+                                    class="fa fa-book" aria-hidden="true"></i>&nbsp;<span
+                                    ng-bind="'EXPERT_PROFILE_MARKDOWN_REFERENCE' | translate"></span></button>
+                        </div>
+                    </div>
+                    <textarea class="markdown-textarea form-control" name="about" id="about"
+                              ng-model="$ctrl.expertProfile.about[$ctrl.currentLanguage].text"
+                              ng-model-options="{debounce: 100}" ng-maxlength="100000"></textarea>
+                    <div ng-messages="$ctrl.expertProfileForm.about.$touched && $ctrl.expertProfileForm.about.$error"
+                         class="help-block text-danger">
+                        <div ng-messages-include="common/validation/messages/common.html"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading" ng-bind="'EXPERT_PROFILE_PREVIEW' | translate"></div>
+                <div class="panel-body">
+                    <div class="markdown-output"
+                         ng-bind-html="$ctrl.expertProfile.about[$ctrl.currentLanguage].text | mdToHtml"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="save-button">
+        <promise-button on-cancel="$ctrl.cancel" on-confirm="$ctrl.save" confirm-text-key="EXPERT_PROFILE_UPDATE_PROFILE"
+                        form="$ctrl.expertProfileForm"></promise-button>
+    </div>
+</form>

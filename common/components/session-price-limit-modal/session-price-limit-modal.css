@@ -1,0 +1,7 @@
+@media screen and (min-width: 500px) {
+    .modal-dialog .session-price-limit .price-selector {
+        max-width: 190px;
+    }
+}
+
+/*# sourceMappingURL=session-price-limit-modal.css.map */

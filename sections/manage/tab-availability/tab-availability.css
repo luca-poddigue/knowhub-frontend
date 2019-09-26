@@ -1,0 +1,44 @@
+tab-availability .calendar-btns {
+  margin-bottom: 9px; }
+  tab-availability .calendar-btns > div {
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 6px; }
+tab-availability .quick-insert .intro {
+  margin-top: 0;
+  margin-bottom: 15px; }
+tab-availability .quick-insert .form-group.time {
+  display: inline-block; }
+  tab-availability .quick-insert .form-group.time.from {
+    margin-right: 40px; }
+tab-availability .quick-insert .form-group .checkbox:nth-child(2) {
+  margin-top: 0; }
+tab-availability .quick-insert .uib-timepicker .btn.btn-link {
+  height: inherit;
+  padding-top: 0;
+  padding-bottom: 0; }
+tab-availability .help-block.time-range {
+  position: relative;
+  top: -13px;
+  margin: 0; }
+tab-availability .calendar {
+  min-height: 100px; }
+  tab-availability .calendar a {
+    text-decoration: none; }
+    tab-availability .calendar a:hover {
+      text-decoration: none; }
+  tab-availability .calendar .fc-today {
+    background-color: inherit; }
+  tab-availability .calendar .fc-event {
+    background-color: #ff9800;
+    border-color: #ff9800;
+    cursor: default; }
+  tab-availability .calendar .fc-bgevent {
+    background-color: #ccc;
+    cursor: not-allowed; }
+
+tab-availability .calendar .fc-scroller {
+  overflow: hidden !important;
+}
+
+/*# sourceMappingURL=tab-availability.css.map */

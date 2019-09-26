@@ -1,0 +1,36 @@
+tab-preferences {
+  .live-notifications {
+    .switch {
+      .control-label {
+        color: inherit;
+        padding-left: 6px;
+      }
+    }
+
+    .notifications {
+      margin-bottom: 10px;
+    }
+
+    .notification-sound {
+      .checkbox {
+        display: inline-block;
+        margin-top: 0;
+      }
+
+      info-point {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  .session-price-limit {
+    user-metric-viewer {
+      margin-right: 10px;
+      margin-bottom: 5px;
+    }
+
+    .pending-approval-alert {
+      margin-top: 5px;
+    }
+  }
+}

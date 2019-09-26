@@ -1,0 +1,16 @@
+<div class="yt-video">
+    <iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            frameborder="0" ng-if="$ctrl.userHasItalianLocale()"
+            src="https://www.youtube-nocookie.com/embed/YibNZWpLIkI?rel=0&color=white&autoplay=1"></iframe>
+
+    <iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            frameborder="0" ng-if="!$ctrl.userHasItalianLocale()"
+            src="https://www.youtube-nocookie.com/embed/1KtiVBNbLhM?rel=0&color=white&autoplay=1"></iframe>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-bind="'COMMON_CLOSE' | translate" ng-click="$ctrl.close()"
+            type="button"></button>
+</div>

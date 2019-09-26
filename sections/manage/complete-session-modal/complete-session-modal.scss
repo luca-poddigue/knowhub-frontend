@@ -1,0 +1,28 @@
+@import '../../../common/css/cvars';
+
+.modal-dialog .complete-session {
+
+  .share-btn {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 5px;
+    height: 28px;
+  }
+
+  .share-session-on-facebook-btn {
+    display: inline-block;
+    background-color: $facebook-brand-color;
+    color: white;
+    border-radius: 5px;
+    padding: 4px 10px;
+    outline: none;
+
+    i {
+      padding-right:6px;
+    }
+
+    &:hover {
+      background-color: darken($facebook-brand-color, 10%);
+    }
+  }
+}

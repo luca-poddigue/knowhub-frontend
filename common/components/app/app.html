@@ -1,0 +1,12 @@
+<div ng-if="$ctrl.showApp && $ctrl.basicInfo()">
+    <alert-viewer></alert-viewer>
+    <nav-bar></nav-bar>
+    <session-chat></session-chat>
+    <div ng-view autoscroll class="container-fluid main-view"></div>
+    <cookie-alert></cookie-alert>
+    <policies-update-alert></policies-update-alert>
+    <app-footer></app-footer>
+</div>
+<auth-modal ng-show="$ctrl.showApp"></auth-modal>
+<pre-prod-welcome-page ng-if="!$ctrl.showApp"
+                       on-verify="$ctrl.onEarlyAccessCodeVerify(valid)"></pre-prod-welcome-page>

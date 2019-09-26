@@ -1,0 +1,3 @@
+<i ng-if="$ctrl.bookmarked() !== null" class="fa fa-2x"
+   ng-class="{'processing': $ctrl.processing, 'fa-star-o': !$ctrl.mouseOver && !$ctrl.bookmarked(), 'fa-star': $ctrl.mouseOver || $ctrl.bookmarked(), 'bookmarked': $ctrl.bookmarked()}"
+   ng-mouseleave="$ctrl.mouseOver=false" ng-mouseover="$ctrl.mouseOver=true" ng-click="$ctrl.toggleBookmark()"></i>

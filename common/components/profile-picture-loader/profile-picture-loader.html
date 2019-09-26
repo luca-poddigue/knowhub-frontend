@@ -1,0 +1,31 @@
+<div class="btns">
+    <div class="btn-group">
+        <label ng-class="{'active': $ctrl.source === 'PROVIDER'}" class="btn btn-default"
+               ng-click="$ctrl.useProviderPhoto()" ng-if="$ctrl.authInfo.id !== 'email' && $ctrl.authInfo.photoURL"
+               ng-bind="$ctrl.authInfo.name">
+        </label>
+        <button ng-class="{'active': $ctrl.source === 'CUSTOM'}" class="btn btn-default" type="button"
+                ng-click="$ctrl.useCustomPhoto()">
+            <span ng-bind="'PROFILE_PICTURE_LOADER_CUSTOM' | translate"></span>
+        </button>
+        <button ng-class="{'active': $ctrl.source === 'NONE'}" class="btn btn-default" type="button"
+                ng-click="$ctrl.clear()" ng-bind="'PROFILE_PICTURE_LOADER_NO_PICTURE' | translate"></button>
+    </div>
+    <label ng-if="$ctrl.source === 'CUSTOM'" class="btn btn-default" for="image-file"
+           ng-bind="$ctrl.isCustomImageLoading ? ('PROFILE_PICTURE_LOADER_LOADING' | translate) : ('PROFILE_PICTURE_LOADER_CHOOSE_FILE' | translate)"></label>
+    <input ng-if="$ctrl.source === 'CUSTOM'" id="image-file" class="file-input" type="file"
+           accept="{{$ctrl.validFileTypes.join()}}" on-file-change="$ctrl.handleFileSelect"/>
+</div>
+<span ng-if="$ctrl.isNewCustomImage && $ctrl.imgCropEnabled && $ctrl.source === 'CUSTOM' && $ctrl.isCustomImageValid"
+      class="help-block" ng-bind="'PROFILE_PICTURE_LOADER_CUSTOM_TEXT' | translate"></span>
+<div ng-class="{'crop-widget-visible': $ctrl.isNewCustomImage && $ctrl.imgCropEnabled && $ctrl.source === 'CUSTOM' && $ctrl.isCustomImageValid}"
+     id="crop-widget"></div>
+<span class="text-danger" ng-if="$ctrl.source !== 'NONE' && !$ctrl.isCustomImageLoading && !$ctrl.isCustomImageValid"
+      ng-bind="'PROFILE_PICTURE_LOADER_IMAGE_LOAD_ERROR' | translate"></span>
+<div>
+    <img ng-style="{'width': $ctrl.imageSize, 'height': $ctrl.imageSize}" ng-if="$ctrl.source === 'PROVIDER'"
+         class="current-picture" ng-src="{{$ctrl.authInfo.photoURL}}"/>
+    <img ng-style="{'width': $ctrl.imageSize, 'height': $ctrl.imageSize}"
+         ng-if="$ctrl.source === 'CUSTOM' && $ctrl.isCustomImageValid && $ctrl.customPhotoUrl && !$ctrl.isNewCustomImage"
+         class="current-picture" ng-src="{{$ctrl.customPhotoUrl}}"/>
+</div>

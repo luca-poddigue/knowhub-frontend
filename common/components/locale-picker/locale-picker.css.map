@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AA0EE,kBAAK;EACH,QAAQ,EAAE,OAAO;AAMf,sCAAI;EACF,MAAM,EAAE,GAAG;EACX,YAAY,EAAE,GAAG;EACjB,QAAQ,EAAE,QAAQ;EAClB,KAAK,EAAE,IAAI;AAKb,4CAAQ;EACN,OAAO,EAAE,MAAM;AAIf,8CAAI;EACF,OAAO,EAAE,MAAM;AAKrB,kCAAY;EACV,OAAO,EAAE,MAAM;AAGjB,mCAAa;EACX,KAAK,EChFC,IAAI",
+"sources": ["../../css/_mixins.scss","../../css/_cvars.scss"],
+"names": [],
+"file": "locale-picker.css"
+}

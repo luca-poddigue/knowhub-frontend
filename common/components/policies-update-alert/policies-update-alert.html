@@ -1,0 +1,7 @@
+<div class="alert alert-info fade-alert" ng-if="$ctrl.showAlert">
+    <span ng-bind-html="$ctrl.getAlertText()"></span>
+    <div class="text-right">
+        <button class="btn btn-no-style btn-xs" ng-click="$ctrl.  setPoliciesAccepted()"
+                ng-bind="'COMMON_ACCEPT' | translate"></button>
+    </div>
+</div>

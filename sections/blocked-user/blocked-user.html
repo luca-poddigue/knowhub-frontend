@@ -1,0 +1,17 @@
+<update-title title="{{$ctrl.applicationName+' | '+('SECTION_BLOCKED_USER' | translate)}}"></update-title>
+<update-meta name="description" content=""></update-meta>
+
+<div class="container">
+    <div ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}" class="content">
+        <div class="full-page-message">
+            <div class="text-center">
+                <img class="owl" mf-src="/common/images/owl-black">
+                <h2 class="section-heading" ng-bind="'BLOCKED_USER_BLOCKED' | translate"></h2>
+                <hr class="primary">
+            </div>
+            <div class="text-center">
+                <h4 ng-bind-html="'BLOCKED_USER_BLOCKED_TEXT' | translate"></h4>
+            </div>
+        </div>
+    </div>
+</div>

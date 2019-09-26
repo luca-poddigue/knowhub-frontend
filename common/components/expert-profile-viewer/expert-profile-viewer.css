@@ -1,0 +1,53 @@
+expert-profile-viewer .profile-views {
+  font-size: 110%; }
+  expert-profile-viewer .profile-views i {
+    position: relative;
+    top: 2px;
+    font-size: 140%; }
+  expert-profile-viewer .profile-views .text {
+    padding-left: 4px; }
+expert-profile-viewer h1 {
+  margin-top: 6px; }
+expert-profile-viewer h3.title {
+    margin-top: 40px;
+}
+expert-profile-viewer h4.subtitle {
+    margin-top: 25px;
+}
+expert-profile-viewer .user-data-block {
+    margin-top: 18px;
+  margin-bottom: 0;
+  vertical-align: top; }
+  expert-profile-viewer .user-data-block.inline {
+      display: inline-block;
+      margin: 5px 35px 0 0;
+  }
+expert-profile-viewer .form-control-static {
+  margin: 0 0 6px;
+  min-height: 0;
+  padding: 0; }
+expert-profile-viewer .language-block,
+expert-profile-viewer .skill-block {
+  margin: 0 0 5px 0; }
+  expert-profile-viewer .language-block > span,
+  expert-profile-viewer .skill-block > span {
+    padding-right: 5px; }
+  @media screen and (max-width: 500px) {
+    expert-profile-viewer .language-block proficiency-viewer,
+    expert-profile-viewer .skill-block proficiency-viewer {
+      display: block; } }
+expert-profile-viewer .education,
+expert-profile-viewer .experience {
+  border-bottom: solid 2px;
+  border-color: #ff9800;
+  border-image: linear-gradient(to right, #ff9800 0%, white 100%);
+  border-image-slice: 1;
+  margin-bottom: 20px;
+  padding-bottom: 5px; }
+  expert-profile-viewer .education h4,
+  expert-profile-viewer .experience h4 {
+    margin-bottom: 0; }
+expert-profile-viewer .profile-language {
+  height: 36px; }
+
+/*# sourceMappingURL=expert-profile-viewer.css.map */

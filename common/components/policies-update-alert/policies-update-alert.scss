@@ -1,0 +1,10 @@
+@import '../../../common/css/cvars';
+
+policies-update-alert > .alert {
+  bottom: 7px;
+  margin: 0;
+  max-width: 300px;
+  position: fixed;
+  right: 10px;
+  z-index: $alert-bottom-z;
+}

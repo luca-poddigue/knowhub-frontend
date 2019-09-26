@@ -1,0 +1,29 @@
+@import 'cvars';
+
+@keyframes shake {
+  0%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+@keyframes x-red-x-color {
+  50% {
+    color: red;
+  }
+}
+
+@mixin missing-value-animation() {
+  animation: shake $default-animation-duration ease-out 3, x-red-x-color $default-animation-duration linear 3;
+}

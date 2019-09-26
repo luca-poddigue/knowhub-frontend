@@ -1,0 +1,79 @@
+@import '../../../common/css/cvars';
+@import '../../../common/css/mixins';
+
+expert-profile-viewer {
+
+  .profile-views {
+    font-size: 110%;
+
+    i {
+      position: relative;
+      top: 2px;
+      font-size: 140%;
+    }
+
+    .text {
+      padding-left: 4px;
+    }
+  }
+
+  h1 {
+    margin-top: 6px;
+  }
+
+  h3.title {
+    margin-top: 40px;
+  }
+
+  h4.subtitle {
+    margin-top: 25px;
+  }
+
+  .user-data-block {
+    margin-top: 18px;
+    margin-bottom: 0;
+    vertical-align: top;
+
+    &.inline {
+      display: inline-block;
+      margin: 5px 35px 0 0;
+    }
+  }
+
+  .form-control-static {
+    margin: 0 0 6px;
+    min-height: 0;
+    padding: 0;
+  }
+
+  .language-block,
+  .skill-block {
+    margin: 0 0 5px 0;
+
+    > span {
+      padding-right: 5px;
+    }
+
+    @media screen and (max-width: 500px) {
+      proficiency-viewer {
+        display: block;
+      }
+    }
+  }
+
+  .education,
+  .experience {
+    border-bottom: solid 2px;
+    @include h-gradient-border($knowhub-orange, white);
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+
+    h4 {
+      margin-bottom: 0;
+    }
+  }
+
+  .profile-language {
+    height: 36px;
+  }
+}

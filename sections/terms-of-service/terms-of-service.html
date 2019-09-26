@@ -1,0 +1,14 @@
+<update-title title="{{$ctrl.applicationName+' | '+('SECTION_TOS' | translate)}}"></update-title>
+<update-meta name="description" content=""></update-meta>
+
+<div class="container">
+
+    <div class="jumbotron">
+        <h1 ng-bind="'TERMS_OF_SERVICE_TITLE' | translate"></h1>
+        <p ng-bind="'TERMS_OF_SERVICE_SUBTITLE' | translate"></p>
+    </div>
+
+    <div ng-if="$ctrl.isAppReady()" class="content">
+        <doc-renderer translation-key="TERMS_OF_SERVICE" substitutions="$ctrl.policiesDetails"></doc-renderer>
+    </div>
+</div>

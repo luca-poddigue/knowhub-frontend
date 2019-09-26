@@ -1,0 +1,37 @@
+tab-promo-codes .promo {
+  display: inline-block;
+  width: calc(50% - 10px);
+  margin: 0 5px 15px;
+  text-align: center; }
+  @media screen and (max-width: 600px) {
+    tab-promo-codes .promo {
+      width: calc(100% - 10px); } }
+tab-promo-codes .no-promo-alert {
+  max-width: 500px; }
+tab-promo-codes .promo-code-form .promo-code {
+  display: inline-block;
+  width: 100%;
+  max-width: 330px;
+  margin-right: 5px;
+  margin-bottom: 8px; }
+  tab-promo-codes .promo-code-form .promo-code .help-block {
+    margin-bottom: 0; }
+tab-promo-codes .promo-code-form .activate-btn {
+  display: block; }
+tab-promo-codes .label {
+  padding: 2px 4px;
+  margin-left: 4px;
+  position: relative;
+  top: -1px; }
+tab-promo-codes .status-label {
+  margin-left: -3px;
+  margin-top: -2px;
+  font-size: 110%; }
+tab-promo-codes .promo-name {
+  margin-top: 0;
+  margin-bottom: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word; }
+
+/*# sourceMappingURL=tab-promo-codes.css.map */

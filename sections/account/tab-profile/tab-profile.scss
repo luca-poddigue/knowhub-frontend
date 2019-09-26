@@ -1,0 +1,75 @@
+@import '../../../common/css/cvars';
+@import '../../../common/css/mixins';
+
+tab-profile {
+  
+  h2 {
+    div {
+      display: inline-block;
+    }
+  }
+  
+  .expert-profile {
+    h2 {
+      margin-bottom: 5px;
+    }
+
+    .profile-views {
+      margin-top: 2px;
+    }
+
+    .edit-btns > * {
+      display: inline-block;
+      margin: 7px 0;
+    }
+  }
+
+  .payout-details {
+    margin-top: 30px;
+  }
+  
+  .seeker-profile {
+    .edit-btns {
+      margin-bottom: 15px;
+
+      @media(max-width: ($screen-sm)-1) {
+        margin: 0;
+      }
+    }
+
+    .supporter-medal-block {
+      @include supporter-medal-block();
+    }
+  }
+  
+  .details {
+    .form-group {
+      @media(min-width: $screen-sm) {
+        display: inline-block;
+        margin-right: 15px;
+      }
+    }
+  }
+
+  .payout-status {
+    margin-bottom: 20px;
+
+    user-metric-viewer {
+      .number {
+        margin-left: -5px;
+      }
+
+      &.enabled {
+        background-color: $green-success;
+        border-color: darken($green-success, 15%);
+      }
+
+      &.disabled {
+        background-color: $red-danger;
+        border-color: darken($red-danger, 15%);
+      }
+
+    }
+  }
+
+}

@@ -1,0 +1,289 @@
+<div>
+    <div class="content" ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}">
+
+        <div>
+            <h2 ng-bind="'SUPPORT_INSPECT' | translate"></h2>
+            <form name="$ctrl.inspectionForm" novalidate>
+                <div class="row">
+                    <div class="col-sm-6 form-group"
+                         ng-class="{'has-error': $ctrl.inspectionForm.userId.$touched &&
+                        $ctrl.inspectionForm.userId.$invalid}">
+                        <label class="control-label"
+                               ng-bind="'SUPPORT_ITEM_ID' | translate"></label>
+                        <input class="form-control" name="userId" ng-model="$ctrl.inspectionData.itemId"
+                               required type="text"/>
+                        <div class="help-block text-danger" ng-messages="$ctrl.inspectionForm.userId.$error"
+                             ng-show="$ctrl.inspectionForm.userId.$touched">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label class="control-label"
+                               ng-bind="'SUPPORT_ITEM' | translate"></label>
+                        <div>
+                            <answer-button id="inspected-item" name="inspected-item"
+                                           ng-model="$ctrl.inspectionData.itemType"
+                                           options="$ctrl.inspectionOptions" required></answer-button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" ng-bind="'SUPPORT_INSPECT' | translate"
+                        ng-click="$ctrl.inspect()"></button>
+            </form>
+        </div>
+
+        <div>
+            <h2 ng-bind="'SUPPORT_BLOCK_USER' | translate"></h2>
+            <form name="$ctrl.blockUserAccountForm" novalidate>
+                <div class="row">
+                    <div class="col-sm-6 form-group"
+                         ng-class="{'has-error': $ctrl.blockUserAccountForm.userId.$touched &&
+                        $ctrl.blockUserAccountForm.userId.$invalid}">
+                        <label class="control-label"
+                               ng-bind="'SUPPORT_USER_ID' | translate"></label>
+                        <input class="form-control" name="userId" ng-model="$ctrl.blockUserData.userId"
+                               required type="text"/>
+                        <div class="help-block text-danger" ng-messages="$ctrl.blockUserAccountForm.userId.$error"
+                             ng-show="$ctrl.blockUserAccountForm.userId.$touched">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label class="control-label"
+                               ng-bind="'SUPPORT_REASON' | translate"></label>
+                        <div>
+                            <answer-button id="reason" name="reason"
+                                           ng-model="$ctrl.blockUserData.reason"
+                                           options="$ctrl.blockUserOptions" required></answer-button>
+                        </div>
+                    </div>
+                </div>
+                <promise-button btn-style="danger"
+                                confirm-text-key="SUPPORT_BLOCK_USER"
+                                form="$ctrl.blockUserAccountForm" on-confirm="$ctrl.blockUser">
+                </promise-button>
+            </form>
+        </div>
+
+        <div>
+            <h2 ng-bind="'SUPPORT_RETRY_PAYOUT' | translate"></h2>
+            <form name="$ctrl.retryPayoutForm" novalidate>
+                <div class="row">
+                    <div class="col-sm-6 form-group"
+                         ng-class="{'has-error': $ctrl.retryPayoutForm.sessionId.$touched &&
+                        $ctrl.retryPayoutForm.sessionId.$invalid}">
+                        <label class="control-label"
+                               ng-bind="'SUPPORT_SESSION_ID' | translate"></label>
+                        <input class="form-control" name="sessionId" ng-model="$ctrl.retryPayoutData.sessionId"
+                               required type="text"/>
+                        <div class="help-block text-danger" ng-messages="$ctrl.retryPayoutForm.sessionId.$error"
+                             ng-show="$ctrl.retryPayoutForm.sessionId.$touched">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-6"></div>
+                </div>
+                <promise-button confirm-text-key="SUPPORT_RETRY_PAYOUT"
+                                form="$ctrl.retryPayoutForm"
+                                on-confirm="$ctrl.retryPayout">
+                </promise-button>
+            </form>
+        </div>
+
+        <div class="session-price-limit">
+            <h2 ng-bind="'SUPPORT_SESSION_PRICE_LIMIT_MANAGE' | translate"></h2>
+            <form name="$ctrl.sessionPriceLimitForm" novalidate>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group"
+                             ng-class="{'has-error': $ctrl.sessionPriceLimitForm.userId.$touched && $ctrl.sessionPriceLimitForm.userId.$invalid}">
+                            <label class="control-label"
+                                   ng-bind="'SUPPORT_USER_ID' | translate"></label>
+                            <input class="form-control" name="userId"
+                                   ng-model="$ctrl.sessionPriceLimitDetails.userId"
+                                   required type="text"/>
+                            <div class="help-block text-danger"
+                                 ng-messages="$ctrl.sessionPriceLimitForm.userId.$error"
+                                 ng-show="$ctrl.sessionPriceLimitForm.userId.$touched">
+                                <div ng-messages-include="common/validation/messages/common.html"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-6"></div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label class="control-label"
+                               ng-bind="'SUPPORT_ACTION' | translate"></label>
+                        <div>
+                            <answer-button ng-model="$ctrl.sessionPriceLimitDetails.action"
+                                           options="$ctrl.sessionPriceLimitOptions"></answer-button>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-8"
+                         ng-class="{'has-error': $ctrl.sessionPriceLimitForm.reason.$touched && $ctrl.sessionPriceLimitForm.reason.$invalid}"
+                         ng-if="$ctrl.sessionPriceLimitDetails.action==='REJECT'">
+                        <label class="control-label" ng-bind="'SUPPORT_REASON' | translate"></label>
+                        <textarea class="form-control" name="reason"
+                                  ng-maxlength=10000 ng-minlength=10
+                                  ng-model="$ctrl.sessionPriceLimitDetails.reason"
+                                  required></textarea>
+                        <div class="help-block text-danger" ng-messages="$ctrl.sessionPriceLimitForm.reason.$error"
+                             ng-show="$ctrl.sessionPriceLimitForm.reason.$touched">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-offset-6" ng-if="$ctrl.sessionPriceLimitDetails.action==='APPROVE'"></div>
+                </div>
+
+                <promise-button confirm-text-key="SUPPORT_APPLY"
+                                form="$ctrl.sessionPriceLimitForm"
+                                on-confirm="$ctrl.processSessionPriceLimitIncreaseRequest"></promise-button>
+            </form>
+        </div>
+
+        <div class="litigations">
+            <h2 ng-bind="'SUPPORT_LITIGATIONS' | translate"></h2>
+
+            <form name="$ctrl.resolveLitigationForm" novalidate>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group"
+                             ng-class="{'has-error': $ctrl.resolveLitigationForm.sessionId.$touched && $ctrl.resolveLitigationForm.sessionId.$invalid}">
+                            <label class="control-label"
+                                   ng-bind="'SUPPORT_SESSION_ID' | translate"></label>
+                            <input class="form-control" name="sessionId"
+                                   ng-model="$ctrl.litigationResolution.sessionId"
+                                   required type="text"/>
+                            <div class="help-block text-danger"
+                                 ng-messages="$ctrl.resolveLitigationForm.sessionId.$error"
+                                 ng-show="$ctrl.resolveLitigationForm.sessionId.$touched">
+                                <div ng-messages-include="common/validation/messages/common.html"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="control-label"
+                               ng-bind="'SUPPORT_ACTION' | translate"></label>
+                        <div>
+                            <answer-button id="resolution" name="resolution"
+                                           ng-model="$ctrl.litigationResolution.action"
+                                           options="$ctrl.litigationResolutionOptions" required></answer-button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="resolve-btn">
+                <promise-button confirm-text-key="SUPPORT_RESOLVE"
+                                form="$ctrl.resolveLitigationForm"
+                                on-confirm="$ctrl.resolveLitigation"></promise-button>
+            </div>
+        </div>
+
+        <div class="promo">
+            <h2 ng-bind="'SUPPORT_ACTIVATE_PROMO' | translate"></h2>
+            <form name="$ctrl.activatePromoForm" novalidate>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group"
+                             ng-class="{'has-error': $ctrl.activatePromoForm.userId.$touched && $ctrl.activatePromoForm.userId.$invalid}">
+                            <label class="control-label"
+                                   ng-bind="'SUPPORT_USER_ID' | translate"></label>
+                            <input class="form-control" name="userId" ng-model="$ctrl.activatePromoData.userId"
+                                   required type="text"/>
+                            <div class="help-block text-danger" ng-messages="$ctrl.activatePromoForm.userId.$error"
+                                 ng-show="$ctrl.activatePromoForm.userId.$touched">
+                                <div ng-messages-include="common/validation/messages/common.html"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-6"></div>
+                </div>
+                <promise-button confirm-text-key="SUPPORT_ACTIVATE"
+                                form="$ctrl.activatePromoForm"
+                                on-confirm="$ctrl.activatePromo"></promise-button>
+            </form>
+        </div>
+
+        <div class="promo-campaigns" ng-if="$ctrl.showPromoCampaigns()">
+            <h2 ng-bind="'SUPPORT_PROMO_CAMPAIGNS' | translate"></h2>
+            <form name="$ctrl.promoCampaignForm" novalidate>
+                <div class="row">
+                    <div class="form-group col-sm-6"
+                         ng-class="{'has-error': $ctrl.promoCampaignForm.campaignType.$touched && $ctrl.promoCampaignForm.campaignType.$invalid}">
+                        <label class="control-label"
+                               ng-bind="'SUPPORT_CAMPAIGN' | translate"></label>
+                        <ui-select name="campaignType" ng-model="$ctrl.promoCampaign.template"
+                                   remove-selected="false"
+                                   required search-enabled="false" skip-focusser="true">
+                            <ui-select-match>
+                                <div ng-bind-html="'SUPPORT_CAMPAIGN_' + $ctrl.promoCampaign.template | translate"></div>
+                            </ui-select-match>
+                            <ui-select-choices repeat="template in $ctrl.promoCampaignTemplates track by $index">
+                                <div ng-bind-html="'SUPPORT_CAMPAIGN_' + template | translate"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                        <div class="help-block text-danger"
+                             ng-messages="$ctrl.promoCampaignForm.campaignType.$error"
+                             ng-show="$ctrl.promoCampaignForm.campaignType.$touched">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label class="control-label"
+                               ng-bind="'SUPPORT_TEST_MODE' | translate"></label>
+                        <div>
+                            <answer-button ng-model="$ctrl.promoCampaign.testMode"
+                                           options="$ctrl.promoCampaignTestModeOptions"></answer-button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label class="control-label"
+                               ng-bind="'SUPPORT_TARGETS' | translate"></label>
+                        <div>
+                            <div class="btn-group">
+                                <answer-button ng-model="$ctrl.promoCampaign.target"
+                                               options="$ctrl.promoCampaignTargetOptions"></answer-button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-8"
+                         ng-class="{'has-error': $ctrl.promoCampaignForm.usersList.$touched && $ctrl.promoCampaignForm.usersList.$invalid}"
+                         ng-if="$ctrl.promoCampaign.target=='USERS_LIST'">
+                        <label class="control-label"></label>
+                        <textarea class="form-control" name="usersList"
+                                  ng-model="$ctrl.promoCampaign.usersList" required></textarea>
+                        <div class="help-block text-danger" ng-messages="$ctrl.promoCampaignForm.usersList.$error"
+                             ng-show="$ctrl.promoCampaignForm.usersList.$touched">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-8" ng-if="$ctrl.promoCampaign.target=='USER_ROLES'">
+                        <label class="control-label"></label>
+                        <div class="checkbox" ng-repeat="role in $ctrl.promoCampaign.userRoles">
+                            <label class="control control--checkbox">
+                                <span class="role" ng-bind="'SUPPORT_ROLE_'+role.role | translate"></span>
+                                <input ng-model="role.enabled" type="checkbox">
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <promise-button confirm-text-key="SUPPORT_START_CAMPAIGN"
+                                form="$ctrl.promoCampaignForm"
+                                on-confirm="$ctrl.startPromoCampaign"></promise-button>
+
+            </form>
+        </div>
+    </div>
+</div>

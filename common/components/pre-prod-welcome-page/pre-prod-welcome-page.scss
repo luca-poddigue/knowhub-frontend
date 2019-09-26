@@ -1,0 +1,50 @@
+@import '../../css/cvars';
+
+pre-prod-welcome-page {
+  z-index: 1050;
+  display: table;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to right, $knowhub-orange 0%, $knowhub-light-orange 90%);
+
+  .welcome-box {
+    display: table-cell;
+    vertical-align: middle;
+    > div {
+      background-color: white;
+      padding: 18px;
+      width: 100%;
+      box-shadow: $shadow-bottom;
+    }
+
+    @media screen and (min-height: 900px) {
+      position: relative;
+      top: -60px;
+    }
+  }
+
+  .logo {
+    margin: auto;
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+  }
+
+  .early-access-form {
+    max-width: 400px;
+    margin: auto;
+  }
+
+  .text {
+    margin-bottom: 15px;
+  }
+
+  .early-access-link {
+    display: inline-block;
+    height: 36px;
+    position: relative;
+    top: 19px;
+    font-weight: bold;
+  }
+}

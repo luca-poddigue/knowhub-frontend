@@ -1,0 +1,105 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-bind="'SESSION_PURCHASE_TITLE' | translate"></h3>
+</div>
+<div class="modal-body session-purchase">
+
+    <div class="price-box">
+        <div>
+            <span ng-bind-html="'SESSION_PURCHASE_TEXT' | translate"></span>
+        </div>
+        <div class="price">
+            <user-metric-viewer>
+                <number ng-bind="::$ctrl.sessionPrice"></number>
+                <meaning ng-bind="'SESSION_PURCHASE_SESSION_PRICE' | translate"></meaning>
+            </user-metric-viewer>
+        </div>
+    </div>
+
+    <div class="payment-request-box" ng-if="$ctrl.showPaymentButton">
+        <button class="btn btn-primary" ng-click="$ctrl.showBrowserPaymentInterface()"
+                ng-bind="'SESSION_PURCHASE_PURCHASE_NOW' | translate"></button>
+        <div class="pay-with-card-text">
+            <span ng-bind="'SESSION_PURCHASE_ENTER_PAYMENT_DETAILS' | translate"></span>
+        </div>
+    </div>
+
+    <div ng-show="$ctrl.paymentMethods.length">
+        <ul class="list-group cards-list">
+            <li class="list-group-item" ng-repeat="method in $ctrl.paymentMethods track by $index"
+                ng-click="$ctrl.selectPaymentMethod(method, $index)"
+                ng-class="{'selected-method': method === $ctrl.selectedPaymentMethod}">
+                <table>
+                    <tr>
+                        <td class="credit-card"><img
+                                mf-src="/sections/manage/session-purchase-modal/images/{{method.brand}}"/></td>
+                        <td>
+                        <span class="text-nowrap"><span ng-bind="'SESSION_PURCHASE_TERMINATES_WITH' | translate"></span>&nbsp;<strong
+                                ng-bind="method.lastFour"></strong></span>
+                            <span class="text-nowrap"><span ng-bind="'SESSION_PURCHASE_EXPIRES_ON' | translate"></span>&nbsp;<strong
+                                    ng-bind="method.expirationDate"></strong></span>
+                        </td>
+                        <td class="text-right">
+                            <button class="btn-delete btn btn-no-style btn-xs"
+                                    ng-show="method === $ctrl.selectedPaymentMethod"
+                                    ng-click="$ctrl.deletePaymentMethod(method, $index)"
+                                    ng-disabled="$ctrl.deletingPaymentMethod">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </li>
+            <li class="list-group-item custom" ng-click="$ctrl.selectPaymentMethod('custom', -1)"
+                ng-class="{'selected-method': $ctrl.isCustomPaymentMethod}">
+                <table>
+                    <tr>
+                        <td class="credit-card"><i class="fa fa-credit-card fa-2x" aria-hidden="true"></i></td>
+                        <td colspan="2"><span ng-bind="'SESSION_PURCHASE_CUSTOM_PAYMENT_METHOD' | translate"></span>
+                        </td>
+                    </tr>
+                </table>
+
+            </li>
+        </ul>
+    </div>
+
+    <form novalidate name="$ctrl.paymentForm"
+          ng-show="!$ctrl.paymentMethods.length || $ctrl.isCustomPaymentMethod">
+
+        <div class="form-group" ng-class="{'has-error': $ctrl.cardFieldError}">
+            <label class="control-label" ng-bind="'SESSION_PURCHASE_CARD_NUMBER' | translate"
+                   for="card-element"></label>
+            <div id="card-element" class="form-control"></div>
+        </div>
+
+        <div class="save-card-container">
+            <label class="control-label" ng-bind="'SESSION_PURCHASE_SAVE_PAYMENT_METHOD' | translate"></label>
+            <p class="help-block" ng-bind="'SESSION_PURCHASE_PAY_WITH_SAVED_METHOD_TOOLTIP' | translate"></p>
+            <answer-button required options="$ctrl.saveCardOptions" ng-model="$ctrl.savePaymentMethod"></answer-button>
+        </div>
+
+        <div class="payment-btn-container">
+            <promise-button on-confirm="$ctrl.acceptAndPurchase"
+                            confirm-text-key="SESSION_PURCHASE_PURCHASE"></promise-button>
+            <div>
+                <i class="fa fa-lock" aria-hidden="true"></i>&nbsp;<span
+                    ng-bind-html="'SESSION_PURCHASE_SECURE_PAYMENT_TEXT' | translate"></span>
+            </div>
+        </div>
+    </form>
+
+    <div class="payment-btn-container"
+         ng-show="$ctrl.selectedPaymentMethod && !$ctrl.isCustomPaymentMethod">
+        <promise-button confirm-text-key="SESSION_PURCHASE_PURCHASE"
+                        on-confirm="$ctrl.acceptAndPurchase"
+                        on-confirm-args="[$ctrl.selectedPaymentMethod.id]"></promise-button>
+        <div>
+            <i class="fa fa-lock" aria-hidden="true"></i>&nbsp;<span
+                ng-bind-html="'SESSION_PURCHASE_SECURE_PAYMENT_TEXT' | translate"></span></div>
+    </div>
+</div>
+<div class="modal-footer">
+    <spinner name="session-purchase-spinner"></spinner>
+    <button class="btn btn-danger" type="button" ng-click="$ctrl.dismiss()"
+            ng-bind="'COMMON_CANCEL' | translate"></button>
+</div>

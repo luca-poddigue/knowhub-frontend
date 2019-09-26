@@ -1,0 +1,13 @@
+<div class="row">
+    <aside class="col-sm-4">
+        <ul class="outline" ng-style="$ctrl.outlineStyle">
+            <li class="outline-item" ng-repeat="item in $ctrl.outlineItems track by $index">
+                <a ng-bind-html="item.text" ng-click="$ctrl.goToAnchor(item.id)"
+                   ng-class="{'item-selected': item.id===$ctrl.selectedItemId}"></a>
+            </li>
+        </ul>
+    </aside>
+    <div class="col-sm-8">
+        <div id="doc-container" class="doc-container"></div>
+    </div>
+</div>

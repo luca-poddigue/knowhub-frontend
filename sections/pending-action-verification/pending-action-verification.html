@@ -1,0 +1,64 @@
+<update-title
+        title="{{$ctrl.applicationName+' | '+('SECTION_VERIFY_'+$ctrl.currentUserStatus | translate)}}"></update-title>
+<update-meta name="description" content=""></update-meta>
+
+<div class="container">
+    <div ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}" class="content">
+        <div class="full-page-message">
+            <div class="text-center">
+                <img class="owl" mf-src="/common/images/owl-pink">
+                <h2 class="section-heading"
+                    ng-bind="'PENDING_ACTION_VERIFICATION_VERIFY_'+$ctrl.currentUserStatus | translate"></h2>
+                <hr class="primary">
+            </div>
+            <div class="text-center">
+                <div>
+                    <h4 class="text-center" ng-if="$ctrl.verificationStatus === 'VERIFIED'"
+                        ng-bind="'PENDING_ACTION_VERIFICATION_'+$ctrl.currentUserStatus+'_VERIFIED' | translate"></h4>
+                    <div class="text-center">
+                        <button class="btn btn-primary" ng-show="$ctrl.verificationStatus === 'VERIFIED'"
+                                ng-click="$ctrl.proceed()" ng-bind="'COMMON_PROCEED' | translate"></button>
+                    </div>
+                </div>
+
+                <div ng-if="$ctrl.verificationStatus !== 'VERIFIED'">
+                    <h4 ng-bind-html="'PENDING_ACTION_VERIFICATION_'+$ctrl.currentUserStatus+'_EXPLANATION' | translate"></h4>
+                    <form name="$ctrl.verifyPendingActionForm" novalidate>
+                        <div ng-if="$ctrl.currentUserStatus === $ctrl.userStatus.unverifiedEmailChange"
+                             class="form-group"
+                             ng-class="{'has-error': $ctrl.verifyPendingActionForm.notificationCode.$touched && $ctrl.verifyPendingActionForm.notificationCode.$invalid}">
+                            <label class="control-label" for="notificationCode" class="sr-only"
+                                   ng-bind="'PENDING_ACTION_REQUEST_VERIFICATION_CODE' | translate"></label>
+                            <input autocomplete="off" id="notificationCode" name="notificationCode"
+                                   class="form-control verification-code" type="text" ng-model="$ctrl.notificationToken"
+                                   required>
+                        </div>
+                        <div class="form-group"
+                             ng-class="{'has-error': $ctrl.verifyPendingActionForm.verificationCode.$touched && $ctrl.verifyPendingActionForm.verificationCode.$invalid}">
+                            <label class="control-label" for="verificationCode" class="sr-only"
+                                   ng-bind="$ctrl.currentUserStatus === $ctrl.userStatus.unverifiedEmailChange ? 'PENDING_ACTION_NEW_EMAIL_VERIFICATION_CODE' : 'PENDING_ACTION_VERIFICATION_CODE' | translate"></label>
+                            <input autocomplete="off" id="verificationCode" name="verificationCode"
+                                   class="form-control verification-code" type="text" ng-model="$ctrl.verificationToken"
+                                   required>
+                        </div>
+                        <div class="text-center">
+                            <promise-button on-confirm="$ctrl.verify"
+                                            confirm-text-key="PENDING_ACTION_VERIFICATION_VERIFY"
+                                            form="$ctrl.verifyPendingActionForm"></promise-button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div ng-if="$ctrl.currentUserStatus !== $ctrl.userStatus.unverifiedEmail && $ctrl.verificationStatus !== 'VERIFIED'"
+                 class="discard-section">
+                <div class="text-center">
+                    <span ng-bind-html="'PENDING_ACTION_VERIFICATION_DISCARD_EXPLANATION' | translate"></span>
+                    <div>
+                        <promise-button on-confirm="$ctrl.discardPendingAction" btn-style="danger"
+                                        confirm-text-key="PENDING_ACTION_VERIFICATION_DISCARD"></promise-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

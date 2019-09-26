@@ -1,0 +1,19 @@
+@import '../../../common/css/cvars';
+
+
+tab-support-dashboard {
+  .promo-campaigns,
+  .session-price-limit {
+    textarea {
+      min-height: 160px;
+    }
+  }
+
+  @media(max-width: ($screen-sm)-1) {
+    .litigations {
+      .resolve-btn {
+        margin-top: 14px;
+      }
+    }
+  }
+}

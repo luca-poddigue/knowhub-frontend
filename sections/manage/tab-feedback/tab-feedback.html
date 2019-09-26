@@ -1,0 +1,109 @@
+<div>
+
+    <div class="jumbotron">
+        <h1 ng-bind="'SESSION_FEEDBACK_TITLE' | translate"></h1>
+        <p ng-bind="'SESSION_FEEDBACK_SUBTITLE' | translate"></p>
+    </div>
+
+    <div ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}" class="content">
+
+        <collapsable-alert name="feedback-calendar">
+            <alert-title ng-bind="'SESSION_FEEDBACK_INSTRUCTIONS_TITLE' | translate"></alert-title>
+            <alert-content ng-bind-html="'SESSION_FEEDBACK_INSTRUCTIONS_TEXT' | translate"></alert-content>
+        </collapsable-alert>
+
+        <div class="alert alert-success no-pending-feedbacks"
+             ng-if="$ctrl.pendingFeedbacks && !$ctrl.pendingFeedbacks.length"
+             ng-bind-html="'SESSION_FEEDBACK_NO_PENDING_FEEDBACKS' | translate">
+        </div>
+
+        <div ng-if="$ctrl.pendingFeedbacks && $ctrl.pendingFeedbacks.length">
+            <div class="cards-container">
+                <div class="pending-feedback-card"
+                     ng-repeat="pendingFeedback in $ctrl.pendingFeedbacks track by $index">
+                    <div class="card-header" ng-class="{'open': pendingFeedback.open}"
+                         ng-click="$ctrl.toggleForm(pendingFeedback)">
+                        <h3 ng-bind="::pendingFeedback.topic"></h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div ng-bind="'SESSION_FEEDBACK_WITH_EXPERT' | translate"></div>
+                                <h4 ng-bind="::pendingFeedback.expertName"></h4>
+                            </div>
+                            <div class="col-md-6">
+                                <div ng-bind="'SESSION_FEEDBACK_COMPLETED_ON' | translate"></div>
+                                <h4 ng-bind="::pendingFeedback.closedOn | date:'fullDate'"></h4>
+                            </div>
+                        </div>
+
+                        <span class="message" ng-bind="'SESSION_FEEDBACK_PROVIDE_FEEDBACK' | translate"></span>
+                    </div>
+
+                    <form novalidate ng-if="pendingFeedback.open" class="feedback-form"
+                          name="$ctrl.feedbackForm{{pendingFeedback.sessionId}}">
+                        <div>
+                            <span class="control-label question-text"
+                                  ng-bind="'SESSION_FEEDBACK_SESSION_HELD' | translate"></span>
+                            <answer-button required options="$ctrl.sessionHeldOptions"
+                                           ng-model="pendingFeedback.feedback.sessionHeld"
+                                           id="sessionHeld" name="sessionHeld"></answer-button>
+                            <div ng-show="$ctrl['feedbackForm'+pendingFeedback.sessionId].sessionHeld.$touched"
+                                 ng-messages="$ctrl['feedbackForm'+pendingFeedback.sessionId].sessionHeld.$error"
+                                 class="help-block text-danger">
+                                <div ng-messages-include="common/validation/messages/common.html"></div>
+                            </div>
+                        </div>
+                        <div ng-if="!pendingFeedback.payoutRequested &&
+                        (!$ctrl.isUndefined(pendingFeedback.feedback.sessionHeld) && !pendingFeedback.feedback.sessionHeld)"
+                             class="unheld-session alert alert-danger"
+                             ng-bind-html="'SESSION_FEEDBACK_UNHELD_SESSION_ALERT_TEXT' | translate"></div>
+                        <div ng-if="pendingFeedback.payoutRequested &&
+                        (!$ctrl.isUndefined(pendingFeedback.feedback.sessionHeld) && !pendingFeedback.feedback.sessionHeld)"
+                             class="unheld-session alert alert-warning"
+                             ng-bind-html="'SESSION_FEEDBACK_UNHELD_SESSION_WARNING_TEXT' | translate"></div>
+
+                        <div class="question"
+                             ng-if="$ctrl.isUndefined(pendingFeedback.feedback.sessionHeld) || pendingFeedback.feedback.sessionHeld"
+                             ng-repeat="qa in pendingFeedback.feedback.qas">
+                            <span class="control-label question-text"
+                                  ng-bind="'SESSION_FEEDBACK_'+qa.question | translate"></span>
+                            <answer-button required options="$ctrl.feedbackAnswerOptions"
+                                           ng-model="qa.answer" id="{{qa.question}}"
+                                           name="{{qa.question}}"></answer-button>
+                            <div ng-show="$ctrl['feedbackForm'+pendingFeedback.sessionId][qa.question].$touched"
+                                 ng-messages="$ctrl['feedbackForm'+pendingFeedback.sessionId][qa.question].$error"
+                                 class="help-block text-danger">
+                                <div ng-messages-include="common/validation/messages/common.html"></div>
+                            </div>
+                        </div>
+
+                        <div ng-if="$ctrl.isUndefined(pendingFeedback.feedback.sessionHeld) || pendingFeedback.feedback.sessionHeld"
+                             class="comment form-group"
+                             ng-class="{'has-error': $ctrl['feedbackForm'+pendingFeedback.sessionId].comment.$touched && $ctrl['feedbackForm'+pendingFeedback.sessionId].comment.$invalid}">
+                            <label class="control-label"
+                                   ng-bind="'SESSION_FEEDBACK_COMMENT' | translate"></label>
+                            <div class="help-block" ng-bind="'SESSION_FEEDBACK_COMMENT_TEXT' | translate">
+                            </div>
+                            <textarea class="form-control" rows="5" id="comment" name="comment" ng-minlength=5
+                                      ng-maxlength=2000 ng-model="pendingFeedback.feedback.comment"></textarea>
+                            <div ng-show="$ctrl['feedbackForm'+pendingFeedback.sessionId].comment.$touched"
+                                 ng-messages="$ctrl['feedbackForm'+pendingFeedback.sessionId].comment.$error"
+                                 class="help-block text-danger">
+                                <div ng-messages-include="common/validation/messages/common.html"></div>
+                            </div>
+                        </div>
+
+                        <div class="btns">
+                            <promise-button on-confirm="$ctrl.sendFeedback" ,
+                                            on-confirm-args="[pendingFeedback.sessionId, pendingFeedback.feedback, $index]"
+                                            confirm-text-key="SESSION_FEEDBACK_SEND_FEEDBACK"
+                                            form="$ctrl['feedbackForm'+pendingFeedback.sessionId]"></promise-button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

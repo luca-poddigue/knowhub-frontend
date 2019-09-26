@@ -1,0 +1,23 @@
+profile-picture-loader {
+  display: block; }
+  profile-picture-loader .btns {
+    margin-bottom: 10px; }
+    profile-picture-loader .btns > div {
+      margin-right: 5px;
+      display: inline-block; }
+  profile-picture-loader .current-picture {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 9px 0 rgba(0, 0, 0, 0.2); }
+  profile-picture-loader .croppie-container {
+    max-width: 290px;
+    height: 220px;
+    position: fixed;
+    top: -10000px; }
+    profile-picture-loader .croppie-container.crop-widget-visible {
+      position: static; }
+    profile-picture-loader .croppie-container .cr-boundary {
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 9px 0 rgba(0, 0, 0, 0.2); }
+    @media screen and (max-width: 499px) {
+      profile-picture-loader .croppie-container {
+        margin: auto; } }
+
+/*# sourceMappingURL=profile-picture-loader.css.map */

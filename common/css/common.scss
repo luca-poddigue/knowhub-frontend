@@ -1,0 +1,1142 @@
+@import 'cvars';
+@import 'mixins';
+
+@include scrollbars(5px, $knowhub-yellow);
+
+html {
+  margin: 0;
+}
+
+body {
+  font-family: 'LatoLatinWeb', serif;
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+
+  -ms-overflow-style: scrollbar;
+
+  &.no-scroll {
+    overflow-y: hidden;
+  }
+
+  @media screen and (max-width: $screen-sm) {
+    &.no-scroll-when-sm {
+      overflow-y: hidden;
+    }
+  }
+}
+
+* {
+  border: none;
+}
+
+[readonly] {
+  background-color: white !important;
+  cursor: default;
+}
+
+//noinspection CssInvalidPropertyValue
+@-ms-viewport {
+}
+
+//noinspection CssInvalidPropertyValue
+@-o-viewport {
+  width: device-width;
+}
+
+//noinspection CssInvalidPropertyValue
+@viewport {
+  width: device-width;
+}
+
+::selection {
+  background: $knowhub-orange;
+  color: white;
+}
+
+input,
+.input-group {
+  font-weight: bold;
+
+  &::placeholder {
+    font-weight: normal;
+  }
+}
+
+blockquote {
+  @include word-wrap();
+}
+
+a {
+  outline: none;
+  &:focus {
+    color: $knowhub-orange;
+  }
+  &.disabled {
+    cursor: default;
+  }
+}
+
+img::selection,
+canvas::selection {
+  background: transparent;
+  color: white;
+}
+
+.input-group-addon {
+  user-select: none;
+}
+
+h-number {
+
+  .input-group label {
+    border-width: 1px 0;
+
+    input {
+      text-align: center;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .input-group-addon {
+    cursor: pointer;
+    background-color: $knowhub-orange;
+    color: white;
+    border-color: $knowhub-orange-dark;
+    border-width: 0 1px 3px 1px;
+
+    &::selection {
+      color: $text-body;
+      background-color: $gray-input;
+    }
+  }
+
+  &[disabled] {
+    pointer-events: none;
+
+    .input-group {
+      label {
+        background-color: $gray-input;
+
+        input {
+          background-color: $gray-input;
+        }
+      }
+    }
+
+    .input-group-addon {
+      cursor: default;
+      background-color: white;
+      border-color: $light-gray;
+      color: inherit;
+    }
+  }
+}
+
+.owl {
+  height: 120px;
+}
+
+hr {
+  border: none;
+}
+
+.well {
+  border-width: 1px 0;
+  border-color: $knowhub-light-orange;
+  box-shadow: inset 0 2px $knowhub-orange, inset 0 -2px $knowhub-orange;
+  margin: 15px 0;
+  background-color: white;
+}
+
+.control-label {
+  color: $knowhub-orange;
+  font-weight: bold;
+}
+
+label + info-point {
+  margin-left: 5px;
+
+  i {
+    color: $knowhub-orange;
+  }
+}
+
+.form-group[disabled] {
+  label + info-point {
+    color: $text-body;
+  }
+}
+
+h3 i.fa,
+h4 i.fa {
+  margin-left: 5px;
+}
+
+.ui-select {
+  &:active {
+    background-color: inherit;
+  }
+
+  &-choices {
+    border-color: $knowhub-orange;
+    padding: 0;
+
+    .ui-select-choices-row {
+      > a {
+        padding-top: 4px;
+
+        > div {
+          @include text-ellipsis();
+        }
+      }
+
+      &.active {
+        background-color: transparent;
+
+        span {
+          color: inherit;
+          background-color: inherit;
+
+          &:hover {
+            background-color: #f5f5f5;
+          }
+        }
+
+        > a {
+          background-color: transparent;
+          color: #333;
+        }
+      }
+
+      &.active.disabled,
+      &.disabled {
+        background-color: transparent;
+
+        > a {
+          background-color: transparent;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+
+  &-container {
+    transform: inherit !important;
+    outline: 0 !important;
+    height: 36px;
+
+    /* Avoids keyboard to pop out on mobile devices if the dropdown is not searchable */
+    &[search-enabled=false] {
+      .ui-select-search,
+      .ui-select-focusser {
+        visibility: hidden;
+      }
+    }
+
+    a.btn {
+      transform: inherit !important;
+    }
+
+    .ui-select-placeholder {
+      text-transform: none;
+      color: $text-navbar;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 18px;
+      position: relative;
+      bottom: 1px;
+    }
+
+    .btn-default-focus {
+      background-color: inherit;
+      border: 0;
+      box-shadow: none;
+    }
+
+    .ui-select-toggle {
+      padding-right: 46px;
+
+      a.btn {
+        transform: inherit;
+        border: none;
+        height: inherit;
+        right: 13px;
+
+        &:focus,
+        &:active {
+          background-color: transparent;
+          box-shadow: none;
+        }
+      }
+
+      .caret {
+        pointer-events: none;
+      }
+    }
+  }
+
+  &-match {
+    outline: 0;
+
+    &-text {
+      width: 100%;
+
+      > div {
+        @include text-ellipsis();
+      }
+    }
+    .glyphicon {
+      font-size: 110%;
+      cursor: pointer;
+    }
+
+    .btn,
+    input.ui-select-search {
+      text-shadow: none;
+      font-size: inherit;
+      text-transform: none;
+      border-width: 1px;
+      transition: inherit;
+
+      &:hover {
+        transform: inherit;
+      }
+
+      &:focus {
+        border: solid 1px $knowhub-orange;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(255, 176, 59, .6);
+
+      }
+
+      &:active {
+        box-shadow: none;
+        border-color: $gray-border;
+        background-color: white;
+      }
+    }
+  }
+}
+
+.ui-select-container {
+  &:not([search-enabled="false"]):not(.not-searchable) {
+    > div > span {
+      cursor: text;
+    }
+
+    .ui-select-toggle {
+      padding-right: 31px;
+
+      a.btn {
+        right: 0;
+      }
+    }
+
+    .caret {
+      display: none;
+    }
+  }
+}
+
+.modal-dialog .intro-text {
+  margin-bottom: 16px;
+}
+
+.modal-footer {
+  padding: 10px;
+
+  spinner {
+    display: inline-block;
+    height: 22px;
+    position: absolute;
+    bottom: 24px;
+    left: 10px;
+
+    > div {
+      margin: 6px 0px 1px 5px;
+      transform: scale(0.65);
+    }
+  }
+}
+
+.has-success {
+  .form-control {
+    box-shadow: none;
+  }
+
+  .input-group-addon {
+    border-color: $green-success;
+  }
+}
+
+.has-error {
+  .form-control {
+    box-shadow: none;
+  }
+
+  .input-group-addon {
+    border-color: $red-danger;
+  }
+}
+
+.btn {
+  @include text-ellipsis();
+
+  @include text-shadow();
+  &.btn-default,
+  &.btn-no-style {
+    text-shadow: none;
+  }
+
+  height: 36px;
+  border-width: 0 1px 3px;
+
+  i + span {
+    margin-left: 5px;
+  }
+
+  &-sm {
+    height: 30px;
+  }
+
+  &:active {
+    margin-top: 0;
+  }
+
+  &:hover {
+    margin-top: 0;
+    transform: translateY(1px);
+  }
+
+  &-xs {
+    height: 25px;
+  }
+
+  &:focus,
+  &:active:focus,
+  &.active:focus,
+  &.focus,
+  &:active.focus,
+  &.active.focus {
+    outline: 0;
+  }
+}
+
+.has-success .form-control:focus,
+.has-error .form-control:focus {
+  box-shadow: none;
+}
+
+.input-group .btn {
+  transform: inherit;
+
+  i {
+    transform: translateY(1px);
+  }
+}
+
+.panel {
+  .panel-default {
+    border-bottom-color: $knowhub-orange;
+  }
+
+  &-heading {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    small {
+      color: white;
+      margin: 3px 0 0;
+    }
+  }
+}
+
+.jumbotron {
+  text-align: center;
+  background: $knowhub-light-orange;
+  background: linear-gradient(to right, $knowhub-orange 0%, $knowhub-light-orange 90%);
+  color: white;
+  border: none;
+  margin: 0;
+  padding-top: 20px;
+  padding-bottom: 5px;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  @include text-shadow();
+
+  @media screen and (min-width: $screen-sm) {
+    padding-top: 30px;
+  }
+
+  h1 {
+    margin-top: 2px;
+  }
+
+  .btn-group {
+    margin-bottom: 20px;
+  }
+}
+
+a {
+  cursor: pointer;
+}
+
+a:hover,
+a:focus,
+.btn-link:hover,
+.btn-link:focus {
+  text-decoration: none;
+}
+
+input.ui-select-search {
+  width: 100% !important;
+}
+
+.container {
+  padding: 0;
+
+  @media (min-width: 768px) {
+    width: inherit;
+  }
+
+  .content {
+    margin: auto;
+    max-width: $container-max-width;
+    background-color: white;
+    padding: 25px 15px 60px 15px;
+    border: 0;
+
+    @media screen and (max-width: ($screen-sm)-1) {
+      padding-bottom: 110px;
+    }
+
+    > div {
+      margin-top: 35px;
+
+      &:first-child {
+        margin-top: 10px;
+      }
+
+      &.full-page-message {
+        margin-top: 15px;
+
+        @media screen and (min-width: $screen-sm) and (min-height: $screen-sm) {
+          margin-top: 70px;
+        }
+      }
+
+      &:last-child {
+        margin-bottom: 10px;
+      }
+
+    }
+  }
+}
+
+textarea.form-control {
+  max-width: 100%;
+  min-width: 100%;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.dont-break-out {
+  hyphens: auto;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.file-input {
+  height: .1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  width: .1px;
+  z-index: -1;
+
+  + label {
+    cursor: pointer;
+  }
+}
+
+.input-group.multi-side {
+  input {
+    border-radius: 0;
+  }
+}
+
+label,
+h3 span {
+  &[required]:after {
+    color: $red;
+    content: '*';
+  }
+}
+
+.text-ellipsis {
+  @include text-ellipsis();
+}
+
+@media screen and (max-width: $screen-xs) {
+  .visible-xxs {
+    &-inline {
+      display: inline !important;
+    }
+
+    &-block {
+      display: block !important;
+    }
+
+    &-inline-block {
+      display: inline-block !important;
+    }
+  }
+
+  .hidden-xxs {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: $screen-xs+1) {
+  .visible-xxs {
+    &-inline {
+      display: none !important;
+    }
+
+    &-block {
+      display: none !important;
+    }
+
+    &-inline-block {
+      display: none !important;
+    }
+  }
+}
+
+.input-group .input-group-addon {
+  line-height: 18px;
+}
+
+.uib-datepicker {
+  .btn-default {
+    .text-info {
+      color: $knowhub-orange;
+    }
+
+    &.active {
+      color: inherit;
+      background-color: inherit;
+      box-shadow: inherit;
+      border-color: $light-gray;
+
+      &[disabled="disabled"] {
+        background-color: $light-gray;
+      }
+    }
+
+    &.btn-info,
+    &:active {
+      color: white;
+      background-color: $knowhub-orange;
+      border-color: $knowhub-orange-dark;
+
+      .text-muted {
+        color: white;
+      }
+
+      .text-info {
+        color: white;
+      }
+    }
+  }
+
+  tbody {
+    button[disabled] {
+      background-color: $light-gray;
+      border-radius: 0;
+
+      &:hover {
+        background-color: $light-gray;
+        transform: none;
+      }
+    }
+  }
+}
+
+*[uib-datepicker] *:focus {
+  outline: none;
+}
+
+.uib-datepicker-popup {
+  padding: 5px;
+}
+
+ul.nav-tabs {
+  position: relative;
+  background: linear-gradient(to left, #ff9800 0%, #ffb03b 100%);
+  border: 0;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: $shadow-bottom-sm;
+  transition: all .2s ease-in-out;
+  z-index: 3;
+
+  @media screen and (min-width: $container-max-width) {
+    height: 37px;
+  }
+
+  > li {
+    @media screen and (max-width: ($container-max-width)-1) {
+      float: none;
+      height: 33px;
+
+      &:last-child {
+        padding-bottom: 4px;
+      }
+    }
+
+    background-color: inherit;
+    border: 0;
+    outline: 0;
+
+    &:focus {
+      @extend li;
+    }
+
+    &:hover {
+      background: transparent;
+      @media screen and (max-width: ($container-max-width)-1) {
+        background: linear-gradient(to right, #ff9800 0%, #ffb03b 100%);
+      }
+    }
+
+    > a {
+      width: 100%;
+      height: 100%;
+      padding: 6px 8px 2px;
+      margin-left: 0;
+      margin-right: 0;
+      @include text-shadow();
+      @media screen and (max-width: ($container-max-width)-1) {
+        padding: 1px 10px;
+        display: inline-block;
+      }
+      background-color: inherit;
+      border: 0;
+      color: white;
+      outline: 0;
+
+      &:hover,
+      &:focus {
+        @extend a;
+        background-color: inherit;
+        color: white;
+        margin-top: 2px;
+      }
+    }
+
+    &.active {
+      box-shadow: $shadow-bottom-sm;
+      background: linear-gradient(to right, #ff9800 0%, #ffb03b 100%);
+      font-size: 110%;
+      z-index: 1;
+
+      @media screen and (min-width: $container-max-width) {
+        height: 41px;
+        background: $knowhub-orange;
+
+        uib-tab-heading {
+          vertical-align: middle;
+        }
+      }
+
+      @media screen and (max-width: ($container-max-width)-1) {
+        &:last-child {
+          padding-bottom: 0;
+        }
+      }
+
+      > a,
+      > a:hover,
+      > a:focus {
+        background-color: inherit;
+        border: 0;
+        color: white;
+        padding: 11px 8px 6px;
+        outline: 0;
+
+        @media screen and (max-width: ($container-max-width)-1) {
+          padding-top: 7px;
+        }
+      }
+    }
+  }
+}
+
+.label {
+  font-size: inherit;
+  @include text-shadow();
+}
+
+.markdown-output {
+  position: relative;
+
+  hr {
+    max-width: 100%;
+    border: solid 1px $knowhub-orange;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  table {
+    th, td {
+      padding: 0 12px 2px 0;
+    }
+  }
+}
+
+.btn.btn-no-style {
+  background-color: transparent;
+  border: none;
+  overflow: hidden;
+  outline: none;
+  box-shadow: none;
+
+  i + span {
+    margin-left: 2px;
+  }
+
+  &:hover,
+  &:focus {
+    color: inherit;
+    margin-top: 0;
+  }
+}
+
+.main-view {
+  padding: 49px 0 0 0;
+}
+
+.alert {
+  @include text-shadow();
+  border-width: 0 1px 3px;
+  padding: 11px 15px 7px 15px;
+
+  a {
+    text-decoration: underline;
+    font-weight: bold;
+
+    &:focus,
+    &:active {
+      color: inherit;
+    }
+  }
+
+  &.fade-alert {
+    &.ng-enter {
+      opacity: 0;
+      transition: $fade-transition;
+
+      &.ng-enter-active {
+        opacity: 1;
+      }
+    }
+
+    &.ng-leave {
+      opacity: 1;
+      transition: $fade-transition;
+
+      &.ng-leave-active {
+        opacity: 0;
+      }
+    }
+  }
+}
+
+.drop-box {
+  .dragover-overlay {
+    display: none;
+  }
+}
+
+.drop-box.dragover {
+  .dragover-overlay {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.05);
+    z-index: 2;
+
+    .message {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%);
+    }
+
+  }
+}
+
+.progress {
+  height: 28px;
+
+  .progress-bar {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 0;
+    text-transform: uppercase;
+    transition-duration: .1s;
+  }
+}
+
+//Hack to use FontAwesome icons in place of Bootstrap's glyphicons.
+.glyphicon {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: auto;
+
+  &.glyphicon-chevron-up:before {
+    content: '\f077';
+  }
+
+  &.glyphicon-chevron-down:before {
+    content: '\f078';
+  }
+
+  &.glyphicon-chevron-right:before {
+    content: '\f054';
+  }
+
+  &.glyphicon-chevron-left:before {
+    content: '\f053';
+  }
+
+  &.glyphicon-remove:before {
+    content: '\f00d';
+  }
+}
+
+.legend {
+  margin: 12px 0;
+
+  h4 {
+    margin-top: 15px;
+    margin-bottom: 5px;
+  }
+  .legend-entry {
+    margin-top: 3px;
+
+    .color {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      position: relative;
+      top: 1px;
+      margin-right: 8px;
+
+      &.unavailable {
+        background-color: $gray;
+      }
+
+      &.available {
+        background-color: white;
+        border: 1px solid $text-default;
+      }
+
+      &.session {
+        background-color: $light-blue-info;
+      }
+      &.request,
+      &.current {
+        background-color: $knowhub-orange;
+      }
+
+      &.available-in-future {
+        background-color: $light-purple;
+      }
+    }
+  }
+}
+
+/* Calendars */
+@media screen and (max-width: 390px) {
+  .calendar {
+    .fc-day-header,
+    .fc-axis {
+      font-size: 80%;
+    }
+  }
+}
+
+.fc-time-grid-event {
+  overflow: hidden;
+
+  &.fc-selected {
+    overflow: hidden;
+
+    .fc-resizer {
+      bottom: -6px;
+      left: 93%;
+      width: 12px;
+      height: 12px;
+      border-radius: 9px;
+    }
+  }
+}
+
+
+/* Checkboxes and radio buttons */
+$selected-checkbox-color: darken($knowhub-light-orange, 10%);
+
+.control span {
+  margin-left: 10px;
+  display: inline-block;
+
+  &::selection {
+    background: inherit;
+    color: inherit;
+  }
+}
+
+.control input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.control__indicator {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: $knowhub-yellow;
+}
+
+.control--radio .control__indicator {
+  border-radius: 50%;
+}
+
+/* Hover and focus states */
+.control:hover input ~ .control__indicator {
+  background: $selected-checkbox-color;
+}
+
+/* Checked state */
+.control input:checked ~ .control__indicator {
+  background: $knowhub-light-orange;
+}
+
+/* Hover state whilst checked */
+.control:hover input:not([disabled]):checked ~ .control__indicator,
+.control input:checked:focus ~ .control__indicator {
+  background: $selected-checkbox-color;
+}
+
+/* Disabled state */
+.control input:disabled ~ .control__indicator {
+  pointer-events: none;
+  opacity: .6;
+  background: $gray;
+}
+
+/* Check mark */
+.control__indicator:after {
+  position: absolute;
+  display: none;
+  content: '';
+}
+
+/* Show check mark */
+.control input:checked ~ .control__indicator:after {
+  display: block;
+}
+
+/* Checkbox tick */
+.control--checkbox .control__indicator:after {
+  font-family: FontAwesome;
+  content: "\f00c";
+  left: 4px;
+  color: white;
+}
+
+/* Disabled tick colour */
+.control--checkbox input:disabled ~ .control__indicator:after {
+  border-color: darken($gray, 40%);
+}
+
+/* Radio button inner circle */
+.control--radio .control__indicator:after {
+  top: 7px;
+  left: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+}
+
+/* Disabled circle colour */
+.control--radio input:disabled ~ .control__indicator:after {
+  background: $gray-input;
+}
+
+.data-blocks {
+  width: 100%;
+
+  > div {
+    margin-top: -13px;
+  }
+
+  .data-block {
+    display: inline-block;
+    margin: 13px 18px -8px 0;
+    vertical-align: top;
+  }
+
+  .control-label {
+    margin: 0;
+    padding: 0;
+  }
+
+  .form-control-static {
+    margin: 0 0 6px;
+    min-height: 0;
+    padding: 0;
+  }
+}
+
+.yt-video {
+  height: 0;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  position: relative;
+
+  iframe {
+    height: 100%;
+    left: -1px;
+    position: absolute;
+    top: 0;
+    width: 100.1%;
+  }
+}

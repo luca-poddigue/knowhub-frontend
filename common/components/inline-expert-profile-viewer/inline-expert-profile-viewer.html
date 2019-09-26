@@ -1,0 +1,182 @@
+<div class="overview-container">
+    <div class="profile-picture">
+        <img ng-if="$ctrl.expertOverview.profilePictureUrl"
+             ng-style="{'width': $ctrl.profilePictureSize, 'height': $ctrl.profilePictureSize}"
+             ng-src="{{$ctrl.expertOverview.profilePictureUrl}}">
+        <i ng-if="!$ctrl.expertOverview.profilePictureUrl" class="fa fa-user-circle-o placeholder"
+           aria-hidden="true"></i>
+    </div>
+
+    <div class="overview">
+        <div class="name">
+            <h3 ng-bind="::$ctrl.expertOverview.user.fullName"></h3>
+            <bookmark-button bookmarked-experts="[]" expert-id="$ctrl.expertOverview.user.id"></bookmark-button>
+        </div>
+        <div>
+            <button ng-disabled="!$ctrl.enableSessionRequest" class="btn btn-primary session-request"
+                    ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_REQUEST_SESSION' | translate"
+                    ng-click="$ctrl.showSessionRequestModal()"></button>
+        </div>
+
+        <div class="supporter-medal-block" ng-if="$ctrl.showSupporterBadge()">
+            <img class="medal" mf-src="/common/images/medal">
+            <div class="explanation" ng-bind-html="::$ctrl.formatSupporterBadgeText()"></div>
+        </div>
+
+        <div class="user-data-blocks" ng-class="{'more-details': $ctrl.showFullProfile}">
+
+            <div ng-if="$ctrl.showFullProfile" class="user-data-block full-row profile-language form-group">
+                <label class="control-label"
+                       ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_PROFILE_LANGUAGE' | translate"></label>
+                <info-point ng-if="$ctrl.fullProfile.availableLanguages > 1"
+                            message-key="SEARCH_PROFILE_LANGUAGE_TOOLTIP"></info-point>
+                <language-picker ng-if="$ctrl.fullProfile.availableLanguages.length > 1"
+                                 ng-model="$ctrl.profileDisplayLanguage"
+                                 available-languages="$ctrl.fullProfile.availableLanguages" allow-clear="false"
+                                 disable-search="true"></language-picker>
+                <p id="profile-language" ng-if="$ctrl.fullProfile.availableLanguages.length === 1"
+                   class="form-control-static"
+                   ng-bind="::$ctrl.languages[$ctrl.fullProfile.availableLanguages[0]].nativeName"></p>
+            </div>
+
+            <div class="user-data-block form-group">
+                <label class="control-label" for="country"
+                       ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_COUNTRY' | translate"></label>
+                <p id="country" class="form-control-static"
+                   ng-bind="::'COUNTRY_'+$ctrl.expertOverview.country | translate"></p>
+            </div>
+
+            <div class="user-data-block form-group">
+                <label class="control-label" for="reputation"
+                       ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_REPUTATION' | translate"></label>
+                <info-point ng-if="!$ctrl.expertOverview.reputation"
+                            message-key="INLINE_EXPERT_PROFILE_VIEWER_HIDDEN_REPUTATION_TOOLTIP"></info-point>
+                <p id="reputation" ng-if="$ctrl.expertOverview.reputation" class="form-control-static"><span
+                        ng-bind="::$ctrl.expertOverview.reputation | number : 0"></span><i
+                        ng-if="$ctrl.expertOverview.reputation > 80" class="fa fa-trophy high-reputation"></i></p>
+                <p ng-if="!$ctrl.expertOverview.reputation" class="form-control-static"
+                   ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_HIDDEN' | translate">
+            </div>
+
+            <div class="user-data-block form-group" ng-if="$ctrl.expertOverview.avgCostPerHour > -1">
+                <label class="control-label" for="average-price"
+                       ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_AVERAGE_PRICE' | translate"></label>
+                <p id="average-price" class="form-control-static"
+                   ng-bind="::($ctrl.expertOverview.avgCostPerHour | number : 0)+' '+('CURRENCY_SYMBOL_EUR' | translate) + ('COMMON_PER_HOUR' | translate)"></p>
+            </div>
+
+            <div class="user-data-block form-group">
+                <label class="control-label" for="languages"
+                       ng-bind="::'INLINE_EXPERT_PROFILE_VIEWER_LANGUAGES' | translate"></label>
+                <div class="form-control-static">
+                    <div ng-repeat="langObj in $ctrl.expertOverview.spokenLanguages track by $index" id="languages"
+                         class="language-block">
+                        <span ng-bind="::$ctrl.languages[langObj.tagName].nativeName"></span>
+                        <proficiency-viewer levels="$ctrl.languageProficiencyLevels" proficiency="langObj.proficiency"
+                                            show-proficiency-label="true"></proficiency-viewer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="additional-details user-data-blocks" ng-if="$ctrl.showFullProfile">
+
+    <div class="user-data-block form-group">
+        <label class="control-label" for="expertSince"
+               ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_SINCE' | translate"></label>
+        <p id="expertSince" class="form-control-static" ng-bind="::$ctrl.fullProfile.expertSince | date:'longDate'"></p>
+    </div>
+
+    <div class="user-data-block form-group">
+        <label class="control-label" for="completed-sessions"
+               ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_COMPLETED_SESSIONS' | translate"></label>
+        <p id="completed-sessions" class="form-control-static" ng-bind="::$ctrl.fullProfile.completedSessions"></p>
+    </div>
+
+    <div class="user-data-block full-row skills form-group">
+        <label class="control-label" for="skills" ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_SKILLS' | translate"></label>
+        <div id="skills">
+            <div class="skill-block"
+                 ng-repeat="skillObj in $ctrl.fullProfile.skills[$ctrl.profileDisplayLanguage] track by $index">
+                <span ng-bind="skillObj.tagName"></span>
+                <proficiency-viewer levels="$ctrl.skillProficiencyLevels" proficiency="skillObj.proficiency"
+                                    show-proficiency-label="true"></proficiency-viewer>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="$ctrl.fullProfile.education[$ctrl.profileDisplayLanguage].length"
+         class="user-data-block full-row form-group">
+        <label class="control-label"
+               ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_EDUCATION' | translate"></label>
+        <div>
+            <div ng-repeat="education in $ctrl.fullProfile.education[$ctrl.profileDisplayLanguage] track by $index"
+                 class="education">
+                <h4 ng-bind="education.certificate"></h4>
+                <div ng-if="education.grade" ng-bind="education.grade"></div>
+                <div ng-if="education.school" ng-bind="education.school"></div>
+                <div ng-if="education.location" ng-bind="education.location"></div>
+                <div ng-if="education.datesAttended">
+                    <span ng-bind="education.datesAttended[0] | date:'longDate'"></span>&nbsp;
+                    <i class="fa fa-arrows-h" aria-hidden="true"></i>&nbsp;
+                    <span ng-bind="education.datesAttended[1] ? (education.datesAttended[1] | date:'longDate') : ('INLINE_EXPERT_PROFILE_VIEWER_PRESENT' | translate)"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="$ctrl.fullProfile.experiences[$ctrl.profileDisplayLanguage].length"
+         class="user-data-block full-row form-group">
+        <label class="control-label"
+               ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_EXPERIENCES' | translate"></label>
+        <div>
+            <div ng-repeat="experience in $ctrl.fullProfile.experiences[$ctrl.profileDisplayLanguage] track by $index"
+                 class="experience">
+                <h4 ng-bind="experience.position"></h4>
+                <div ng-if="experience.company" ng-bind="experience.company"></div>
+                <div ng-if="experience.location" ng-bind="experience.location"></div>
+                <div ng-if="experience.datesAttended">
+                    <span ng-bind="experience.datesAttended[0] | date:'longDate'"></span>&nbsp;
+                    <i class="fa fa-arrows-h" aria-hidden="true"></i>&nbsp;
+                    <span ng-bind="experience.datesAttended[1] ? (experience.datesAttended[1] | date:'longDate') : ('INLINE_EXPERT_PROFILE_VIEWER_PRESENT' | translate)"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="$ctrl.fullProfile.about[$ctrl.profileDisplayLanguage].text" class="user-data-block full-row form-group">
+        <label class="control-label" for="about" ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_ABOUT' | translate"></label>
+        <div id="about" class="markdown-output form-control-static"
+             ng-bind-html="$ctrl.fullProfile.about[$ctrl.profileDisplayLanguage].text | mdToHtml"></div>
+    </div>
+
+    <div ng-if="$ctrl.fullProfile.recentComments.comments && $ctrl.fullProfile.recentComments.comments.length"
+         class="user-data-block full-row form-group">
+        <label class="control-label"
+               ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_COMMENTS' | translate"></label>
+        <info-point message-key="INLINE_EXPERT_PROFILE_VIEWER_COMMENTS_TOOLTIP"></info-point>
+        <div class="comments-container" ng-scroll="$ctrl.moreComments()" ng-scroll-mode="element">
+            <blockquote ng-repeat="comment in $ctrl.fullProfile.recentComments.comments track by $index">
+                <p ng-bind="::comment.text"></p>
+                <footer ng-bind="::comment.timestamp | date:'longDate'"></footer>
+            </blockquote>
+        </div>
+    </div>
+
+</div>
+
+<div class="details-btn">
+    <button ng-if="$ctrl.showFullProfile" class="btn btn-xs btn-danger pull-left report-abuse-btn"
+            ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_REPORT_ABUSE' | translate"
+            ng-click="$ctrl.showReportAbuseModal()"></button>
+
+    <button class="btn btn-no-style" ng-click="$ctrl.toggleFullProfile()">
+        <span ng-show="!$ctrl.showFullProfile" ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_MORE_DETAILS' | translate"></span>
+        <span ng-show="$ctrl.showFullProfile" ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_LESS_DETAILS' | translate"></span>
+        &nbsp;
+        <i ng-show="!$ctrl.showFullProfile" class="fa fa-caret-down" aria-hidden="true"></i>
+        <i ng-show="$ctrl.showFullProfile" class="fa fa-caret-up" aria-hidden="true"></i>
+    </button>
+</div>

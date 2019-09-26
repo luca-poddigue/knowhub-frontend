@@ -1,0 +1,103 @@
+.date-range-popover.popover {
+  max-width: inherit;
+  width: 601px; }
+  .date-range-popover.popover .btn-to-present {
+    width: 100%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-left: none;
+    border-right: none; }
+  .date-range-popover.popover .prevent-user-interaction {
+    cursor: not-allowed;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    background-color: rgba(0, 0, 0, 0.04);
+    margin: -15px; }
+  .date-range-popover.popover .date-picker-container {
+    vertical-align: top;
+    display: inline-block;
+    margin: 0;
+    width: 278px; }
+    .date-range-popover.popover .date-picker-container .panel-body {
+      position: relative; }
+    .date-range-popover.popover .date-picker-container:first-child {
+      margin-right: 10px; }
+    .date-range-popover.popover .date-picker-container.to-present-enabled.from {
+      height: 337px; }
+    .date-range-popover.popover .date-picker-container.to-present-enabled.to {
+      border-bottom: none; }
+    .date-range-popover.popover .date-picker-container table {
+      margin: auto; }
+
+.date-range-modal .modal-body {
+  padding: 0 0 8px 0; }
+.date-range-modal .modal-dialog {
+  margin: 9px auto;
+  width: 286px; }
+.date-range-modal .formatted-date {
+  height: 0; }
+.date-range-modal .btn-to-present {
+  width: 100%;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-left: none;
+  border-right: none; }
+.date-range-modal .prevent-user-interaction {
+  cursor: not-allowed;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  background-color: rgba(0, 0, 0, 0.04);
+  margin: -7px; }
+.date-range-modal .date-picker-container {
+  display: inline-block;
+  margin: 0; }
+  .date-range-modal .date-picker-container .panel-body {
+    padding: 7px;
+    position: relative; }
+  .date-range-modal .date-picker-container.to-present-enabled.to {
+    border-bottom: none; }
+  .date-range-modal .date-picker-container .panel-heading {
+    text-align: left; }
+  .date-range-modal .date-picker-container:first-child {
+    margin-bottom: 8px;
+    margin-top: 6px; }
+
+date-range-picker .btn-modal {
+  display: none; }
+@media screen and (max-width: 992px), screen and (max-height: 800px) {
+  date-range-picker .btn-popover {
+    display: none; }
+  date-range-picker .btn-modal {
+    display: inline-block; } }
+date-range-picker .range-input-box {
+  border-radius: 4px 0 0 4px; }
+date-range-picker .range-btn button {
+  border-radius: 0 4px 4px 0 !important; }
+date-range-picker .fa-arrows-h {
+  margin: 0 5px;
+  position: relative;
+  top: 1px; }
+date-range-picker .clear-range {
+  position: absolute;
+  right: 36px;
+  top: 2px;
+  z-index: 100; }
+  date-range-picker .clear-range.sm {
+    top: 0; }
+  date-range-picker .clear-range .btn {
+    transform: inherit; }
+
+.date-range-picker.ng-valid.ng-touched .input-group-btn button {
+  background-color: #26a942;
+  border-color: #26a942;
+  color: white; }
+.date-range-picker.ng-invalid.ng-touched .input-group-btn button {
+  background-color: #ec2121;
+  border-color: #ec2121;
+  color: white; }
+
+/*# sourceMappingURL=date-range-picker.css.map */

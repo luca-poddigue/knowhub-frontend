@@ -1,0 +1,347 @@
+@import '../../css/cvars';
+@import '../../css/mixins';
+
+nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: $shadow-bottom;
+  margin: 0;
+  z-index: $nav-bar-z;
+
+  .navbar-inverse {
+    border-width: 0 0 4px;
+    border-color: #ff9800;
+
+    .navbar-nav {
+      margin-bottom: 0;
+
+      > li > a {
+        transition: none;
+        padding: 23px 11px 0;
+        @media screen and (max-width: ($screen-sm)-1) {
+          padding: 5px 14px;
+          display: inline-block;
+          color: $text-navbar;
+        }
+        &:focus {
+          color: $text-navbar;
+        }
+      }
+
+      li.active a {
+        cursor: default;
+      }
+
+      @media screen and (min-width: $screen-sm) {
+        &.navbar-btns > li {
+          transition: transform .2s ease-out;
+          border-radius: 10px 10px 0 0;
+          margin-right: 10px;
+          transform: translateY(22px);
+
+          background-image: linear-gradient(to top, $knowhub-orange 10%, lighten($knowhub-orange, 7%) 100%);
+
+          > a {
+            transition: padding .2s ease-out;
+            padding: 5px 9px 3px 9px;
+            color: white;
+            font-weight: bold;
+            @include text-shadow();
+          }
+
+          &.active,
+          &:hover {
+            cursor: default;
+            transform: translateY(17px);
+            a {
+              color: white;
+              padding: 7px 9px 3px 9px;
+            }
+          }
+        }
+      }
+
+      .menu {
+        padding: 0 5px 0 0;
+      }
+    }
+  }
+
+  .navbar-collapse {
+    max-height: calc(100vh - 45px);
+
+    &.collapsing {
+      overflow-y: hidden;
+    }
+  }
+
+  .navbar-toggle {
+    border: 0;
+    margin: 12px 10px 0 0;
+    padding: 3px;
+  }
+
+  .navbar {
+    margin-bottom: 0;
+  }
+
+  .loading-spinner {
+    margin: 9px 6px -5px -7px;
+    transform: scale(0.55);
+    width: 50px;
+    float: left;
+  }
+
+  .navbar-right {
+    position: relative;
+    z-index: 200;
+  }
+
+  .navbar-nav .open .dropdown-menu {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-color: $knowhub-orange;
+    border-width: 5px 0;
+    min-width: inherit;
+    padding: 0;
+    overflow-y: auto;
+
+    &.messages-dropdown {
+      width: 350px;
+      margin-bottom: 9px;
+      max-height: calc(100vh - 200px);
+    }
+
+    &.account-dropdown {
+      width: 120px;
+      margin-bottom: 5px;
+      margin-right: 7px;
+    }
+
+    .dropdown-entry {
+      display: table;
+
+      > div {
+        width: 100%;
+        display: table-cell;
+        white-space: normal;
+      }
+
+      > i {
+        display: table-cell;
+        padding-left: 10px;
+
+        &.icon-left {
+          display: none;
+        }
+      }
+    }
+
+    > li {
+      &:hover {
+        background-color: $knowhub-light-orange;
+      }
+
+      &.no-messages {
+        text-align: right;
+
+        span {
+          display: inline-block;
+          font-style: italic;
+          margin: 3px 10px 2px 0;
+        }
+
+        &:hover {
+          background-color: inherit;
+        }
+      }
+
+      &.clear-all {
+        margin-bottom: 6px;
+
+        div {
+          font-style: italic;
+        }
+      }
+
+      > a {
+        text-align: right;
+        padding-left: 20px;
+        padding-right: 6px;
+      }
+    }
+
+    @media screen and (max-width: ($screen-sm)-1) {
+      margin: -6px 8px 0 18px;
+      padding: 0;
+      display: block;
+      width: inherit;
+      max-height: inherit;
+
+      &.messages-dropdown {
+        width: inherit;
+        max-height: inherit;
+      }
+
+      .dropdown-entry {
+        > i {
+          min-width: 34px;
+
+          &.icon-left {
+            display: table-cell;
+            padding-right: 10px;
+          }
+
+          &.icon-right {
+            display: none;
+          }
+        }
+      }
+
+      .message-timestamp {
+        margin-left: 33px;
+      }
+
+      li {
+        &:hover {
+          background-color: inherit;
+        }
+
+        &.no-messages {
+          text-align: left;
+
+          span {
+            margin: 0 0 0 37px;
+          }
+        }
+      }
+
+      > li > a {
+        text-align: left;
+        padding: 2px 4px;
+      }
+    }
+
+    .fa {
+      margin-left: 4px;
+      text-align: center;
+      width: 18px;
+    }
+  }
+
+  .logo {
+    float: left;
+
+    img {
+      margin: 7px 9px 5px 7px;
+      width: 110px;
+      height: 34px;
+    }
+  }
+
+  .navbar-default .navbar-nav > .open > a.menu {
+    background-color: inherit;
+  }
+
+  li[uib-dropdown] {
+    &.open,
+    &:hover {
+      filter: brightness(110%);
+    }
+  }
+
+  a.menu {
+    font-size: 30px;
+    line-height: 46px;
+    margin: 0 -4px;
+    padding: 0;
+
+    table {
+      table-layout: fixed;
+
+    }
+
+    .name-col-left,
+    .name-col-right {
+      position: relative;
+      top: 2px;
+    }
+
+    .picture-col {
+      text-align: center;
+      width: 49px;
+
+      .picture {
+        width: 30px;
+      }
+    }
+
+    .text {
+      color: inherit;
+      margin: 0;
+      padding: 0;
+    }
+
+    &.account-menu {
+      position: relative;
+      top: -1px;
+
+      .missing-picture {
+        vertical-align: middle;
+      }
+    }
+
+    &.messages-menu {
+      position: relative;
+      top: 1px;
+      font-size: 28px;
+
+      &.has-unread-messages {
+        color: $knowhub-orange;
+      }
+    }
+
+    @media screen and (max-width: ($screen-sm)-1) {
+      margin-left: 7px;
+      line-height: 38px;
+
+      .name-col-left {
+        display: none;
+      }
+
+      .profile-picture {
+        margin: 0;
+      }
+    }
+
+    @media(min-width: 1000px) {
+      a-account-menu {
+        width: 250px;
+      }
+
+      .name-col-right {
+        display: none;
+      }
+    }
+
+    @media screen and (min-width: $screen-sm) and (max-width: 1100px) {
+      width: 49px;
+
+      .name-col-left,
+      .name-col-right {
+        display: none;
+      }
+
+      .profile-picture {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.ie-browser nav-bar {
+  .navbar-inverse .navbar-nav .menu {
+    padding-right: 15px;
+  }
+}

@@ -1,0 +1,54 @@
+auth-modal .modal-dialog {
+  width: 300px;
+  margin-left: auto;
+  margin-right: auto; }
+@media screen and (max-width: 480px) {
+  auth-modal .auth0-lock.auth0-lock .auth0-lock-password-strength {
+    margin-top: 10px;
+      margin-bottom: -30px;
+  }
+}
+auth-modal .auth0-lock.auth0-lock .auth0-lock-social-button[data-provider="google-oauth2"]:hover:not([disabled]) .auth0-lock-social-button-icon {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+}
+auth-modal .auth0-lock.auth0-lock .auth0-lock-social-button[data-provider="google-oauth2"] .auth0-lock-social-button-icon {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    border: none;
+    width: 40px;
+    height: 40px;
+    filter: brightness(100);
+}
+auth-modal .auth0-lock.auth0-lock .auth0-lock-cred-pane-internal-wrapper {
+  max-height: none;
+    height: 100%;
+}
+auth-modal .auth0-lock.auth0-lock .auth0-lock-header {
+  height: 94px;
+  padding-top: 10px;
+  padding-left: 0;
+  padding-right: 0; }
+  auth-modal .auth0-lock.auth0-lock .auth0-lock-header .auth0-lock-header-welcome {
+    background: white; }
+  auth-modal .auth0-lock.auth0-lock .auth0-lock-header .auth0-lock-header-logo {
+    height: 70px;
+    margin: 13px 0; }
+  auth-modal .auth0-lock.auth0-lock .auth0-lock-header .auth0-lock-name {
+    display: none; }
+auth-modal .auth0-lock.auth0-lock .auth0-lock-terms a {
+  color: #ff9800; }
+auth-modal .auth0-lock.auth0-lock .auth0-lock-error-msg {
+    display: none;
+}
+auth-modal .auth0-lock.auth0-lock .auth0-lock-password-strength {
+    background-color: white;
+}
+  auth-modal .auth0-lock.auth0-lock .auth0-lock-password-strength * {
+    border-color: white; }
+  auth-modal .auth0-lock.auth0-lock .auth0-lock-password-strength span {
+    color: #555;
+    padding-top: 1px; }
+auth-modal .auth0-lock.auth0-lock .auth0-global-message a {
+  color: white;
+  text-decoration: underline; }
+
+/*# sourceMappingURL=auth-modal.css.map */

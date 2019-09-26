@@ -1,0 +1,42 @@
+@import '../../../../common/css/cvars';
+@import '../../../../common/css/mixins';
+
+payout-details-viewer {
+
+  .user-data-block {
+    margin-top: 20px;
+    margin-bottom: 0;
+    vertical-align: top;
+
+    &.inline {
+      display: inline-block;
+      margin: 5px 35px 0 0;
+    }
+  }
+
+  .id-doc {
+    .fa-check-circle {
+      color: $green-success;
+      font-size: 125%;
+      position: relative;
+      top: 1px;
+    }
+  }
+
+  .details:first-child {
+    margin-top: 20px;
+  }
+
+  .form-control-static {
+    margin: 0 0 6px;
+    min-height: 0;
+    padding: 0;
+  }
+
+  img.signature {
+    display: block;
+    margin-bottom: 10px;
+    @include signature();
+  }
+
+}

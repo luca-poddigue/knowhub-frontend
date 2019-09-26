@@ -1,0 +1,41 @@
+<div class="info-modal">
+    <div class="modal-body text-center">
+
+        <div class="date-picker-container from panel panel-default"
+             ng-class="{'to-present-enabled': $ctrl.enableToPresent}">
+            <div class="panel-heading"><strong ng-bind="'DATE_RANGE_PICKER_FROM' | translate"></strong><span
+                    class="formatted-date pull-right" ng-bind="$ctrl.range[0] | date:'fullDate'"></span></div>
+            <div class="panel-body">
+                <span uib-datepicker datepicker-options="$ctrl.datePickerOptions" ng-model="$ctrl.range[0]"
+                      ng-change="$ctrl.updateFrom()"></span>
+            </div>
+        </div>
+
+        <div class="date-picker-container to panel panel-default"
+             ng-class="{'to-present-enabled': $ctrl.enableToPresent}">
+            <div class="panel-heading"><strong ng-bind="'DATE_RANGE_PICKER_TO' | translate"></strong><span
+                    class="formatted-date pull-right"
+                    ng-bind="$ctrl.range.toPresent ? ('DATE_RANGE_PICKER_PRESENT' | translate ) : ($ctrl.range[1] | date:'fullDate')"></span>
+            </div>
+            <div class="panel-body">
+                <div ng-if="$ctrl.range.toPresent" class="prevent-user-interaction"></div>
+                <span uib-datepicker datepicker-options="$ctrl.datePickerOptions" ng-model="$ctrl.range[1]"
+                      ng-change="$ctrl.updateTo()"></span>
+            </div>
+            <div ng-if="$ctrl.enableToPresent">
+                <button class="btn btn-default btn-to-present" ng-click="$ctrl.toggleToPresent()"
+                        ng-class="{'active': $ctrl.range.toPresent}"
+                        ng-bind="'DATE_RANGE_PICKER_TO_PRESENT' | translate">
+                </button>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()"
+                ng-disabled="!$ctrl.range[0] || (!$ctrl.range[1] && !$ctrl.range.toPresent)"
+                ng-bind="'COMMON_OK' | translate"></button>
+        <button class="btn btn-danger" type="button" ng-click="$ctrl.cancel()"
+                ng-bind="'COMMON_CANCEL' | translate"></button>
+    </div>
+</div>

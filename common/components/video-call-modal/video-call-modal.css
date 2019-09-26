@@ -1,0 +1,157 @@
+.video-call-modal .modal-body {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: black;
+  padding: 0; }
+.video-call-modal .modal-dialog,
+.video-call-modal .modal-content {
+  margin: -1px;
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  width: inherit; }
+  @media screen and (max-width: 768px) {
+    .video-call-modal .modal-dialog,
+    .video-call-modal .modal-content {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0; } }
+.video-call-modal .video-call-dropdown {
+  border: none;
+  background-color: black;
+  right: 6px;
+  left: auto;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 9px 0 rgba(0, 0, 0, 0.2); }
+  .video-call-modal .video-call-dropdown .missing-extension-msg {
+    text-align: right;
+    margin: -3px 20px 5px 0;
+    width: 343px; }
+    .video-call-modal .video-call-dropdown .missing-extension-msg a {
+      font-weight: bold;
+      cursor: pointer;
+      color: #ff9800; }
+      .video-call-modal .video-call-dropdown .missing-extension-msg a:hover {
+        color: #e68900; }
+  .video-call-modal .video-call-dropdown a {
+    font-size: 110%;
+    text-align: right;
+    color: #858584; }
+  .video-call-modal .video-call-dropdown a.hang-up {
+    color: #ec2121;
+    font-weight: bold; }
+  .video-call-modal .video-call-dropdown .divider {
+    height: 0;
+    margin: 4px 0; }
+.video-call-modal .controls {
+  color: #858584;
+  position: absolute;
+  top: 5px;
+  right: 5px; }
+  .video-call-modal .controls .btn {
+    height: auto; }
+.video-call-modal .status {
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%); }
+  .video-call-modal .status h3 {
+    margin-top: 10px;
+    color: #ff9800; }
+    .video-call-modal .status h3.error {
+      color: #ec2121; }
+  .video-call-modal .status h4 {
+    color: #858584; }
+  .video-call-modal .status spinner {
+    margin-top: 16px;
+    display: inline-block;
+    transform: scale(0.7); }
+.video-call-modal #remote-media {
+  width: 100%;
+  height: 100%;
+  position: relative; }
+  .video-call-modal #remote-media video {
+    width: 100%;
+    height: 100%;
+    max-width: 100vw;
+    max-height: 100vh; }
+.video-call-modal .btn-enlarge {
+  position: absolute;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 120%;
+  top: 3px;
+  right: 5px;
+  display: none; }
+  .video-call-modal .btn-enlarge .fa {
+    position: absolute;
+    top: 1px;
+    right: 1px; }
+.video-call-modal #local-media {
+  position: fixed;
+  z-index: 1;
+  width: 260px;
+  padding: 16px 6px 6px 16px;
+  bottom: 11px;
+  right: 16px; }
+  @media screen and (max-width: 768px) {
+    .video-call-modal #local-media {
+      width: 150px;
+      bottom: 6px;
+      right: 12px; } }
+  .video-call-modal #local-media video {
+    width: 100%;
+    height: 100%; }
+
+body.video-call-minimized .video-call-modal {
+  width: 0;
+  height: 0; }
+  body.video-call-minimized .video-call-modal .modal-dialog,
+  body.video-call-minimized .video-call-modal .modal-content {
+    width: 300px;
+    height: 200px;
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    top: auto;
+    left: auto;
+    bottom: 0;
+    right: 0; }
+    @media screen and (max-width: 768px) {
+      body.video-call-minimized .video-call-modal .modal-dialog,
+      body.video-call-minimized .video-call-modal .modal-content {
+        width: 180px;
+        height: 120px; } }
+  body.video-call-minimized .video-call-modal .modal-body {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 9px 0 rgba(0, 0, 0, 0.2);
+    bottom: 20px;
+    right: 20px; }
+    @media screen and (max-width: 768px) {
+      body.video-call-minimized .video-call-modal .modal-body {
+        bottom: 10px;
+        right: 10px; } }
+  body.video-call-minimized .video-call-modal #local-media,
+  body.video-call-minimized .video-call-modal .controls,
+  body.video-call-minimized .video-call-modal .session-title {
+    display: none; }
+  body.video-call-minimized .video-call-modal .btn-enlarge {
+    display: inline-block; }
+  body.video-call-minimized .video-call-modal .status h4, body.video-call-minimized .video-call-modal .status h3 {
+    font-size: 120%; }
+    @media screen and (max-width: 768px) {
+      body.video-call-minimized .video-call-modal .status h4, body.video-call-minimized .video-call-modal .status h3 {
+        font-size: 90%; } }
+  body.video-call-minimized .video-call-modal .status spinner {
+    transform: scale(0.7, 0.7);
+    margin-top: 2px; }
+    @media screen and (max-width: 768px) {
+      body.video-call-minimized .video-call-modal .status spinner {
+        transform: scale(0.5, 0.5);
+        margin-top: -6px; } }
+
+/*# sourceMappingURL=video-call-modal.css.map */

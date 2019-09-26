@@ -1,0 +1,219 @@
+<button ng-if="$ctrl.showReloadSessionButton()" class="btn btn-no-style btn-reload-session"
+        ng-click="$ctrl.reloadSession()">
+    <i class="fa fa-refresh" aria-hidden="true"></i>
+</button>
+
+<div class="status-label label status-{{$ctrl.sessionOverview.status.toLowerCase()}}">
+    <span ng-bind="$ctrl.formatSessionStatus()"></span>
+</div>
+<h3 class="topic">
+    <span ng-bind="$ctrl.sessionOverview.topic"></span>
+</h3>
+
+<div class="overview">
+    <div class="data-blocks">
+        <div>
+            <div class="data-block form-group" ng-if="$ctrl.sessionOverview.expert">
+                <label class="control-label" for="expert" ng-bind="::'COMMON_EXPERT' | translate"></label>
+                <p id="expert" class="form-control-static" ng-bind="::$ctrl.sessionOverview.expert.fullName">
+                </p>
+            </div>
+            <div class="data-block form-group" ng-if="$ctrl.sessionOverview.seeker">
+                <label class="control-label" for="seeker" ng-bind="::'COMMON_SEEKER' | translate"></label>
+                <p id="seeker" class="form-control-static" ng-bind="::$ctrl.sessionOverview.seeker.fullName">
+                </p>
+            </div>
+            <div class="data-block form-group">
+                <label class="control-label" for="date" ng-bind="::'SHARING_SESSION_DATE' | translate"></label>
+                <p id="date" class="form-control-static">
+                    <button ng-if="$ctrl.sessionStatusAllowsTimeSpanUpdate()" class="btn edit-btn btn-no-style"
+                            ng-click="$ctrl.showSessionReschedulingModal()">
+                        <span class="fa fa-pencil"></span>
+                    </button>
+                    <span class="hidden-xxs" ng-bind="$ctrl.sessionOverview.timeSpan[0] | date : 'longDate'"></span>
+                    <span class="visible-xxs-inline"
+                          ng-bind="$ctrl.sessionOverview.timeSpan[0] | date : 'mediumDate'"></span>
+                    &nbsp;
+                    <span class="time-range">
+                        <span ng-bind="$ctrl.sessionOverview.timeSpan[0] | date : 'shortTime'"></span>
+                        <i class="fa fa-arrows-h" aria-hidden="true"></i>
+                        <span ng-bind="$ctrl.sessionOverview.timeSpan[1] | date : 'shortTime'"></span>
+                    </span>
+                </p>
+            </div>
+            <div class="data-block price-block form-group" ng-class="{'missing-price': $ctrl.missingPriceAnimation}"
+                 ng-if="$ctrl.sessionOverview.price || $ctrl.isPriceEditable()">
+                <label ng-if="!$ctrl.sessionOverview.price" required class="control-label" for="price"
+                       ng-bind="::'SHARING_SESSION_PRICE' | translate"></label>
+                <label ng-if="$ctrl.sessionOverview.price" class="control-label" for="price"
+                       ng-bind="::'SHARING_SESSION_PRICE' | translate"></label>
+                <p id="price" class="form-control-static">
+                    <button ng-if="$ctrl.isPriceEditable()"
+                            class="btn edit-btn btn-no-style" ng-click="$ctrl.showSessionPriceModal()">
+                        <span class="fa fa-pencil"></span>
+                    </button>
+                    <span ng-if="$ctrl.sessionOverview.price"
+                          ng-bind="('CURRENCY_SYMBOL_EUR' | translate) + ' ' + $ctrl.sessionOverview.price"></span>
+                    <span ng-if="!$ctrl.sessionOverview.price" class="missing-price-lbl"
+                          ng-bind="'SHARING_SESSION_NOT_DEFINED' | translate"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div ng-show="!$ctrl.showFullSession" class="details-btn">
+        <button class="btn btn-no-style" ng-click="$ctrl.toggleFullSession()">
+            <span ng-bind="::'SHARING_SESSION_MORE_DETAILS' | translate"></span>
+            &nbsp;
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+
+<div ng-if="$ctrl.showFullSession">
+
+    <div class="data-blocks">
+        <div class="data-block form-group">
+            <label class="control-label" for="requirements"
+                   ng-bind="::'SHARING_SESSION_REQUIREMENTS' | translate"></label>
+            <p id="requirements" class="form-control-static" ng-bind="::$ctrl.fullSession.requirements">
+            </p>
+        </div>
+    </div>
+
+    <div class="data-blocks">
+        <div class="data-block form-group">
+            <label class="control-label" for="requested-on"
+                   ng-bind="::'SHARING_SESSION_REQUESTED_ON' | translate"></label>
+            <p id="requested-on" class="form-control-static">
+                <span ng-bind="::($ctrl.fullSession.requestedOn | date : 'longDate') + ' ' + ($ctrl.fullSession.requestedOn | date : 'shortTime')"></span>
+            </p>
+        </div>
+
+        <div class="data-block form-group"
+             ng-if="$ctrl.fullSession.payoutStatus &&
+             $ctrl.fullSession.status !== $ctrl.sessionStatus.inquiry &&
+                $ctrl.fullSession.status !== $ctrl.sessionStatus.rejected">
+            <label class="control-label" for="payout-status"
+                   ng-bind="::'SHARING_SESSION_PAYOUT_STATUS' | translate"></label>
+            <info-point message-key="SHARING_SESSION_PAYOUT_STATUS_TEXT"></info-point>
+            <p id="payout-status" class="form-control-static">
+                <span class="payout-status-label label"
+                      ng-class="{
+                      'label-primary': $ctrl.fullSession.payoutStatus === $ctrl.payoutStatus.waitingForSeekerFeedback,
+                      'label-default': $ctrl.fullSession.payoutStatus === $ctrl.payoutStatus.unresolvedLitigation,
+                      'label-success': $ctrl.fullSession.payoutStatus === $ctrl.payoutStatus.paid,
+                      'label-info': $ctrl.fullSession.payoutStatus === $ctrl.payoutStatus.pending || $ctrl.fullSession.payoutStatus === $ctrl.payoutStatus.inTransit,
+                      'label-danger': $ctrl.fullSession.payoutStatus === $ctrl.payoutStatus.canceled || $ctrl.fullSession.payoutStatus === $ctrl.payoutStatus.failed
+                      }"
+                      ng-bind="'SHARING_SESSION_PAYOUT_STATUS_'+ $ctrl.fullSession.payoutStatus | translate"></span>
+        </div>
+
+        <div class="data-block form-group"
+             ng-if="$ctrl.fullSession.expertIncome && $ctrl.fullSession.payoutStatus !== $ctrl.payoutStatus.unresolvedLitigation">
+            <label class="control-label" for="expertIncome"
+                   ng-bind="::'SHARING_SESSION_EXPECTED_INCOME' | translate"></label>
+            <p id="expertIncome" class="form-control-static"
+               ng-bind="::('CURRENCY_SYMBOL_EUR' | translate) + ' ' + ($ctrl.fullSession.expertIncome | number : 2)">
+            </p>
+        </div>
+
+        <div class="data-block form-group"
+             ng-if="$ctrl.sessionOverview.status === $ctrl.sessionStatus.completed && ($ctrl.fullSession.reputationDelta > 0 || $ctrl.fullSession.reputationDelta < 0)">
+            <label class="control-label" for="reputation-delta"
+                   ng-bind="::'SHARING_SESSION_REPUTATION_DELTA' | translate"></label>
+            <info-point message-key="SHARING_SESSION_REPUTATION_DELTA_TEXT"></info-point>
+            <p id="reputation-delta" class="form-control-static">
+                <i ng-if="$ctrl.fullSession.reputationDelta > 0" class="fa fa-caret-up" aria-hidden="true"></i>
+                <i ng-if="$ctrl.fullSession.reputationDelta < 0" class="fa fa-caret-down" aria-hidden="true"></i>
+                <span ng-bind="::$ctrl.formatReputationDelta($ctrl.fullSession.reputationDelta)"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="data-blocks"
+         ng-if="$ctrl.sessionOverview.status === $ctrl.sessionStatus.completed && $ctrl.fullSession.seekerComment">
+        <div class="data-block form-group">
+            <label class="control-label" for="seeker-comment"
+                   ng-bind="::$ctrl.currentUserType === $ctrl.userType.seeker ? 'SHARING_SESSION_SEEKER_COMMENT_SEEKER' : 'SHARING_SESSION_SEEKER_COMMENT_EXPERT' | translate"></label>
+            <info-point
+                    message-key="{{$ctrl.currentUserType === $ctrl.userType.seeker ? 'SHARING_SESSION_SEEKER_COMMENT_SEEKER_TOOLTIP' : 'SHARING_SESSION_SEEKER_COMMENT_EXPERT_TOOLTIP'}}"></info-point>
+            <blockquote id="seeker-comment" class="form-control-static" ng-bind="::$ctrl.fullSession.seekerComment">
+            </blockquote>
+        </div>
+    </div>
+
+    <div class="status-and-flow">
+        <div class="status-box status-{{$ctrl.sessionOverview.status.toLowerCase()}} user-{{$ctrl.currentUserType.toLowerCase()}}">
+            <h4 ng-bind="'SHARING_SESSION_STATUS' | translate"></h4>
+            <div class="status">
+                <i class="fa fa-{{$ctrl.getStatusIcon()}} fa-2x" aria-hidden="true"></i>&nbsp;
+                <span ng-bind="$ctrl.formatSessionStatus()"></span>
+            </div>
+            <div ng-if="$ctrl.sessionOverview.status === $ctrl.sessionStatus.rejected" class="status-box-details">
+                <div class="title"
+                     ng-bind="$ctrl.formatRejectionReasonTitle()"></div>
+                <span ng-bind="$ctrl.formatRejectionReason()"></span>
+            </div>
+        </div>
+        <div class="flow-control" ng-if="$ctrl.showFlowControl()">
+            <h4 ng-bind="'SHARING_SESSION_FLOW_CONTROL' | translate"></h4>
+
+            <div>
+                <button ng-if="$ctrl.showChat()"
+                        class="btn btn-primary" ng-class="{'active': $ctrl.isSessionChatActive()}"
+                        ng-click="$ctrl.toggleShowChat()" ng-bind="::'SHARING_SESSION_SESSION_CHAT' | translate">
+                </button>
+
+                <button ng-if="$ctrl.showInvoiceBtn()"
+                        class="btn btn-primary"
+                        ng-click="$ctrl.showInvoiceConfigModal()"
+                        ng-bind="'SHARING_SESSION_CREATE_RECEIPT' | translate">
+                </button>
+
+                <div class="btn-group">
+                    <button ng-if="($ctrl.fullSession.status === $ctrl.sessionStatus.pending && $ctrl.currentUserType === $ctrl.userType.expert) ||
+            ($ctrl.currentUserType === $ctrl.userType.seeker && $ctrl.fullSession.status === $ctrl.sessionStatus.acceptedByExpert)"
+                            class="btn btn-success" ng-bind="::'SHARING_SESSION_ACCEPT' | translate"
+                            ng-click="$ctrl.acceptSession()"></button>
+                    <button ng-if="$ctrl.fullSession.status === $ctrl.sessionStatus.pending || ($ctrl.fullSession.status === $ctrl.sessionStatus.acceptedByExpert && $ctrl.currentUserType === $ctrl.userType.seeker)"
+                            class="btn btn-danger" ng-bind="::'SHARING_SESSION_REJECT' | translate"
+                            ng-click="$ctrl.showSessionRejectionModal()">
+                    </button>
+                    <button ng-if="$ctrl.currentUserType === $ctrl.userType.expert && $ctrl.fullSession.status === $ctrl.sessionStatus.planned"
+                            class="btn btn-success"
+                            ng-bind="::'SHARING_SESSION_MARK_AS_COMPLETED' | translate"
+                            ng-click="$ctrl.showCompleteSessionModal()">
+                    </button>
+                </div>
+            </div>
+
+            <call-buttons ng-if="$ctrl.fullSession.status === $ctrl.sessionStatus.planned" class="call-buttons"
+                          session="$ctrl.fullSession"></call-buttons>
+        </div>
+    </div>
+
+    <div class="files-manager"
+         ng-if="($ctrl.fullSession.filesBucket.filesModifiable && $ctrl.sessionOverview.status !== $ctrl.sessionStatus.inquiry) || ($ctrl.fullSession.filesBucket.files && $ctrl.fullSession.filesBucket.files.length)">
+        <h4 ng-bind="'SHARING_SESSION_SESSION_FILES' | translate"></h4>
+        <session-files-manager on-files-changed="$ctrl.onFilesChanged()"
+                               on-not-allowed-action="$ctrl.reloadSession()"
+                               mode="SEEKER"
+                               session="$ctrl.fullSession"
+                               files-bucket="$ctrl.fullSession.filesBucket">
+
+        </session-files-manager>
+    </div>
+
+    <div class="details-btn">
+        <button class="btn btn-xs btn-danger pull-left report-abuse-btn"
+                ng-bind="'INLINE_EXPERT_PROFILE_VIEWER_REPORT_ABUSE' | translate"
+                ng-click="$ctrl.showReportAbuseModal()"></button>
+
+        <button class="btn btn-no-style" ng-click="$ctrl.toggleFullSession()">
+            <span ng-bind="::'SHARING_SESSION_LESS_DETAILS' | translate"></span>
+            &nbsp;
+            <i class="fa fa-caret-up" aria-hidden="true"></i>
+        </button>
+    </div>
+
+</div>

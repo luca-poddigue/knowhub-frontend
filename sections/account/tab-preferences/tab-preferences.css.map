@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAGM,0DAAe;EACb,KAAK,EAAE,OAAO;EACd,YAAY,EAAE,GAAG;AAIrB,kDAAe;EACb,aAAa,EAAE,IAAI;AAInB,iEAAU;EACR,OAAO,EAAE,YAAY;EACrB,UAAU,EAAE,CAAC;AAGf,kEAAW;EACT,WAAW,EAAE,GAAG;AAMpB,uDAAmB;EACjB,YAAY,EAAE,IAAI;EAClB,aAAa,EAAE,GAAG;AAGpB,4DAAwB;EACtB,UAAU,EAAE,GAAG",
+"sources": ["tab-preferences.scss"],
+"names": [],
+"file": "tab-preferences.css"
+}

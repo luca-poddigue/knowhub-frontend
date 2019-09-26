@@ -1,0 +1,9 @@
+<div class="alert alert-info fade-alert" ng-if="$ctrl.showAlert">
+    <span ng-bind="'COOKIE_ALERT_TEXT' | translate"></span>
+    <div class="text-right">
+        <button class="btn btn-no-style btn-xs" ng-click="$ctrl.goToCookiePolicy()"
+                ng-bind="'COMMON_LEARN_MORE' | translate"></button>
+        <button class="btn btn-no-style btn-xs" ng-click="$ctrl.setCookiesAccepted()"
+                ng-bind="'COMMON_ACCEPT' | translate"></button>
+    </div>
+</div>

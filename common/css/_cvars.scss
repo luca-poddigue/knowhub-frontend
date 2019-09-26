@@ -1,0 +1,56 @@
+// Knowhub brand colors
+$knowhub-orange: #ff9800;
+$knowhub-orange-dark: #e68900;
+$knowhub-orange-bg: #ffdba7;
+$knowhub-light-orange-bg: #fff0de;
+$knowhub-light-orange: #ffc437;
+$knowhub-yellow: #ffc600;
+$knowhub-light-orange-trasp: rgba(255, 176, 59, .5);
+$knowhub-orange-trasp: rgba(255, 152, 0, .5);
+
+$gray-help-block: #959595;
+$gray-border: #e6e6e6;
+$shadow-grey: rgba(0, 0, 0, .2);
+$green-success: #26a942;
+$red-danger: #ec2121;
+$yellow-warning: #f2b826;
+$light-blue-info: #37bc9b;
+
+// Generic colors
+$gray: #ccc;
+$light-gray: #e6e6e6;
+$gray-input: #eee;
+$green: #008000;
+$green-trasp: rgba(34, 169, 66, .71);
+$red: #f00;
+$text-default: rgb(51, 51, 51);
+$text-body: #555;
+$text-navbar: #999;
+$light-purple: #d8b0d0;
+
+$facebook-brand-color: #3b5998;
+
+$screen-xs: 500px;
+$screen-sm: 768px;
+$screen-md: 992px;
+$screen-lg: 1200px;
+
+$container-max-width: 840px;
+$fixed-footer-threshold: 540px;
+$date-picker-resize-threshold: 365px;
+
+$shadow-up: 0 -1px 4px 0 $shadow-grey, 0 -4px 9px 0 $shadow-grey;
+$shadow-bottom: 0 2px 4px 0 $shadow-grey, 0 6px 9px 0 $shadow-grey;
+$shadow-bottom-sm: 0 1px 2px 0 $shadow-grey, 0 3px 4px 0 $shadow-grey;
+$fade-transition: opacity .2s linear;
+
+$nav-bar-z: 1010;
+$footer-z: 1020;
+$session-chat-bar-z: 1015;
+$info-point-z-sm: 1100;
+$info-point-z-lg: 900;
+$alert-bottom-z: 1200;
+$alert-z: 1200;
+$session-chat-z: 1500;
+
+$default-animation-duration: 0.3s;

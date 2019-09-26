@@ -1,0 +1,83 @@
+@import '../../../common/css/cvars';
+
+.modal-dialog .session-rescheduling {
+
+  .time-span-validation {
+    .help-block {
+      margin: 10px 0 0 0;
+    }
+  }
+
+  [name=session-rescheduling-calendar-spinner] .spinner-container {
+    margin-top: 10px;
+  }
+
+  .calendar-btns {
+    margin-bottom: 9px;
+
+    > div {
+      display: inline-block;
+      margin-right: 15px;
+      margin-bottom: 6px;
+    }
+  }
+
+  .calendar {
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .fc-today {
+    background-color: inherit;
+  }
+
+  .fc-bgevent {
+    background-color: $gray;
+    cursor: not-allowed;
+  }
+
+  .fc-event {
+    cursor: default;
+    background-color: $knowhub-orange;
+    border-color: $knowhub-orange;
+
+    &.session-event {
+      cursor: not-allowed;
+      background-color: $light-blue-info;
+      border-color: $light-blue-info;
+      border-radius: 0;
+
+      .fc-time {
+        visibility: hidden;
+      }
+    }
+
+    &.current-session-event {
+      .fc-title {
+        word-wrap: break-word;
+        word-break: break-word;
+      }
+    }
+
+    &.future-availability-event {
+      cursor: not-allowed;
+      background-color: $light-purple;
+      border-color: $light-purple;
+      border-radius: 0;
+
+      .fc-time {
+        visibility: hidden;
+      }
+    }
+  }
+
+  .session-changed-alert {
+    margin: 20px 0 0 0;
+  }
+
+}

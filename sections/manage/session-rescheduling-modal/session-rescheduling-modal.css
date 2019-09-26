@@ -1,0 +1,52 @@
+.modal-dialog .session-rescheduling .time-span-validation .help-block {
+    margin: 10px 0 0 0;
+}
+.modal-dialog .session-rescheduling [name=session-rescheduling-calendar-spinner] .spinner-container {
+    margin-top: 10px;
+}
+.modal-dialog .session-rescheduling .calendar-btns {
+  margin-bottom: 9px; }
+  .modal-dialog .session-rescheduling .calendar-btns > div {
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 6px; }
+.modal-dialog .session-rescheduling .calendar a {
+  text-decoration: none; }
+  .modal-dialog .session-rescheduling .calendar a:hover {
+    text-decoration: none; }
+.modal-dialog .session-rescheduling .fc-today {
+  background-color: inherit; }
+.modal-dialog .session-rescheduling .fc-bgevent {
+  background-color: #ccc;
+  cursor: not-allowed; }
+.modal-dialog .session-rescheduling .fc-event {
+  cursor: default;
+  background-color: #ff9800;
+  border-color: #ff9800; }
+  .modal-dialog .session-rescheduling .fc-event.session-event {
+    cursor: not-allowed;
+    background-color: #37bc9b;
+    border-color: #37bc9b;
+    border-radius: 0; }
+    .modal-dialog .session-rescheduling .fc-event.session-event .fc-time {
+        visibility: hidden;
+    }
+
+.modal-dialog .session-rescheduling .fc-event.current-session-event .fc-title {
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.modal-dialog .session-rescheduling .fc-event.future-availability-event {
+    cursor: not-allowed;
+    background-color: #d8b0d0;
+    border-color: #d8b0d0;
+    border-radius: 0;
+}
+
+.modal-dialog .session-rescheduling .fc-event.future-availability-event .fc-time {
+      visibility: hidden; }
+.modal-dialog .session-rescheduling .session-changed-alert {
+  margin: 20px 0 0 0; }
+
+/*# sourceMappingURL=session-rescheduling-modal.css.map */

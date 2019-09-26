@@ -1,0 +1,67 @@
+@import '../../../common/css/cvars';
+
+doc-renderer {
+
+  .doc-container {
+    margin: auto;
+    max-width: 510px;
+    font-size: 16px;
+    line-height: 25px;
+
+    h1:first-child {
+      margin: 0;
+    }
+
+    @media screen and (min-width: $screen-sm) {
+      h3:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .disabled-link {
+    color: inherit;
+    font-weight: bold;
+    cursor: default;
+  }
+
+  aside ul {
+    padding: 0;
+  }
+
+  a {
+    cursor: pointer;
+  }
+
+  ol > li > p,
+  ul > li > p {
+    margin: 0;
+  }
+
+  .outline {
+    list-style: none;
+    margin-bottom: 46px;
+    position: relative;
+    transition: top .5s ease-in-out;
+
+    @media screen and (max-width: ($screen-sm)-1) {
+      position: static;
+      text-align: center;
+    }
+
+    .outline-item {
+      margin-bottom: 10px;
+    }
+
+    a {
+      font-size: 14px;
+      font-weight: bold;
+      &.item-selected {
+        color: $knowhub-orange-dark;
+        font-size: 17px;
+        cursor: default;
+      }
+    }
+  }
+
+}

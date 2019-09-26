@@ -1,0 +1,127 @@
+@import '../../css/cvars';
+
+tags-picker {
+  .proficiency-picker {
+    background-color: white;
+  }
+
+  .highlight {
+    font-weight: bold;
+  }
+
+  .matching-tags-container {
+    margin-bottom: 0;
+    padding: 3px;
+    position: absolute;
+    z-index: $info-point-z-sm;
+    left: 0;
+    right: 0;
+  }
+
+  .dropdown > .form-group {
+    margin-bottom: 0;
+    min-height: inherit;
+  }
+
+  .matching-tag {
+    cursor: pointer;
+    display: inline-block;
+    margin: 1px;
+    font-size: inherit;
+  }
+
+  .more-tags-message {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: right;
+    padding-right: 5px;
+    padding-top: 5px;
+  }
+
+  .no-tags-message {
+    display: block;
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .selected-tags {
+    margin-top: 5px;
+
+    .selected-tag {
+      transition: color .5s;
+
+      proficiency-viewer {
+        margin-left: 2px;
+      }
+    }
+  }
+
+  div > .tag {
+    display: inline-block;
+    margin-right: 12px;
+    margin-top: 5px;
+    white-space: nowrap;
+
+    &.editable {
+      cursor: pointer;
+
+      .label:hover {
+        background-color: darken($knowhub-orange, 2%);
+      }
+    }
+
+    .star {
+      position: relative;
+      top: 1px;
+    }
+  }
+
+  .delete-tag-button {
+    cursor: pointer;
+    position: relative;
+    top: 1px;
+    vertical-align: middle;
+
+    &:hover {
+      color: darken($red-danger, 10%);
+    }
+  }
+
+  .input-group {
+
+    &.input-only {
+      width: 100%;
+
+      input:first-child {
+        border-radius: 4px;
+      }
+    }
+
+    .input-group-btn .btn-proficiency {
+      cursor: default;
+      background-color: inherit;
+      outline: 0;
+      overflow: visible;
+      z-index: 5;
+      border-radius: 0;
+
+      &:hover {
+        background-color: inherit;
+        border-color: $light-gray;
+        border-width: 0 1px 3px;
+      }
+
+      &:active {
+        background-color: white;
+        border-color: $light-gray;
+        border-width: 0 1px 3px;
+      }
+
+      &:focus {
+        border-color: $light-gray;
+        outline: 0;
+      }
+    }
+  }
+}

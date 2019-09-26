@@ -1,0 +1,12 @@
+promise-button {
+  spinner {
+    display: inline-block;
+    height: 22px;
+    float: left;
+
+    > div {
+      margin: 6px 0px 1px 5px;
+      transform: scale(0.65);
+    }
+  }
+}

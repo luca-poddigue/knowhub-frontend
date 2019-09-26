@@ -1,0 +1,11 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-bind="'SESSION_FILES_MANAGER_DELETE_FILE' | translate"></h3>
+</div>
+
+<div class="modal-body" ng-bind-html="::$ctrl.formatMessage()">
+</div>
+
+<div class="modal-footer">
+    <promise-button spinner="file-deletion-spinner" on-confirm="$ctrl.deleteFile" on-cancel="$ctrl.dismiss"
+                    confirm-text-key="COMMON_DELETE"></promise-button>
+</div>

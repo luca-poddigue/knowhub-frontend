@@ -1,0 +1,35 @@
+<update-title title="{{$ctrl.applicationName+' | '+('SECTION_ACCOUNT' | translate)}}"></update-title>
+<update-meta name="description" content=""></update-meta>
+
+<uib-tabset class="container" active="$ctrl.mode">
+    <uib-tab index="'profile'" ng-click="$ctrl.setMode('profile')">
+        <uib-tab-heading ng-bind="'COMMON_PROFILE' | translate"></uib-tab-heading>
+        <div ng-if="$ctrl.mode === 'profile'">
+            <tab-profile></tab-profile>
+        </div>
+    </uib-tab>
+    <uib-tab index="'credentials'" ng-click="$ctrl.setMode('credentials')">
+        <uib-tab-heading ng-bind="'COMMON_CREDENTIALS' | translate"></uib-tab-heading>
+        <div ng-if="$ctrl.mode === 'credentials'">
+            <tab-credentials></tab-credentials>
+        </div>
+    </uib-tab>
+    <uib-tab index="'preferences'" ng-click="$ctrl.setMode('preferences')">
+        <uib-tab-heading ng-bind="'COMMON_PREFERENCES' | translate"></uib-tab-heading>
+        <div ng-if="$ctrl.mode === 'preferences'">
+            <tab-preferences></tab-preferences>
+        </div>
+    </uib-tab>
+    <uib-tab index="'promoCodes'" ng-click="$ctrl.setMode('promoCodes')">
+        <uib-tab-heading ng-bind="'COMMON_PROMO_CODES' | translate"></uib-tab-heading>
+        <div ng-if="$ctrl.mode === 'promoCodes'">
+            <tab-promo-codes></tab-promo-codes>
+        </div>
+    </uib-tab>
+    <uib-tab ng-if="$ctrl.showSupportTab()" index="'supportDashboard'" ng-click="$ctrl.setMode('supportDashboard')">
+        <uib-tab-heading ng-bind="'COMMON_SUPPORT_DASHBOARD' | translate"></uib-tab-heading>
+        <div ng-if="$ctrl.mode === 'supportDashboard'">
+            <tab-support-dashboard></tab-support-dashboard>
+        </div>
+    </uib-tab>
+</uib-tabset>

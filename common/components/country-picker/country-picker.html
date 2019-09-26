@@ -1,0 +1,10 @@
+<ui-select ng-model="$ctrl.country" on-select="$ctrl.onSelectCallback($item)" remove-selected="false"
+           skip-focusser="true">
+    <ui-select-match placeholder="{{'COMMON_TYPE_FOR_OPTIONS' | translate}}">
+        <div ng-bind-html="$ctrl.country.name"></div>
+    </ui-select-match>
+    <!-- Use minimum-input-length="2" to hide the dropdown for short inputs, when not using the "refresh" method -->
+    <ui-select-choices repeat="country in $ctrl.countries | filter: $select.search track by $index">
+        <div ng-bind-html="country.name | highlight: $select.search"></div>
+    </ui-select-choices>
+</ui-select>

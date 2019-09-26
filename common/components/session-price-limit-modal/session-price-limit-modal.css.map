@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEE,oCAAqC;EACnC,kDAAgB;IACd,SAAS,EAAE,KAAK",
+"sources": ["session-price-limit-modal.scss"],
+"names": [],
+"file": "session-price-limit-modal.css"
+}

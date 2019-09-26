@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAEA,gBAgBC;EAfC,OAAQ;IACN,SAAS,EAAE,uBAAuB;EAGpC,QAAS;IACP,SAAS,EAAE,sBAAsB;EAGnC,aAAc;IACZ,SAAS,EAAE,uBAAuB;EAGpC,QAAS;IACP,SAAS,EAAE,sBAAsB;AAIrC,0BAUC;EATC,EAAG;IACD,KAAK,ECIG,IAAI;EDFd,GAAI;IACF,KAAK,EAAE,GAAG;EAEZ,IAAK;IACH,KAAK,ECFG,IAAI",
+"sources": ["animations.scss","_cvars.scss"],
+"names": [],
+"file": "animations.css"
+}

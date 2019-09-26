@@ -1,0 +1,23 @@
+<update-title title="{{$ctrl.applicationName+' | '+('SECTION_PRIVACY_POLICY' | translate)}}"></update-title>
+<update-meta name="description" content=""></update-meta>
+
+<div class="container">
+
+    <div class="jumbotron">
+        <h1 ng-bind="'PRIVACY_POLICY_TITLE' | translate"></h1>
+        <p ng-bind="'PRIVACY_POLICY_SUBTITLE' | translate"></p>
+        <div class="btn-group">
+            <button class="btn btn-primary" ng-class="{'active': $ctrl.mode==='privacy'}"
+                    ng-click="$ctrl.setMode('privacy')" ng-bind="'PRIVACY_POLICY_PRIVACY_POLICY' | translate"></button>
+            <button class="btn btn-primary" ng-class="{'active': $ctrl.mode==='cookies'}"
+                    ng-click="$ctrl.setMode('cookies')" ng-bind="'PRIVACY_POLICY_COOKIES_POLICY' | translate"></button>
+        </div>
+    </div>
+
+    <div ng-if="$ctrl.isAppReady()" class="content">
+        <doc-renderer ng-if="$ctrl.mode==='privacy'" translation-key="PRIVACY_POLICY"
+                      substitutions="$ctrl.policiesDetails"></doc-renderer>
+        <doc-renderer ng-if="$ctrl.mode==='cookies'" translation-key="COOKIES_POLICY"
+                      substitutions="$ctrl.policiesDetails"></doc-renderer>
+    </div>
+</div>

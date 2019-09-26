@@ -1,0 +1,107 @@
+<div>
+
+    <div class="jumbotron">
+        <h1 ng-bind="'LOG_TITLE' | translate"></h1>
+        <p ng-bind="'LOG_SUBTITLE' | translate"></p>
+    </div>
+
+    <div ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}" class="content">
+
+        <div class="logs-config">
+            <form name="$ctrl.logsForm" memory-form on-memory-form-loaded="$ctrl.loadLogs()" novalidate>
+                <div class="row">
+                    <div class="col-sm-5 form-group">
+                        <label class="control-label" ng-bind="'LOG_TYPE' | translate"></label>
+                        <div class="btn-group user-types" ng-class="{'prevent-click': $ctrl.shouldPreventClick()}">
+                            <label class="btn btn-default" ng-change="$ctrl.loadLogs()"
+                                   ng-model="$ctrl.logsConfig.userTypes[$ctrl.userType.user]" id="btn-user"
+                                   name="btn-user"
+                                   uib-btn-checkbox ng-bind="'COMMON_'+$ctrl.userType.user | translate"></label>
+                            <label class="btn btn-default" ng-change="$ctrl.loadLogs()"
+                                   ng-model="$ctrl.logsConfig.userTypes[$ctrl.userType.seeker]" id="btn-seeker"
+                                   name="btn-seeker"
+                                   uib-btn-checkbox ng-bind="'COMMON_'+$ctrl.userType.seeker | translate"></label>
+                            <label class="btn btn-default" ng-change="$ctrl.loadLogs()"
+                                   ng-model="$ctrl.logsConfig.userTypes[$ctrl.userType.expert]" id="btn-expert"
+                                   name="btn-expert"
+                                   uib-btn-checkbox ng-bind="'COMMON_'+$ctrl.userType.expert | translate"></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <label class="control-label"
+                                   ng-bind="'LOG_ACTION' | translate"></label>
+                            <ui-select required id="eventType" name="eventType" search-enabled="false"
+                                       ng-model="$ctrl.logsConfig.eventType" ng-change="$ctrl.loadLogs()"
+                                       remove-selected="false" skip-focusser="true">
+                                <ui-select-match allow-clear="true">
+                                    <div ng-bind="'LOGS_ACTION_'+$ctrl.logsConfig.eventType | translate"></div>
+                                </ui-select-match>
+                                <ui-select-choices repeat="eventTypeId in $ctrl.eventTypeIds track by $index">
+                                    <div ng-bind="::'LOGS_ACTION_'+eventTypeId | translate"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-8">
+                        <label class="control-label" ng-bind="'LOG_TIME_SPAN' | translate"></label>
+                        <date-range-picker id="timeSpan" name="timeSpan" resettable=true
+                                           ng-change="$ctrl.loadLogs()" ng-model="$ctrl.logsConfig.timeSpan"
+                                           ng-date-range
+                                           range-limit="pastOnly"
+                                           disable-highlight-when-valid="true"></date-range-picker>
+                    </div>
+                    <div class="col-sm-offset-4">
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div ng-if="$ctrl.logs && $ctrl.logs.length" class="logs-list container-fluid"
+             ng-scroll="$ctrl.loadMoreLogs()" ng-scroll-mode="page">
+            <div class="header row hidden-xs">
+                <div class="title col-sm-3">
+                    <h4 ng-bind="'LOG_TIMESTAMP' | translate"></h4>
+                </div>
+                <div class="title col-sm-2">
+                    <h4 ng-bind="'LOG_TYPE' | translate"></h4>
+                </div>
+                <div class="title col-sm-3">
+                    <h4 ng-bind="'LOG_ACTION' | translate"></h4>
+                </div>
+                <div class="title col-sm-4">
+                    <h4 ng-bind="'LOG_DETAILS' | translate"></h4>
+                </div>
+            </div>
+            <div class="row log-entry" ng-repeat="logEntry in $ctrl.logs">
+                <div class="col-sm-3">
+                    <span ng-bind="logEntry.timestamp | date:'medium'"></span>
+                </div>
+                <div class="col-sm-2">
+                    <span class="label label-default label-{{logEntry.userType.toLowerCase()}}"
+                          ng-bind="'COMMON_'+logEntry.userType | translate"></span>
+                </div>
+                <div class="col-sm-3">
+                    <h4 class="action" ng-bind="'LOGS_ACTION_'+logEntry.eventType | translate"></h4>
+                </div>
+                <div ng-if="logEntry.relatedData && logEntry.relatedData.length" class="col-sm-4">
+                    <div class="title visible-xs-block">
+                        <h5 class="details" ng-bind="'LOG_DETAILS' | translate"></h5>
+                    </div>
+                    <div ng-repeat="data in logEntry.relatedData | orderBy : 'property' track by $index"
+                         ng-switch="data.type">
+                        <span ng-switch-when="text" ng-bind-html="::data.property+': '+data.value"></span>
+                        <a ng-switch-when="file-link" class="file-link" target="_blank" download
+                           ng-href="{{$ctrl.buildFileHref(data.value)}}" ng-bind="::data.property"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="$ctrl.logs && !$ctrl.logs.length" class="alert alert-warning"
+             ng-bind-html="'LOG_NO_RESULTS' | translate"></div>
+    </div>
+</div>

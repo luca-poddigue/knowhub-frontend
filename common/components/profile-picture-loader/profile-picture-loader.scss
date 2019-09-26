@@ -1,0 +1,38 @@
+@import '../../css/cvars';
+
+profile-picture-loader {
+  display: block;
+
+  .btns {
+    margin-bottom: 10px;
+
+    > div {
+      margin-right: 5px;
+      display: inline-block;
+    }
+  }
+
+  .current-picture {
+    box-shadow: $shadow-bottom;
+  }
+
+  .croppie-container {
+    max-width: 290px;
+    height: 220px;
+    position: fixed;
+    top: -10000px;
+
+    &.crop-widget-visible {
+      position: static;
+    }
+
+    .cr-boundary {
+      box-shadow: $shadow-bottom;
+    }
+
+    @media screen and (max-width: ($screen-xs)-1) {
+      margin: auto;
+    }
+  }
+
+}

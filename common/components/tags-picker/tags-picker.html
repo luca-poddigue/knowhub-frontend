@@ -1,0 +1,57 @@
+<div class="dropdown">
+    <div name="$ctrl.tagsPickerForm" class="form-group" ng-form isolate-form>
+        <div class="input-group"
+             ng-class="{'has-error': $ctrl.allowCustomTags && $ctrl.tagsPickerForm.tagsPicker.$error['pattern'], 'input-only': (($ctrl.enableProficiency && !$ctrl.tag) || !$ctrl.enableProficiency) && !$ctrl.allowCustomTags}">
+            <input placeholder="{{'COMMON_TYPE_FOR_OPTIONS' | translate}}" autocomplete="off"
+                   ng-click="$event.stopPropagation();" ng-keypress="$ctrl.stopEnterKey($event)"
+                   ng-keyup="$ctrl.onInputKeyPress($event)"
+                   type="text" class="form-control"
+                   name="tagsPicker" ng-model="$ctrl.tag" ng-model-options="{debounce: 200}"
+                   ng-change="$ctrl.searchSuggestions($ctrl.tag)" ng-pattern="/^[a-zA-Z0-9\u00C0-\u017F-]*$/" ng-minlength="3"
+                   ng-maxlength="30" required ng-focus="$ctrl.onFocus()">
+            <span ng-if="$ctrl.enableProficiency && ((!$ctrl.allowCustomTags && $ctrl.selectedExistingTag) || ($ctrl.allowCustomTags && $ctrl.tag))"
+                  class="input-group-btn">
+                <div class="btn btn-default btn-proficiency" ng-click="$event.stopPropagation();">
+                    <proficiency-picker tabindex="1" class="proficiency-picker" ng-click="$event.stopPropagation();"
+                                        levels="$ctrl.proficiencyLevels" ng-model="$ctrl.proficiency"
+                                        ng-keypress="$ctrl.stopEnterKey($event)"
+                                        ng-keyup="$ctrl.onInputKeyPress($event)"
+                                        exposed-functions="$ctrl.proficiencyPickerExposedFunctions(functions)"></proficiency-picker>
+                </div>
+      </span>
+            <span ng-if="$ctrl.enableProficiency || $ctrl.allowCustomTags || $ctrl.mode === 'edit'"
+                  class="input-group-btn">
+        <button type="button"
+                ng-class="{'btn-danger': $ctrl.allowCustomTags && $ctrl.tagsPickerForm.tagsPicker.$error['pattern']}"
+                class="btn btn-primary"
+                ng-click="$ctrl.addTag({value: $ctrl.tag}, $event)"
+                ng-disabled="$ctrl.tagsPickerForm.$invalid || (!$ctrl.allowCustomTags && !$ctrl.selectedExistingTag)">
+            <span class="hidden-xxs" ng-bind="$ctrl.mode === 'edit' ? 'COMMON_EDIT' : 'COMMON_ADD' | translate"></span>
+            <i class="visible-xxs-inline fa {{$ctrl.mode === 'edit' ? 'fa-pencil' : 'fa-plus'}}"></i>
+      </button>
+      </span>
+        </div>
+        <div ng-click="$event.stopPropagation();" ng-if="$ctrl.showMatchingTags"
+             class="panel panel-default matching-tags-container">
+            <span ng-repeat="suggestion in $ctrl.suggestions"
+                  ng-click="$event.stopPropagation();$ctrl.selectExistingTag(suggestion, $event)"
+                  class="label label-primary matching-tag"
+                  ng-bind-html="suggestion.label"></span>
+            <span class="more-tags-message" ng-show="$ctrl.showTooManyTagsMessage"
+                  ng-bind="'TAG_PICKER_MORE_MATCHING_TAGS' | translate"></span>
+            <span class="no-tags-message" ng-show="$ctrl.noTagsFoundKey && !$ctrl.suggestions.length"
+                  ng-bind-html="$ctrl.noTagsFoundKey | translate"></span>
+        </div>
+    </div>
+</div>
+<div class="selected-tags">
+    <div ng-repeat="tag in $ctrl.selectedTags" class="tag" ng-class="{'editable': $ctrl.editableTags}" ng-click="$ctrl.editSelectedTag(tag, $event)">
+        <i class="delete-tag-button text-danger fa fa-times-circle" ng-click="$ctrl.deleteTag($index)"></i>
+        <span class="label selected-tag label-primary">
+      <span ng-if="$ctrl.isArray($ctrl.tags)" ng-bind="tag.tagName"></span>
+      <span ng-if="$ctrl.isObject($ctrl.tags)" ng-bind="$ctrl.tags[tag.tagName][$ctrl.labelProperty]"></span>
+    <proficiency-viewer ng-if="$ctrl.enableProficiency" levels="$ctrl.proficiencyLevels"
+                        proficiency="tag.proficiency"></proficiency-viewer>
+    </span>
+    </div>
+</div>

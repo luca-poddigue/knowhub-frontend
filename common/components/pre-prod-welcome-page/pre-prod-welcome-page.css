@@ -1,0 +1,37 @@
+pre-prod-welcome-page {
+    z-index: 1050;
+  display: table;
+    position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to right, #ff9800 0%, #ffc437 90%); }
+  pre-prod-welcome-page .welcome-box {
+    display: table-cell;
+    vertical-align: middle; }
+    pre-prod-welcome-page .welcome-box > div {
+        background-color: white;
+      padding: 18px;
+      width: 100%;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 9px 0 rgba(0, 0, 0, 0.2); }
+    @media screen and (min-height: 900px) {
+      pre-prod-welcome-page .welcome-box {
+        position: relative;
+        top: -60px; } }
+  pre-prod-welcome-page .logo {
+    margin: auto;
+    max-width: 500px;
+    width: 100%;
+    height: auto; }
+  pre-prod-welcome-page .early-access-form {
+    max-width: 400px;
+    margin: auto; }
+  pre-prod-welcome-page .text {
+    margin-bottom: 15px; }
+  pre-prod-welcome-page .early-access-link {
+    display: inline-block;
+    height: 36px;
+    position: relative;
+    top: 19px;
+    font-weight: bold; }
+
+/*# sourceMappingURL=pre-prod-welcome-page.css.map */

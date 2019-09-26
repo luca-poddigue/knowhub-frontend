@@ -1,0 +1,20 @@
+<update-title title="{{$ctrl.applicationName+' | '+('SECTION_READY_TO_GO' | translate)}}"></update-title>
+<update-meta name="description" content=""></update-meta>
+
+<div class="container">
+    <div ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}" class="content">
+        <div class="full-page-message">
+            <div class="text-center">
+                <img class="owl" mf-src="/common/images/owl-green">
+                <h2 class="section-heading" ng-bind="'READY_TO_GO_ALL_SET' | translate"></h2>
+                <hr class="primary">
+            </div>
+            <div class="text-center">
+                <h4 ng-bind-html="'READY_TO_GO_ALL_SET_TEXT' | translate"></h4>
+                <div class="btn-block">
+                    <button class="btn btn-primary" ng-click="$ctrl.proceed()" ng-bind="'COMMON_HOME' | translate"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

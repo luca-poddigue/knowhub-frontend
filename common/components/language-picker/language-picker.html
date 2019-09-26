@@ -1,0 +1,17 @@
+<ui-select ng-class="{'not-searchable': $ctrl.disableSearch}" ng-model="$ctrl.language"
+           on-select="$ctrl.onSelectCallback($item)"
+           skip-focusser="true" search-enabled="!$ctrl.disableSearch">
+    <ui-select-match placeholder="{{'COMMON_TYPE_FOR_OPTIONS' | translate}}"
+                     allow-clear="{{$ctrl.allowClear}}">
+        <div ng-bind-html="$ctrl.language.nativeName"></div>
+    </ui-select-match>
+    <ui-select-choices refresh="$ctrl.refreshChoices($select.search)" refresh-delay="200"
+                       repeat="language.value as (key, language) in $ctrl.languages | filter: {'$': $ctrl.delayedSearch}  track by language.key ">
+        <div ng-bind-html="language.value.nativeName | highlight: $ctrl.delayedSearch"></div>
+    </ui-select-choices>
+    <ui-select-no-choice>
+        <div class="panel panel-default" ng-if="$select.search && $select.search.length > 2"
+             ng-bind-html="'EXPERT_PROFILE_EDITOR_LANGUAGE_NO_TAGS_FOUND' | translate">
+        </div>
+    </ui-select-no-choice>
+</ui-select>

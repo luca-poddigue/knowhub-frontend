@@ -1,0 +1,9 @@
+@import '../../common/css/cvars';
+
+dashboard-page {
+  @media(max-width: ($screen-sm)-1) {
+    .tab-content .container {
+      min-height: calc(100vh - 242px);
+    }
+  }
+}

@@ -1,0 +1,80 @@
+@import '../../../common/css/cvars';
+
+tab-availability {
+  
+  .calendar-btns {
+    margin-bottom: 9px;
+    
+    > div {
+      display: inline-block;
+      margin-right: 15px;
+      margin-bottom: 6px;
+    }
+   
+  }
+  
+  .quick-insert {
+    .intro {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    
+    .form-group.time {
+      display: inline-block;
+
+      &.from {
+        margin-right: 40px;
+      }
+    }
+
+    .form-group {
+      .checkbox:nth-child(2) {
+        margin-top: 0;
+      }
+    }
+    
+    .uib-timepicker .btn.btn-link {
+      height: inherit;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+  
+  .help-block.time-range {
+    position: relative;
+    top: -13px;
+    margin: 0;
+  }
+  
+  .calendar {
+    // avoids the unexpected scroll to the page top when switching calendar view on large screens
+    min-height: 100px;
+
+    a {
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    
+    .fc-today{
+      background-color: inherit;
+    }
+    
+    .fc-event {
+      background-color: $knowhub-orange;
+      border-color: $knowhub-orange;
+      cursor: default;
+    }
+    
+    .fc-bgevent {
+      background-color: $gray;
+      cursor: not-allowed;
+    }
+
+    .fc-scroller {
+      overflow: hidden !important;
+    }
+  }
+}

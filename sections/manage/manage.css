@@ -1,0 +1,5 @@
+@media (max-width: 767px) {
+  dashboard-page .tab-content .container {
+    min-height: calc(100vh - 242px); } }
+
+/*# sourceMappingURL=manage.css.map */

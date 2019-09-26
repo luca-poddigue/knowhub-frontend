@@ -1,0 +1,31 @@
+.file-upload-modal .top-controls {
+  width: 100%; }
+  .file-upload-modal .top-controls .message > * {
+    margin: 0; }
+  .file-upload-modal .top-controls .btns {
+    vertical-align: top;
+    width: 1px;
+    padding-right: 15px; }
+  @media screen and (max-width: 380px) {
+    .file-upload-modal .top-controls .message {
+      margin-top: 8px;
+      display: block; }
+    .file-upload-modal .top-controls .btns {
+      display: block; } }
+.file-upload-modal .files-list {
+  margin-top: 15px;
+  margin-bottom: 0; }
+  .file-upload-modal .files-list .list-group-item {
+    display: table;
+    width: 100%; }
+    .file-upload-modal .files-list .list-group-item > * {
+      display: table-cell; }
+      .file-upload-modal .files-list .list-group-item > *.type-icon {
+        width: 1px;
+        padding-right: 10px; }
+      .file-upload-modal .files-list .list-group-item > *.result {
+        text-align: right;
+        white-space: nowrap;
+        padding-left: 10px; }
+
+/*# sourceMappingURL=file-upload-modal.css.map */

@@ -1,0 +1,42 @@
+tab-dashboard .show-all-btn {
+  margin-bottom: 25px; }
+  tab-dashboard .show-all-btn .btn {
+    position: relative; }
+    tab-dashboard .show-all-btn .btn i {
+      position: absolute;
+      top: 4px;
+      left: 12px; }
+    tab-dashboard .show-all-btn .btn span {
+      margin-left: 28px; }
+tab-dashboard .stats {
+  text-align: center;
+  margin-bottom: 25px;
+  transform: translateX(5px); }
+  @media screen and (max-width: 839px) {
+    tab-dashboard .stats {
+      text-align: left;
+      transform: none; } }
+  @media screen and (max-width: 400px) {
+    tab-dashboard .stats user-metric-viewer .text-box {
+      width: 100%; } }
+  tab-dashboard .stats > div {
+    display: inline-block; }
+  tab-dashboard .stats user-metric-viewer {
+    margin-right: 10px;
+    margin-bottom: 5px; }
+tab-dashboard .sessions-search-form {
+  margin-bottom: 20px; }
+tab-dashboard .overviews .panel-body {
+  position: relative; }
+tab-dashboard .overviews .fa-arrows-h {
+  margin: 0 5px;
+  position: relative;
+  top: 1px; }
+tab-dashboard .overviews .details-btn {
+  margin: 5px -2px 0 -14px;
+  text-align: right; }
+  tab-dashboard .overviews .details-btn .report-abuse-btn {
+    position: relative;
+    top: 5px; }
+
+/*# sourceMappingURL=tab-dashboard.css.map */

@@ -1,0 +1,36 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-bind="'SESSION_PRICE_TITLE' | translate"></h3>
+</div>
+<div class="modal-body session-price">
+    <div class="intro-text" ng-bind-html="'SESSION_PRICE_TEXT' | translate"></div>
+
+    <div class="form-group">
+        <label class="control-label" for="price"
+               ng-bind="::('SESSION_PRICE_PRICE' | translate) + ' (' + ('CURRENCY_SYMBOL_EUR' | translate) + ')'"></label>
+        <h-number value="$ctrl.newPrice" min="{{$ctrl.defaultSessionPrice}}" step="1">
+            <input id="price" name="price" type="text" ng-model="$ctrl.newPrice"
+                   ng-keypress="$ctrl.onKeyPress($event)"
+                   ng-change="$ctrl.onPriceChange($ctrl.newPrice, {{$ctrl.newPrice}})">
+        </h-number>
+    </div>
+
+    <div class="service-fee-text" ng-bind-html="'SESSION_PRICE_SERVICE_FEE' | translate"></div>
+
+    <div class="price-limit-alert" ng-if="$ctrl.newPrice > $ctrl.currentSessionPriceLimit">
+        <div ng-if="!$ctrl.isSessionPriceLimitIncreasePending" class="alert alert-warning"
+             ng-bind-html="'SESSION_PRICE_EXCEEDED_MAX_VALUE' | translate">
+        </div>
+        <div ng-if="$ctrl.isSessionPriceLimitIncreasePending" class="alert alert-warning"
+             ng-bind-html="'SESSION_PRICE_EXCEEDED_MAX_VALUE_AND_PENDING_REQUEST' | translate">
+        </div>
+    </div>
+
+    <div class="alert alert-success" ng-if="$ctrl.showNoServiceCostsAlert"
+         ng-bind-html="'SESSION_PRICE_NO_SERVICE_COSTS' | translate"></div>
+
+</div>
+<div class="modal-footer">
+    <promise-button spinner="session-price-spinner" on-confirm="$ctrl.updateSessionPrice" on-cancel="$ctrl.dismiss"
+                    confirm-text-key="COMMON_APPLY"
+                    btn-disabled="$ctrl.newPrice > $ctrl.currentSessionPriceLimit"></promise-button>
+</div>

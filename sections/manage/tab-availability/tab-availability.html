@@ -1,0 +1,181 @@
+<div>
+
+    <div class="jumbotron">
+        <h1 ng-bind="'AVAILABILITY_TITLE' | translate"></h1>
+        <p ng-bind="'AVAILABILITY_SUBTITLE' | translate"></p>
+    </div>
+
+    <!-- Full calendar requires its container to be displayed (can be hidden but must be displayed) in order to properly initialize -->
+    <div ng-style="{visibility: $ctrl.isAppReady() ? 'visible' : 'hidden'}" class="content">
+
+        <collapsable-alert name="availability-calendar">
+            <alert-title ng-bind="'AVAILABILITY_CALENDAR_INSTRUCTIONS_TITLE' | translate"></alert-title>
+            <alert-content ng-bind-html="'AVAILABILITY_CALENDAR_INSTRUCTIONS_TEXT' | translate"></alert-content>
+        </collapsable-alert>
+
+        <div>
+            <div class="calendar-btns">
+                <div class="view-btns">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default"
+                                ng-class="{'active': $ctrl.currentView() === 'month'}"
+                                ng-click="$ctrl.changeView('month')"
+                                ng-bind="'AVAILABILITY_MONTH' | translate"></button>
+                        <button type="button" class="btn btn-default"
+                                ng-class="{'active': $ctrl.currentView() === 'agendaWeek'}"
+                                ng-click="$ctrl.changeView('agendaWeek')"
+                                ng-bind="'AVAILABILITY_WEEK' | translate"></button>
+                        <button type="button" class="btn btn-default"
+                                ng-class="{'active': $ctrl.currentView() === 'agendaDay'}"
+                                ng-click="$ctrl.changeView('agendaDay')"
+                                ng-bind="'AVAILABILITY_DAY' | translate"></button>
+                    </div>
+                </div>
+
+                <div class="nav-btns">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" ng-disabled="$ctrl.prevButtonDisabled"
+                                ng-click="$ctrl.prev()">
+                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="$ctrl.next()">
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="edit-btns">
+                    <button ng-if="$ctrl.status === 'view'" class="btn btn-primary" ng-click="$ctrl.edit()"
+                            ng-bind="'AVAILABILITY_EDIT' | translate"></button>
+
+                    <button ng-if="$ctrl.status !== 'view'" ng-disabled="$ctrl.status === 'saving'"
+                            class="btn btn-default" ng-click="$ctrl.clearAll()">
+                        <span ng-bind="'AVAILABILITY_CLEAR_ALL' | translate"></span>
+                    </button>
+                    &nbsp;
+
+                    <promise-button ng-if="$ctrl.status !== 'view'" on-cancel="$ctrl.cancel" on-confirm="$ctrl.save"
+                                    confirm-text-key="AVAILABILITY_SAVE"></promise-button>
+
+                </div>
+            </div>
+
+            <div class="calendar" ng-class="{'editable': $ctrl.editable()}"></div>
+
+        </div>
+
+        <div ng-if="$ctrl.status !== 'view'" class="panel panel-default quick-insert">
+            <div class="panel-heading"><strong ng-bind="'AVAILABILITY_QUICK_INSERT_TITLE' | translate"></strong></div>
+            <div class="panel-body">
+                <form novalidate name="$ctrl.availabilityForm">
+                    <p class="intro" ng-bind="'AVAILABILITY_QUICK_INSERT_TEXT' | translate"></p>
+                    <div class="form-group">
+                        <label required class="control-label available-every" for="days"
+                               ng-bind="'AVAILABILITY_AVAILABLE_EVERY' | translate"></label>
+                        <div class="checkbox" ng-if="$ctrl.weekStartDay === 0">
+                            <label class="control control--checkbox">
+                                <span ng-bind="'COMMON_SUNDAY' | translate"></span>
+                                <input name="days" id="days" type="checkbox" ng-model="$ctrl.quickInsertData.days[0]"
+                                       ng-change="$ctrl.daysTouched()" ng-required="!$ctrl.daysSelected()">
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label class="control control--checkbox">
+                                <span ng-bind="'COMMON_MONDAY' | translate"></span>
+                                <input name="days" type="checkbox" ng-model="$ctrl.quickInsertData.days[1]"
+                                       ng-change="$ctrl.daysTouched()" ng-required="!$ctrl.daysSelected()">
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label class="control control--checkbox">
+                                <span ng-bind="'COMMON_TUESDAY' | translate"></span>
+                                <input name="days" type="checkbox" ng-model="$ctrl.quickInsertData.days[2]"
+                                       ng-change="$ctrl.daysTouched()" ng-required="!$ctrl.daysSelected()">
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label class="control control--checkbox">
+                                <span ng-bind="'COMMON_WEDNESDAY' | translate"></span>
+                                <input name="days" type="checkbox" ng-model="$ctrl.quickInsertData.days[3]"
+                                       ng-change="$ctrl.daysTouched()" ng-required="!$ctrl.daysSelected()">
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label class="control control--checkbox">
+                                <span ng-bind="'COMMON_THURSDAY' | translate"></span>
+                                <input name="days" type="checkbox" ng-model="$ctrl.quickInsertData.days[4]"
+                                       ng-change="$ctrl.daysTouched()" ng-required="!$ctrl.daysSelected()">
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label class="control control--checkbox">
+                                <span ng-bind="'COMMON_FRIDAY' | translate"></span>
+                                <input name="days" type="checkbox" ng-model="$ctrl.quickInsertData.days[5]"
+                                       ng-change="$ctrl.daysTouched()" ng-required="!$ctrl.daysSelected()">
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label class="control control--checkbox">
+                                <span ng-bind="'COMMON_SATURDAY' | translate"></span>
+                                <input name="days" type="checkbox" ng-model="$ctrl.quickInsertData.days[6]"
+                                       ng-change="$ctrl.daysTouched()" ng-required="!$ctrl.daysSelected()">
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                        <div class="checkbox" ng-if="$ctrl.weekStartDay !== 0">
+                            <label class="control control--checkbox">
+                                <span ng-bind="'COMMON_SUNDAY' | translate"></span>
+                                <input name="days" type="checkbox" ng-model="$ctrl.quickInsertData.days[0]"
+                                       ng-change="$ctrl.daysTouched()" ng-required="!$ctrl.daysSelected()">
+                                <div class="control__indicator"></div>
+                            </label>
+                        </div>
+                        <div ng-if="$ctrl.isDaysTouched" ng-messages="$ctrl.availabilityForm.days.$error"
+                             class="help-block text-danger">
+                            <div ng-message="required" ng-bind="'AVAILABILITY_SELECT_DAY' | translate"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group time from">
+                        <label required class="control-label" for="timeFrom"
+                               ng-bind="'AVAILABILITY_FROM' | translate"></label>
+                        <div id="timeFrom" name="timeFrom" uib-timepicker ng-model="$ctrl.quickInsertData.time.from"
+                             show-meridian="$ctrl.weekStartDay === 0" minute-step="30" readonly-input="true"></div>
+                    </div>
+                    <div class="form-group time to">
+                        <label required class="control-label" for="timeTo"
+                               ng-bind="'AVAILABILITY_TO' | translate"></label>
+                        <div id="timeTo" name="timeTo" uib-timepicker ng-model="$ctrl.quickInsertData.time.to"
+                             show-meridian="$ctrl.weekStartDay === 0" minute-step="30" readonly-input="true"></div>
+                    </div>
+                    <div ng-if="!$ctrl.timeRangeValid()" class="help-block text-danger time-range"
+                         ng-bind="'AVAILABILITY_INVALID_TIME_RANGE' | translate"></div>
+
+                    <div class="form-group">
+                        <label required class="control-label" for="timeSpan"
+                               ng-bind="'AVAILABILITY_PERIOD' | translate"></label>
+                        <date-range-picker id="timeSpan" name="timeSpan" ng-model="$ctrl.quickInsertData.period"
+                                           required ng-date-range min-date="$ctrl.minAvailabilityTime"
+                                           resettable="false"></date-range-picker>
+                        <div ng-show="$ctrl.availabilityForm.timeSpan.$touched"
+                             ng-messages="$ctrl.availabilityForm.timeSpan.$error" class="help-block text-danger">
+                            <div ng-messages-include="common/validation/messages/common.html"></div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary"
+                            ng-disabled="$ctrl.availabilityForm.$invalid || !$ctrl.timeRangeValid()"
+                            ng-bind="'AVAILABILITY_QUICK_INSERT' | translate" ng-click="$ctrl.quickInsert()">
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

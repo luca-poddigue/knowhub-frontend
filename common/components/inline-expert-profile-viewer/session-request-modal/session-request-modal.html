@@ -1,0 +1,113 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title" ng-bind="'SESSION_REQUEST_TITLE' | translate"></h3>
+</div>
+<form novalidate name="$ctrl.sessionRequestForm">
+    <div class="modal-body" id="modal-body">
+        <div class="form-group">
+            <label class="control-label" for="expert" ng-bind="'SESSION_REQUEST_EXPERT' | translate"></label>
+            <p id="expert" class="form-control-static" ng-bind="$ctrl.expertName"></p>
+        </div>
+        <div class="form-group"
+             ng-class="{'has-error': $ctrl.sessionRequestForm.topic.$touched && $ctrl.sessionRequestForm.topic.$invalid}">
+            <label required class="control-label" for="topic" ng-bind="'SESSION_REQUEST_TOPIC' | translate"></label>&nbsp;
+            <info-point message-key="SESSION_REQUEST_TOPIC_TOOLTIP" append-to-body="false"></info-point>
+            <input type="text" required ng-minlength=1 ng-maxlength=100 id="topic" name="topic"
+                   ng-change="$ctrl.updateSharingSessionEvent()" class="form-control" ng-model="$ctrl.request.topic">
+            <div ng-show="$ctrl.sessionRequestForm.topic.$touched" ng-messages="$ctrl.sessionRequestForm.topic.$error"
+                 class="help-block text-danger">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+            </div>
+        </div>
+
+        <div class="form-group"
+             ng-class="{'has-error': $ctrl.sessionRequestForm.requirements.$touched && $ctrl.sessionRequestForm.requirements.$invalid}">
+            <label required class="control-label" for="requirements"
+                   ng-bind="'SESSION_REQUEST_REQUIREMENTS' | translate"></label>&nbsp;
+            <info-point message-key="SESSION_REQUEST_REQUIREMENTS_TOOLTIP" append-to-body="false"></info-point>
+            <textarea id="requirements" name="requirements" class="form-control" required ng-minlength="10"
+                      ng-maxlength="10000" ng-model="$ctrl.request.requirements" rows="5"></textarea>
+            <div ng-show="$ctrl.sessionRequestForm.requirements.$touched"
+                 ng-messages="$ctrl.sessionRequestForm.requirements.$error" class="help-block text-danger">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+            </div>
+        </div>
+
+        <div class="form-group time-span"
+             ng-class="{'has-error': $ctrl.sessionRequestForm.timeSpan.$touched && $ctrl.sessionRequestForm.timeSpan.$invalid}">
+            <label required class="control-label" for="timeSpan"
+                   ng-bind="'SESSION_REQUEST_TIME_SPAN' | translate"></label>&nbsp;
+            <info-point message-key="SESSION_REQUEST_TIME_SPAN_TOOLTIP" append-to-body="false"></info-point>
+
+            <div ng-if="$ctrl.hasAvailability === false && $ctrl.source === 'search'" class="alert alert-danger"
+                 ng-bind-html="'SESSION_REQUEST_NO_AVAILABILITY' | translate">
+            </div>
+            <div ng-if="$ctrl.hasAvailability === false && $ctrl.source === 'bookmarks'" class="alert alert-danger"
+                 ng-bind-html="'SESSION_REQUEST_NO_AVAILABILITY_BOOKMARKS' | translate">
+            </div>
+
+            <collapsable-alert ng-if="$ctrl.hasAvailability === true" name="session-request-calendar">
+                <alert-title ng-bind="'SESSION_REQUEST_CALENDAR_INSTRUCTIONS_TITLE' | translate"></alert-title>
+                <alert-content>
+                    <div ng-bind-html="'SESSION_REQUEST_CALENDAR_INSTRUCTIONS_TEXT' | translate"></div>
+                    <div class="legend">
+                        <h4 ng-bind="'SESSION_REQUEST_CALENDAR_LEGEND' | translate"></h4>
+                        <div class="legend-entry"
+                             ng-repeat="legendEntry in ['available', 'unavailable', 'available-in-future', 'session', 'request']">
+                            <div class="color" ng-class="legendEntry"></div>
+                            <span ng-bind="::'SESSION_REQUEST_CALENDAR_LEGEND_'+legendEntry.toUpperCase().replaceAll('-', '_') | translate"></span>
+                        </div>
+                    </div>
+                </alert-content>
+            </collapsable-alert>
+
+            <div>
+                <div ng-if="$ctrl.hasAvailability === true" class="calendar-btns">
+                    <div class="view-btns">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default"
+                                    ng-class="{'active': $ctrl.currentView() === 'agendaWeek'}"
+                                    ng-click="$ctrl.changeView('agendaWeek')"
+                                    ng-bind="'AVAILABILITY_WEEK' | translate"></button>
+                            <button type="button" class="btn btn-default"
+                                    ng-class="{'active': $ctrl.currentView() === 'agendaDay'}"
+                                    ng-click="$ctrl.changeView('agendaDay')"
+                                    ng-bind="'AVAILABILITY_DAY' | translate"></button>
+                        </div>
+                    </div>
+
+                    <div class="nav-btns">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" ng-disabled="$ctrl.prevButtonDisabled"
+                                    ng-click="$ctrl.prev()">
+                                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="btn btn-default" ng-disabled="$ctrl.nextButtonDisabled"
+                                    ng-click="$ctrl.next()">
+                                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calendar"></div>
+                <spinner name="session-request-calendar-spinner"></spinner>
+
+                <div class="time-span-validation">
+                    <input type="hidden" name="timeSpan" id="timeSpan" ng-model="$ctrl.request.timeSpan" required>
+                    <div ng-if="$ctrl.hasAvailability === true"
+                         ng-messages="$ctrl.sessionRequestForm.timeSpan.$touched && $ctrl.sessionRequestForm.timeSpan.$error"
+                         class="help-block text-danger">
+                        <div ng-message="required" ng-bind="'SESSION_REQUEST_TIME_SPAN_REQUIRED' | translate"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <promise-button on-confirm="$ctrl.sendRequest" on-cancel="$ctrl.cancel"
+                        confirm-text-key="SESSION_REQUEST_SUBMIT_REQUEST"
+                        form="$ctrl.sessionRequestForm" spinner="session-request-promise-spinner"></promise-button>
+    </div>
+</form>

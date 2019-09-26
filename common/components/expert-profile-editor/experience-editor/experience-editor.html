@@ -1,0 +1,12 @@
+<form novalidate name="experienceForm">
+    <div class="form-group"
+         ng-class="{'has-error': $ctrl.expertProfileForm.firstName.$touched && $ctrl.expertProfileForm.firstName.$invalid}">
+        <label class="control-label" for="firstName" ng-bind="'SEEKER_PROFILE_FIRST_NAME' | translate"></label>
+        <input type="text" class="form-control" id="firstName" name="firstName" ng-model="$ctrl.userInfo.firstName"
+               required ng-minlength="1" ng-maxlength="50">
+        <div ng-show="$ctrl.expertProfileForm.firstName.$touched" ng-messages="$ctrl.expertProfileForm.firstName.$error"
+             class="help-block text-danger">
+            <div ng-messages-include="common/validation/messages/common.html"></div>
+        </div>
+    </div>
+</form>

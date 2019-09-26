@@ -1,0 +1,77 @@
+@import '../../../common/css/cvars';
+
+tab-dashboard {
+
+  .show-all-btn {
+    margin-bottom: 25px;
+
+    .btn {
+      position: relative;
+
+      i {
+        position: absolute;
+        top: 4px;
+        left: 12px;
+      }
+
+      span {
+        margin-left: 28px;
+      }
+    }
+  }
+
+  .stats {
+    text-align: center;
+    margin-bottom: 25px;
+    transform: translateX(5px);
+
+    @media screen and (max-width: 839px) {
+      text-align: left;
+      transform: none;
+    }
+
+    @media screen and (max-width: 400px) {
+      user-metric-viewer .text-box {
+        width: 100%;
+      }
+    }
+
+    > div {
+      display: inline-block;
+    }
+
+    user-metric-viewer {
+      margin-right: 10px;
+      margin-bottom: 5px;
+    }
+  }
+
+  .sessions-search-form {
+    margin-bottom: 20px;
+  }
+
+  .overviews {
+
+    .panel-body {
+      position: relative;
+    }
+
+    .fa-arrows-h {
+      margin: 0 5px;
+      position: relative;
+      top: 1px;
+    }
+
+    .details-btn {
+      margin: 5px -2px 0 -14px;
+      text-align: right;
+
+      .report-abuse-btn {
+        position: relative;
+        top: 5px;
+      }
+    }
+  }
+
+}
+

@@ -1,0 +1,94 @@
+<div class="modal-header">
+    <h3 class="modal-title" ng-bind="$ctrl.modalConfig.title | translate"></h3>
+</div>
+<div class="modal-body drop-box" ngf-drop="$ctrl.uploadImage($file)" ngf-allow-dir="false"
+     ngf-drag-over-class="'dragover'" ngf-pattern="$ctrl.validFileTypes.join()">
+    <div class="dragover-overlay">
+        <div class="message label label-primary" ng-bind="'EXPERT_PROFILE_DRAG_IMAGE_MESSAGE' | translate">
+        </div>
+    </div>
+    <form id="link-editor" name="$ctrl.imageForm" novalidate>
+        <div class="form-group" ng-if="$ctrl.modalConfig.enableImageUrl">
+            <answer-button required options="$ctrl.modeOptions" ng-model="$ctrl.mode"
+                           ng-change="$ctrl.onModeChange()"></answer-button>
+        </div>
+
+        <div ng-if="$ctrl.mode === 'URL'" class="form-group"
+             ng-class="{'has-error': $ctrl.imageForm.imageUrl.$touched && $ctrl.imageForm.imageUrl.$invalid}">
+            <label required class="control-label" for="imageUrl"
+                   ng-bind="'EXPERT_PROFILE_IMAGE_URL' | translate"></label>
+            <input type="text" class="form-control" id="imageUrl" name="imageUrl" ng-model="$ctrl.imageUrl" required
+                   ng-minlength="1" ng-maxlength="300"
+                   placeholder="{{'EXPERT_PROFILE_IMAGE_URL_PLACEHOLDER' | translate}}">
+            <div ng-show="$ctrl.imageForm.imageUrl.$touched" ng-messages="$ctrl.imageForm.imageUrl.$error"
+                 class="help-block text-danger">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+            </div>
+        </div>
+
+        <div class="form-group" ng-if="$ctrl.mode === 'UPLOAD'">
+            <table class=img-upload>
+                <tr>
+                    <td ng-if="$ctrl.uploadStatus !== 'PENDING' && !$ctrl.thumbnailError && $ctrl.file"
+                        class="thumbnail-container">
+                        <img class="thumbnail" ngf-src="$ctrl.file" src-error="$ctrl.onThumbnailError()">
+                    </td>
+                    <td class="details">
+                        <h4 ng-if="$ctrl.uploadStatus !== 'PENDING' && $ctrl.file" ng-bind="$ctrl.file.name"></h4>
+                        <button ng-if="$ctrl.uploadStatus !== 'PROGRESS' && $ctrl.uploadStatus !== 'COMPLETED'"
+                                class="btn btn-default" ngf-select="$ctrl.uploadImage($file)" ngf-allow-dir="false"
+                                ngf-accept="'{{$ctrl.validFileTypes.join()}}'"
+                                ng-bind="'COMMON_SELECT' | translate"></button>
+                        <button ng-if="$ctrl.uploadStatus === 'PROGRESS'" class="btn btn-danger"
+                                ng-click="$ctrl.cancelUpload()"
+                                ng-bind="'EXPERT_PROFILE_CANCEL_IMAGE_UPLOAD' | translate"></button>
+
+                        <div ng-if="$ctrl.uploadStatus !== 'PENDING'" class="progress">
+                            <div class="progress-bar" style="width:{{$ctrl.progress}}%"
+                                 ng-class="{'progress-bar-striped active': $ctrl.uploadStatus === 'PROGRESS', 'progress-bar-success': $ctrl.uploadStatus === 'COMPLETED', 'progress-bar-danger': $ctrl.uploadStatus === 'ERROR'}"
+                                 ng-bind="$ctrl.uploadStatus === 'ERROR' ? ('EXPERT_PROFILE_IMAGE_UPLOAD_ERROR'|translate) : ($ctrl.progress + '%')"></div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <span ng-if="$ctrl.modalConfig.helpText"
+              class=" help-text" ng-bind-html="$ctrl.modalConfig.helpText | translate"></span>
+
+        <div ng-if="$ctrl.modalConfig.enableImageResizing">
+            <div class="row dimensions">
+                <div class="col-xs-6 form-group"
+                     ng-class="{'has-error': $ctrl.imageForm.imageWidth.$touched && $ctrl.imageForm.imageWidth.$invalid}">
+                    <label class="control-label" for="imageWidth"
+                           ng-bind="'EXPERT_PROFILE_IMAGE_WIDTH' | translate"></label>
+                    <input type="text" class="form-control" id="imageWidth" name="imageWidth" ng-pattern="/^\d+$/"
+                           ng-model="$ctrl.imageWidth" placeholder="300">
+                    <div ng-show="$ctrl.imageForm.imageWidth.$touched" ng-messages="$ctrl.imageForm.imageWidth.$error"
+                         class="help-block text-danger">
+                        <div ng-message="pattern" ng-bind="'EXPERT_PROFILE_INVALID_DIMENSION' | translate"></div>
+                    </div>
+                </div>
+
+                <div class="col-xs-6 form-group"
+                     ng-class="{'has-error': $ctrl.imageForm.imageHeight.$touched && $ctrl.imageForm.imageHeight.$invalid}">
+                    <label class="control-label" for="imageHeight"
+                           ng-bind="'EXPERT_PROFILE_IMAGE_HEIGHT' | translate"></label>
+                    <input type="text" class="form-control" id="imageHeight" name="imageHeight" ng-pattern="/^\d+$/"
+                           ng-model="$ctrl.imageHeight" placeholder="200">
+                    <div ng-show="$ctrl.imageForm.imageHeight.$touched" ng-messages="$ctrl.imageForm.imageHeight.$error"
+                         class="help-block text-danger">
+                        <div ng-message="pattern" ng-bind="'EXPERT_PROFILE_INVALID_DIMENSION' | translate"></div>
+                    </div>
+                </div>
+            </div>
+            <span class="dimensions-hint help-block" ng-bind="'EXPERT_PROFILE_DIMENSIONS_HINT' | translate"></span>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button ng-disabled="$ctrl.imageForm.$invalid || ($ctrl.mode === 'UPLOAD' && !$ctrl.imageUploaded)"
+            class="btn btn-primary" ng-click="$ctrl.done()" ng-bind="'COMMON_OK' | translate"></button>
+    <button ng-disabled="$ctrl.isUploadInProgress()" class="btn btn-danger" ng-click="$ctrl.dismiss()"
+            ng-bind="'COMMON_CANCEL' | translate"></button>
+</div>

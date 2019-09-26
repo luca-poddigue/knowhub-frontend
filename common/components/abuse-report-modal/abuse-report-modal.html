@@ -1,0 +1,24 @@
+<form novalidate name="$ctrl.abuseReportForm">
+    <div class="modal-header">
+        <h3 class="modal-title" ng-bind="'ABUSE_REPORT_TITLE' | translate"></h3>
+    </div>
+    <div class="modal-body abuse-report-modal">
+        <div class="intro-text" ng-bind="'ABUSE_REPORT_TEXT' | translate"></div>
+
+        <div class="form-group"
+             ng-class="{'has-error': $ctrl.abuseReportForm.reason.$touched && $ctrl.abuseReportForm.reason.$invalid}">
+            <label required class="control-label" for="reason" ng-bind="'ABUSE_REPORT_REASON' | translate"></label>
+            <textarea class="form-control" rows="5" id="reason" name="reason" required ng-minlength=10
+                      ng-maxlength=10000 ng-model="$ctrl.abuseDetails.reason"></textarea>
+            <div ng-show="$ctrl.abuseReportForm.reason.$touched" ng-messages="$ctrl.abuseReportForm.reason.$error"
+                 class="help-block text-danger">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <promise-button spinner="abuse-report-spinner" on-confirm="$ctrl.reportAbuse" on-cancel="$ctrl.dismiss"
+                        confirm-text-key="ABUSE_REPORT_SEND_REPORT"
+                        form="$ctrl.abuseReportForm"></promise-button>
+    </div>
+</form>

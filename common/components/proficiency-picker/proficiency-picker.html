@@ -1,0 +1,9 @@
+<span class="stars-container" ng-class="{'missing-value': $ctrl.missingValueAnimation}"
+      ng-repeat="level in $ctrl.levels">
+  <i class="star fa" ng-class="{'fa-star-o': ((!$ctrl.mouseOverLevel && (!$ctrl.level || $ctrl.level.index < $index)) || ($ctrl.mouseOverLevel && $ctrl.mouseOverLevel.index < $index)) && !$ctrl.missingValueAnimation,
+                          'fa-star':  $ctrl.missingValueAnimation || $ctrl.level.index >= $index || ($ctrl.mouseOverLevel && $ctrl.mouseOverLevel.index >= $index)
+                                  }" aria-hidden="true" ng-click="$ctrl.onSelect(level, $index)"
+     ng-mouseleave="$ctrl.mouseOverLevel=null;" ng-mouseover="$ctrl.mouseOverLevel={index: $index, level:level}"></i>
+</span>
+<span ng-if="$ctrl.mouseOverLevel" class="label label-primary proficiency-level"
+      ng-bind="'PROFICIENCY_LEVEL_'+$ctrl.mouseOverLevel.level | translate"></span>

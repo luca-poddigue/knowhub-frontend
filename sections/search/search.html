@@ -1,0 +1,197 @@
+<update-title title="{{$ctrl.applicationName+' | '+('SECTION_SEARCH_EXPERT' | translate)}}"></update-title>
+<update-meta name="description" content=""></update-meta>
+
+<div class="container">
+
+    <div class="jumbotron">
+        <h1 ng-bind="'SEARCH_TITLE' | translate"></h1>
+        <p ng-bind="'SEARCH_SUBTITLE' | translate"></p>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" ng-class="{'active': $ctrl.mode===$ctrl.modes.search}"
+                    ng-click="$ctrl.setMode($ctrl.modes.search)" ng-bind="'SEARCH_SEARCH_EXPERT' | translate"></button>
+            <button class="btn btn-primary" ng-class="{'active': $ctrl.mode===$ctrl.modes.bookmarks}"
+                    ng-click="$ctrl.setMode($ctrl.modes.bookmarks)"
+                    ng-bind="'SEARCH_BOOKMARKED_EXPERTS' | translate"></button>
+        </div>
+    </div>
+
+    <div ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}" class="content">
+
+        <div ng-if="$ctrl.weeklySessionsLimitReached" class="alert alert-warning"
+             ng-bind-html="'SEARCH_WEEKLY_SESSIONS_LIMIT_REACHED' | translate"></div>
+        <div ng-if="$ctrl.pendingFeedbacks" class="alert alert-warning"
+             ng-bind-html="'SEARCH_PENDING_FEEDBACKS' | translate"></div>
+
+        <div ng-show="$ctrl.mode === $ctrl.modes.search">
+            <form name="$ctrl.searchForm" novalidate memory-form class="search-form">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group"
+                             ng-class="{'has-error': $ctrl.searchForm.skills.$touched && $ctrl.searchForm.skills.$invalid}">
+                            <label required class="control-label"
+                                   ng-bind="'SEARCH_SKILLS' | translate"></label>
+                            <info-point message-key="SEARCH_SKILLS_TOOLTIP"></info-point>
+                            <tags-picker ng-if="$ctrl.skillTags" id="skills" name="skills"
+                                         ng-model="$ctrl.searchParams.skills" tags="$ctrl.skillTags"
+                                         proficiency-levels="$ctrl.skillProficiencyLevels"
+                                         on-select="$ctrl.onTagSelect($event)" allow-custom-tags="false"
+                                         enable-proficiency="false" no-tags-found-key="SEARCH_SKILLS_NO_TAGS_FOUND"
+                                         ng-array-maxlength="10" ng-array-minlength="1"
+                                         required></tags-picker>
+                            <div ng-show="$ctrl.searchForm.skills.$touched" ng-messages="$ctrl.searchForm.skills.$error"
+                                 class="help-block text-danger">
+                                <div ng-message="arrayMaxlength"
+                                     ng-bind="'SEARCH_TOO_MANY_SKILL_TAGS' | translate"></div>
+                                <div ng-message="arrayMinlength"
+                                     ng-bind="'SEARCH_SKILL_TAGS_REQUIRED' | translate"></div>
+                                <div ng-message="required" ng-bind="'SEARCH_SKILL_TAGS_REQUIRED' | translate"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label class="control-label" for="availability"
+                                   ng-bind="'SEARCH_AVAILABILITY' | translate"></label>
+                            <info-point message-key="SEARCH_AVAILABILITY_TOOLTIP"></info-point>
+                            <date-range-picker id="availability" name="availability"
+                                               ng-model="$ctrl.searchParams.availability" ng-date-range
+                                               range-limit="futureOnly"
+                                               range-popover-placement="top"></date-range-picker>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label" for="language" ng-bind="'SEARCH_LANGUAGE' | translate"></label>
+                            <info-point message-key="SEARCH_LANGUAGE_TOOLTIP"></info-point>
+                            <language-picker id="language" name="language"
+                                             ng-model="$ctrl.searchParams.language"></language-picker>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group"
+                             ng-class="{'has-error': $ctrl.searchForm.averagePrice.$touched && $ctrl.searchForm.averagePrice.$invalid}"
+                             ng-disabled="!$ctrl.searchParams.filterByAveragePrice">
+                            <label class="control-label" for="averagePrice"
+                                   ng-bind="'SEARCH_AVERAGE_PRICE' | translate"></label>
+                            <info-point message-key="SEARCH_AVERAGE_PRICE_TOOLTIP"></info-point>
+                            <div class="input-group multi-side">
+                <span class="input-group-btn">
+                  <button type="button" class="on-off btn btn-default"
+                          ng-class="{'btn-primary': $ctrl.searchParams.filterByAveragePrice}"
+                          ng-click="$ctrl.searchParams.filterByAveragePrice = !$ctrl.searchParams.filterByAveragePrice"
+                          name="filter-by-average-price"
+                          ng-model="$ctrl.searchParams.filterByAveragePrice"
+                          ng-bind="$ctrl.searchParams.filterByAveragePrice ? 'COMMON_ON' : 'COMMON_OFF' | translate"></button>
+                </span>
+                                <input type="number" id="averagePrice" name="averagePrice" class="form-control"
+                                       ng-model="$ctrl.searchParams.averagePrice" ng-min="0" min="0"
+                                       ng-disabled="!$ctrl.searchParams.filterByAveragePrice">
+                                <span class="input-group-addon">
+                                    <span ng-bind="('CURRENCY_SYMBOL_EUR' | translate) + ('COMMON_PER_HOUR' | translate)"></span>
+                                </span>
+                            </div>
+                            <div ng-show="$ctrl.searchParams.filterByAveragePrice && $ctrl.searchForm.averagePrice.$touched"
+                                 ng-messages="$ctrl.searchForm.averagePrice.$error" class="help-block text-danger">
+                                <div ng-messages-include="common/validation/messages/common.html"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group"
+                             ng-class="{'has-error': $ctrl.searchForm.reputation.$touched && $ctrl.searchForm.reputation.$invalid}"
+                             ng-disabled="!$ctrl.searchParams.filterByReputation">
+                            <label class="control-label" for="reputation"
+                                   ng-bind="'SEARCH_REPUTATION' | translate"></label>
+                            <info-point message-key="SEARCH_REPUTATION_TOOLTIP"></info-point>
+                            <div class="input-group multi-side">
+                <span class="input-group-btn">
+                  <button type="button" class="on-off btn btn-default"
+                          ng-class="{'btn-primary': $ctrl.searchParams.filterByReputation}"
+                          ng-model="$ctrl.searchParams.filterByReputation"
+                          name="filter-by-reputation"
+                          ng-click="$ctrl.toggleFilterByReputation()"
+                          ng-bind="$ctrl.searchParams.filterByReputation ? 'COMMON_ON' : 'COMMON_OFF' | translate">
+                  </button>
+                </span>
+                                <input type="number" id="reputation" name="reputation" class="form-control"
+                                       ng-model="$ctrl.searchParams.reputation" ng-min="1" min="1" ng-max="100"
+                                       ng-min="100" ng-disabled="!$ctrl.searchParams.filterByReputation">
+                                <span class="input-group-addon">/100</span>
+                            </div>
+                            <div ng-show="$ctrl.searchParams.filterByReputation && $ctrl.searchForm.reputation.$touched"
+                                 ng-messages="$ctrl.searchForm.reputation.$error" class="help-block text-danger">
+                                <div ng-messages-include="common/validation/messages/common.html"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group" ng-disabled="!$ctrl.searchParams.discoveryMode">
+                            <label class="control-label" for="discoveryMode"
+                                   ng-bind="'SEARCH_DISCOVERY_MODE' | translate"></label>
+                            <info-point message-key="SEARCH_DISCOVERY_MODE_TOOLTIP"></info-point>
+                            <div>
+                                <button type="button" class="on-off btn btn-default"
+                                        ng-class="{'btn-primary': $ctrl.searchParams.discoveryMode}"
+                                        ng-click="$ctrl.toggleDiscoveryMode()"
+                                        name="discoveryMode" id="discoveryMode"
+                                        ng-model="$ctrl.searchParams.discoveryMode"
+                                        ng-bind="$ctrl.searchParams.discoveryMode ? 'COMMON_ON' : 'COMMON_OFF' | translate"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <promise-button on-confirm="$ctrl.newSearch"
+                                confirm-text-key="SEARCH_SEARCH" form="$ctrl.searchForm"></promise-button>
+                <button class="btn btn-default" ng-click="$ctrl.resetSearch()"
+                        ng-bind="'SEARCH_RESET_SEARCH' | translate"></button>
+
+            </form>
+
+
+            <div ng-if="$ctrl.expertOverviewsData.overviews && !$ctrl.expertOverviewsData.overviews.length"
+                 class="alert alert-warning" ng-bind-html="'SEARCH_NO_RESULTS' | translate">
+            </div>
+
+            <div ng-if="$ctrl.expertOverviewsData.overviews && $ctrl.expertOverviewsData.overviews.length"
+                 class="results-container" ng-scroll="$ctrl.searchMore()" ng-scroll-mode="page">
+                <div ng-repeat="overview in $ctrl.expertOverviewsData.overviews"
+                     class="panel panel-default results-panel">
+                    <div class="panel-body">
+                        <inline-expert-profile-viewer expert-overview="overview"
+                                                      source="search"
+                                                      enable-session-request="!$ctrl.weeklySessionsLimitReached && !$ctrl.pendingFeedbacks"
+                                                      on-session-request="$ctrl.canRequestSessions()"></inline-expert-profile-viewer>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="$ctrl.mode === $ctrl.modes.bookmarks">
+
+            <div ng-if="$ctrl.bookmarkedExpertOverviewsData.overviews && !$ctrl.bookmarkedExpertOverviewsData.overviews.length"
+                 class="alert alert-warning" ng-bind-html="'SEARCH_NO_BOOKMARKS' | translate">
+            </div>
+
+            <div ng-if="$ctrl.bookmarkedExpertOverviewsData.overviews && $ctrl.bookmarkedExpertOverviewsData.overviews.length"
+                 class="results-container" ng-scroll="" ng-scroll-mode="page">
+                <div ng-repeat="overview in $ctrl.bookmarkedExpertOverviewsData.overviews"
+                     class="panel panel-default results-panel">
+                    <div class="panel-body">
+                        <inline-expert-profile-viewer source="bookmarks" expert-overview="overview"
+                                                      enable-session-request="!$ctrl.weeklySessionsLimitReached && !$ctrl.pendingFeedbacks"
+                                                      on-session-request="$ctrl.canRequestSessions()"></inline-expert-profile-viewer>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+@import '../../../common/css/cvars';
+@import '../../../common/css/mixins';
+
+.modal-dialog {
+  .invoice-config-modal {
+
+    &.modal-body {
+      input#code {
+        max-width: 250px;
+      }
+
+      img.signature {
+        display: block;
+        margin-bottom: 10px;
+        @include signature();
+      }
+    }
+
+    &.modal-footer {
+      .btns-after-generation {
+        margin-top: -5px;
+        padding-left: 45px;
+
+        .btn {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+}

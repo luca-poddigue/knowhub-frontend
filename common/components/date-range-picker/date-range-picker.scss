@@ -1,0 +1,163 @@
+@import '../../../common/css/cvars';
+@import '../../../common/css/mixins';
+
+.date-range-popover.popover {
+  max-width: inherit;
+  width: 601px;
+
+  .btn-to-present {
+    width: 100%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .prevent-user-interaction {
+    @include prevent-user-interaction(-15px);
+  }
+
+  .date-picker-container {
+    vertical-align: top;
+    display: inline-block;
+    margin: 0;
+    width: 278px;
+
+    .panel-body {
+      position: relative;
+    }
+
+    &:first-child {
+      margin-right: 10px;
+    }
+
+    &.to-present-enabled {
+      &.from {
+        height: 337px;
+      }
+
+      &.to {
+        border-bottom: none;
+      }
+    }
+
+    table {
+      margin: auto;
+    }
+  }
+}
+
+.date-range-modal {
+  .modal-body {
+    padding: 0 0 8px 0;
+  }
+
+  .modal-dialog {
+    margin: 9px auto;
+    width: 286px;
+  }
+
+  .formatted-date {
+    height: 0;
+  }
+
+  .btn-to-present {
+    width: 100%;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .prevent-user-interaction {
+    @include prevent-user-interaction(-7px);
+  }
+
+  .date-picker-container {
+    display: inline-block;
+    margin: 0;
+
+    .panel-body {
+      padding: 7px;
+      position: relative;
+    }
+
+    &.to-present-enabled.to {
+      border-bottom: none;
+    }
+
+    .panel-heading {
+      text-align: left;
+
+    }
+
+    &:first-child {
+      margin-bottom: 8px;
+      margin-top: 6px;
+    }
+  }
+}
+
+date-range-picker {
+
+  $switchHeight: 800px;
+
+  .btn-modal {
+    display: none;
+  }
+
+  @media screen and (max-width: $screen-md),
+  screen and (max-height: $switchHeight) {
+    .btn-popover {
+      display: none;
+    }
+
+    .btn-modal {
+      display: inline-block;
+    }
+  }
+
+  .range-input-box {
+    border-radius: 4px 0 0 4px;
+  }
+
+  .range-btn button {
+    border-radius: 0 4px 4px 0 !important;
+  }
+
+  .fa-arrows-h {
+    margin: 0 5px;
+    position: relative;
+    top: 1px;
+  }
+
+  .clear-range {
+    position: absolute;
+    right: 36px;
+    top: 2px;
+    z-index: 100;
+
+    &.sm {
+      top: 0;
+    }
+
+    .btn {
+      transform: inherit;
+    }
+  }
+
+}
+
+.date-range-picker {
+  &.ng-valid.ng-touched .input-group-btn button {
+    background-color: $green-success;
+    border-color: $green-success;
+    color: white;
+  }
+
+  &.ng-invalid.ng-touched .input-group-btn button {
+    background-color: $red-danger;
+    border-color: $red-danger;
+    color: white;
+  }
+}

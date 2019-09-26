@@ -1,0 +1,124 @@
+home-page .home-content {
+  padding-bottom: 85px; }
+  @media screen and (min-width: 768px) {
+    home-page .home-content {
+      padding-bottom: 44px; } }
+home-page p {
+  font-size: 110%; }
+home-page > div {
+  padding-bottom: 63px; }
+  @media screen and (min-width: 768px) {
+    home-page > div {
+      padding-bottom: 63px; } }
+home-page section {
+  padding: 0 15px; }
+  home-page section-heading {
+    margin-top: 0; }
+home-page .service-box {
+  max-width: 400px;
+  margin: 50px auto 0; }
+  @media (min-width: 992px) {
+    home-page .service-box {
+      margin: 20px auto 0; } }
+  home-page .service-box p {
+    margin-bottom: 0; }
+home-page header {
+  margin: 0 auto auto;
+  max-width: 777px;
+  height: calc(100vh - 88px); }
+  @media screen and (max-width: 767px) {
+    home-page header {
+      height: calc(100vh - 122px); } }
+  home-page header .logo-block {
+    transform: translateY(-56%);
+    position: relative;
+    top: 50%;
+    margin: 0 40px; }
+    home-page header .logo-block img {
+      will-change: transform; }
+    @media screen and (max-width: 539px) {
+      home-page header .logo-block {
+        margin: 0 15px; } }
+    home-page header .logo-block > * {
+      width: 100%; }
+    home-page header .logo-block .logo {
+      margin-bottom: 18px; }
+  @media screen and (max-height: 680px) and (min-aspect-ratio: 20 / 18), screen and (max-width: 539px) {
+    home-page header {
+      margin: 52px auto 65px auto;
+      height: inherit; }
+      home-page header .logo-block {
+        transform: inherit; } }
+home-page .features {
+  background-color: white;
+  padding: 45px 10px 30px; }
+  home-page .features.expert {
+    padding-bottom: 40px; }
+  @media screen and (min-width: 992px) {
+    home-page .features {
+      padding-left: 80px;
+      padding-right: 80px; } }
+  home-page .features ::selection {
+    background: #ff9800;
+    color: white; }
+  home-page .features i {
+    color: #ff9800; }
+home-page .join-us {
+  background: linear-gradient(to left, #ffc437 0%, #ff9800 90%);
+  margin: 40px auto -10px;
+  padding: 40px 10px 62px;
+  font-size: 110%;
+  text-transform: uppercase;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
+  home-page .join-us h2 {
+    color: white; }
+  home-page .join-us .btn {
+    padding-top: 12px;
+    font-size: 120%; }
+home-page .intro {
+  padding: 25px 50px 30px 50px;
+  background: linear-gradient(to left, #ffc437 0%, #ff9800 90%);
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
+  home-page .intro .btn-container .btn {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    padding-left: 0;
+    font-size: 150%;
+    position: relative;
+    bottom: 5px; }
+    @media screen and (min-width: 500px) {
+      home-page .intro .btn-container .btn {
+        font-size: 170%; } }
+  home-page .intro .text {
+    max-width: 500px;
+    margin: auto; }
+  home-page .intro p, home-page .intro h2 {
+    text-transform: uppercase; }
+  home-page .intro h2 {
+    margin-top: 15px;
+    color: white; }
+    @media screen and (min-width: 500px) {
+      home-page .intro h2 {
+        font-size: 270%; } }
+  home-page .intro strong {
+    font-size: 120%; }
+  @media screen and (max-width: 767px) {
+    home-page .intro .users {
+      margin-top: 30px; } }
+  home-page .intro .social-buttons {
+    max-width: 600px;
+    margin: 25px auto 0;
+    display: table;
+    width: 100%;
+    color: white; }
+    home-page .intro .social-buttons > div {
+      display: table-cell;
+      text-align: center; }
+      home-page .intro .social-buttons > div .btn {
+          padding: 5px;
+        height: auto;
+        color: white;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
+
+/*# sourceMappingURL=home.css.map */

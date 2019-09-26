@@ -1,0 +1,24 @@
+payout-details-editor .save-btns {
+    margin-top: 13px;
+}
+payout-details-editor h4 {
+    margin-top: 5px;
+}
+payout-details-editor .birthdate-picker .input-group {
+    margin-bottom: 0;
+}
+payout-details-editor .id-doc .fa-check-circle {
+    color: #26a942;
+    font-size: 125%;
+    position: relative;
+    top: 1px;
+}
+payout-details-editor .id-doc .help-block {
+    margin-bottom: 0;
+}
+payout-details-editor .form-group.iban .help-block.current-iban {
+    color: #959595;
+    margin-top: -2px;
+}
+
+/*# sourceMappingURL=payout-details-editor.css.map */

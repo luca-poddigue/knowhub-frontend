@@ -1,0 +1,72 @@
+<div class="call-method-picker">
+    <ui-select ng-model="$ctrl.callMethod" search-enabled="false"
+               remove-selected="false"
+               skip-focusser="true">
+        <ui-select-match allow-clear="true" placeholder="{{'CALL_BUTTONS_SELECT_CALL_METHOD' | translate}}">
+            <div class="choice-img">
+                <i ng-if="$select.selected.id === 'builtin'" class="fa fa-2x fa-video-camera" aria-hidden="true"></i>
+                <img ng-if="$select.selected.id && $select.selected.id !== 'builtin'"
+                     mf-src="/sections/manage/call-buttons/images/{{$select.selected.id}}"/>
+            </div>
+            <div class="choice-text">
+                <div ng-bind="'CALL_BUTTONS_'+$select.selected.id.toUpperCase() | translate"></div>
+            </div>
+        </ui-select-match>
+        <ui-select-choices repeat="method in $ctrl.callMethods" ui-disable-choice="method.disabled">
+            <div class="choice-img">
+                <i ng-if="method.id === 'builtin'" class="fa fa-2x fa-video-camera" aria-hidden="true"></i>
+                <img ng-if="method.id !== 'builtin'" mf-src="/sections/manage/call-buttons/images/{{method.id}}"/>
+            </div>
+            <div class="choice-text">
+                <div ng-bind="::'CALL_BUTTONS_'+method.id.toUpperCase() | translate"></div>
+                <div class="reason" ng-if="method.disabled"
+                     ng-bind="'CALL_BUTTONS_REASON_'+method.reasonKey | translate"></div>
+            </div>
+        </ui-select-choices>
+    </ui-select>
+</div>
+
+<div ng-show="$ctrl.callMethod" class="steps">
+    <p ng-bind-html="'CALL_BUTTONS_STEPS_'+$ctrl.currentUserType+'_INTRO' | translate"></p>
+    <p ng-bind-html="'CALL_BUTTONS_STEPS_'+$ctrl.currentUserType+'_'+$ctrl.callMethod.id.toUpperCase() | translate"></p>
+    <p>
+    <div class="call-btns">
+        <div ng-show="$ctrl.callMethod.id === 'builtin'">
+            <button class="btn" ng-class="{'btn-primary': !$ctrl.getActiveVideoCall(), 'btn-danger': $ctrl.getActiveVideoCall() === $ctrl.session.id}" ng-disabled="$ctrl.getActiveVideoCall() && $ctrl.getActiveVideoCall() !== $ctrl.session.id" ng-click="$ctrl.toggleVideoCall()" ng-bind="($ctrl.getActiveVideoCall() === $ctrl.session.id ? 'CALL_BUTTONS_HANG_UP' : 'CALL_BUTTONS_JOIN_CALL') | translate">
+            </button>
+        </div>
+        <div class="btn-container hangouts"
+             ng-show="$ctrl.callMethod.id === 'hangouts' && $ctrl.currentUserType === $ctrl.userType.expert">
+            <div class="call-btn">
+                <div id="{{$ctrl.hangoutsBtnId}}"></div>
+            </div>
+            <div class="call-id">
+                <div class="title" ng-bind="'SHARING_SESSION_SEEKER_GOOGLE_EMAIL' | translate"></div>
+                <div ng-bind="$ctrl.session.callIds.hangouts"></div>
+            </div>
+        </div>
+        <div class="btn-container skype"
+             ng-show="$ctrl.callMethod.id === 'skype' && $ctrl.currentUserType === $ctrl.userType.expert">
+            <div class="call-btn">
+                <a class="skype-btn btn btn-primary" ng-href="{{$ctrl.skypeUrl}}"
+                   ng-bind="'CALL_BUTTONS_START_CALL' | translate"></a>
+            </div>
+            <div class="call-id">
+                <div class="title" ng-bind="'SHARING_SESSION_SEEKER_SKYPE_NAME' | translate"></div>
+                <div ng-bind="$ctrl.session.callIds.skype"></div>
+            </div>
+        </div>
+        <div class="btn-container go-to-meeting" ng-show="$ctrl.callMethod.id === 'goToMeeting'">
+            <div class="call-btn">
+                <a class="btn btn-primary" target="_blank" ng-href="{{$ctrl.goToMeetingUrl}}"
+               ng-bind="'CALL_BUTTONS_JOIN_CALL' | translate"></a>
+            </div>
+            <div class="call-id">
+                <div class="title" ng-bind="'SHARING_SESSION_SEEKER_GOTOMEETING_EMAIL' | translate"></div>
+                <div ng-bind="$ctrl.session.callIds.goToMeeting"></div>
+            </div>
+        </div>
+    </div>
+    </p>
+    <p ng-bind-html="'CALL_BUTTONS_STEPS_'+$ctrl.currentUserType+'_TROUBLESHOOTING' | translate"></p>
+</div>

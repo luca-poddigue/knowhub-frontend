@@ -1,0 +1,90 @@
+<update-title title="{{$ctrl.applicationName+' | '+('SECTION_CONTACT_US' | translate)}}"></update-title>
+<update-meta name="description" content=""></update-meta>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 ng-bind="'CONTACT_US_TITLE' | translate"></h1>
+        <p ng-bind="'CONTACT_US_SUBTITLE' | translate"></p>
+    </div>
+    <div ng-style="{display: $ctrl.isAppReady() ? 'block' : 'none'}" class="content">
+        <div>
+            <form novalidate name="$ctrl.contactUsForm">
+                <div class="form-group"
+                     ng-class="{'has-error': $ctrl.contactUsForm.name.$touched && $ctrl.contactUsForm.name.$invalid}">
+                    <label ng-attr-required="{{!$ctrl.fillUserInfo ? '' : undefined}}" class="control-label" for="name"
+                           ng-bind="'COMMON_NAME' | translate"></label>
+                    <p ng-if="$ctrl.fillUserInfo" class="form-control-static"
+                       ng-bind="$ctrl.contactUsData.name"></p>
+                    <input ng-if="!$ctrl.fillUserInfo" type="name" required ng-minlength=1 ng-maxlength=50 name="name"
+                           id="name" class="form-control" ng-model="$ctrl.contactUsData.name">
+                    <div ng-show="$ctrl.contactUsForm.name.$touched" ng-messages="$ctrl.contactUsForm.name.$error"
+                         class="help-block text-danger">
+                        <div ng-messages-include="common/validation/messages/common.html"></div>
+                    </div>
+                </div>
+                <div ng-if="$ctrl.fillUserInfo" class="form-group">
+                    <label class="control-label" for="user-id" ng-bind="'COMMON_USERID' | translate"></label>
+                    <p name="user-id" id="user-id" class="form-control-static" ng-bind="$ctrl.contactUsData.userId"></p>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error': $ctrl.contactUsForm.email.$touched && $ctrl.contactUsForm.email.$invalid}">
+                    <label ng-attr-required="{{!$ctrl.fillUserInfo ? '' : undefined}}" class="control-label" for="email"
+                           ng-bind="'COMMON_EMAIL' | translate"></label>
+                    <p ng-if="$ctrl.fillUserInfo" name="email" id="email" class="form-control-static"
+                       ng-bind="$ctrl.contactUsData.email"></p>
+                    <input ng-if="!$ctrl.fillUserInfo" type="email" required ng-email name="email" id="email"
+                           class="form-control" ng-model="$ctrl.contactUsData.email">
+                    <div ng-show="$ctrl.contactUsForm.email.$touched" ng-messages="$ctrl.contactUsForm.email.$error"
+                         class="help-block text-danger">
+                        <div ng-messages-include="common/validation/messages/common.html"></div>
+                    </div>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error': $ctrl.contactUsForm.reason.$touched && $ctrl.contactUsForm.reason.$invalid}">
+                    <label required class="control-label"
+                           ng-bind="'CONTACT_US_REASON' | translate"></label>
+                    <ui-select required id="reason" name="reason" search-enabled="false"
+                               ng-model="$ctrl.contactUsData.reason" remove-selected="false" skip-focusser="true">
+                        <ui-select-match>
+                            <div ng-bind-html="'CONTACT_US_' + $ctrl.contactUsData.reason | translate"></div>
+                        </ui-select-match>
+                        <ui-select-choices repeat="reason in $ctrl.reasons track by reason">
+                            <div ng-bind-html="'CONTACT_US_' + reason | translate"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <div ng-show="$ctrl.contactUsForm.reason.$touched" ng-messages="$ctrl.contactUsForm.reason.$error"
+                         class="help-block text-danger">
+                        <div ng-messages-include="common/validation/messages/common.html"></div>
+                    </div>
+                </div>
+                <div class="form-group"
+                     ng-class="{'has-error': $ctrl.contactUsForm.comment.$touched && $ctrl.contactUsForm.comment.$invalid}">
+                    <label required class="control-label"
+                           ng-bind="'CONTACT_US_MESSAGE' | translate"></label>
+                    <textarea class="form-control" rows="5" id="comment" name="comment" required ng-minlength=10
+                              ng-maxlength=10000 ng-model="$ctrl.contactUsData.message"></textarea>
+                    <div ng-show="$ctrl.contactUsForm.comment.$touched" ng-messages="$ctrl.contactUsForm.comment.$error"
+                         class="help-block text-danger">
+                        <div ng-messages-include="common/validation/messages/common.html"></div>
+                    </div>
+                </div>
+
+                <div class="checkbox" ng-if="!$ctrl.isUserLoggedIn">
+                    <label class="control control--checkbox">
+                        <span ng-bind-html="'CONTACT_US_PRIVACY' | translate"></span>
+                        <input ng-model="$ctrl.privacyAccepted" type="checkbox">
+                        <div class="control__indicator"></div>
+                    </label>
+                </div>
+
+                <div class="btn-send">
+                    <promise-button btn-disabled="!$ctrl.privacyAccepted" confirm-text-key="CONTACT_US_SEND"
+                                    form="$ctrl.contactUsForm" on-confirm="$ctrl.sendMessage"></promise-button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div>
+    </div>
+</div>

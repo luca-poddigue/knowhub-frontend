@@ -1,0 +1,247 @@
+<form id="payout-details-editor" name="$ctrl.payoutDetailsForm" novalidate>
+
+    <h4>
+        <span ng-bind="'EXPERT_PROFILE_PERSONAL_DETAILS' | translate"></span>
+    </h4>
+    <div class="row">
+        <div class="form-group col-sm-5 birthdate-picker"
+             ng-class="{'has-error': $ctrl.payoutDetailsForm.birthDate.$touched && $ctrl.payoutDetailsForm.birthDate.$invalid}">
+            <label class="control-label" for="birthDate" ng-bind="'EXPERT_PROFILE_BIRTH_DATE' | translate"
+                   ng-if="$ctrl.payoutDetails.verificationStatus !== 'VERIFIED'" required></label>
+            <label class="control-label" for="birthDate" ng-bind="'EXPERT_PROFILE_BIRTH_DATE' | translate"
+                   ng-if="$ctrl.payoutDetails.verificationStatus === 'VERIFIED'"></label>
+            <p class="input-group" ng-if="$ctrl.payoutDetails.verificationStatus !== 'VERIFIED'">
+                <span class="form-control" datepicker-options="$ctrl.birthDatePickerOptions" id="birthDate"
+                      is-open="$ctrl.birthDatePopup.opened" name="birthDate"
+                      ng-bind="$ctrl._birthDate | date:'longDate'" ng-model="$ctrl._birthDate"
+                      popup-placement="auto bottom-right" readonly
+                      required show-button-bar="false" type="text"
+                      uib-datepicker-popup="longDate">
+                </span>
+                <span class="input-group-btn">
+                    <button class="btn btn-primary"
+                            ng-class="{'btn-danger': $ctrl.payoutDetailsForm.birthDate.$touched && $ctrl.payoutDetailsForm.birthDate.$invalid}"
+                            ng-click="$ctrl.openBirthDatePopup()"
+                            type="button"><i aria-hidden="true" class="fa fa-calendar"></i>
+                    </button>
+                </span>
+            </p>
+            <p class="form-control-static" id="fixedBirthDate"
+               ng-bind="$ctrl.formattedBirthDate" ng-if="$ctrl.payoutDetails.verificationStatus === 'VERIFIED'"></p>
+            <div class="help-block text-danger"
+                 ng-messages="$ctrl.payoutDetailsForm.birthDate.$error"
+                 ng-show="$ctrl.payoutDetailsForm.birthDate.$touched">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+            </div>
+        </div>
+        <div class="form-group col-sm-7"
+             ng-class="{'has-error': $ctrl.payoutDetailsForm.address.$touched && $ctrl.payoutDetailsForm.address.$invalid}">
+            <label class="control-label" for="address" ng-bind="'EXPERT_PROFILE_STREET_ADDRESS' | translate"
+                   required></label>
+            <input class="form-control" id="address" name="address" ng-maxlength="100"
+                   ng-minlength="5" ng-model="$ctrl.payoutDetails.address" required type="text">
+            <div class="help-block text-danger"
+                 ng-messages="$ctrl.payoutDetailsForm.address.$error"
+                 ng-show="$ctrl.payoutDetailsForm.address.$touched">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-5"
+             ng-class="{'has-error': $ctrl.payoutDetailsForm.city.$touched && $ctrl.payoutDetailsForm.city.$invalid}">
+            <label class="control-label" for="city" ng-bind="'EXPERT_PROFILE_CITY' | translate" required></label>
+            <input class="form-control" id="city" name="city" ng-maxlength="50"
+                   ng-minlength="2" ng-model="$ctrl.payoutDetails.city" required type="text">
+            <div class="help-block text-danger"
+                 ng-messages="$ctrl.payoutDetailsForm.city.$error"
+                 ng-show="$ctrl.payoutDetailsForm.city.$touched">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+            </div>
+        </div>
+        <div class="form-group col-sm-4"
+             ng-class="{'has-error': $ctrl.payoutDetailsForm.state.$touched && $ctrl.payoutDetailsForm.state.$invalid}">
+            <label class="control-label" for="state" ng-bind="'EXPERT_PROFILE_STATE' | translate" required></label>
+            <input class="form-control" id="state" name="state" ng-maxlength="50"
+                   ng-minlength="2" ng-model="$ctrl.payoutDetails.state" required type="text">
+            <div class="help-block text-danger"
+                 ng-messages="$ctrl.payoutDetailsForm.state.$error"
+                 ng-show="$ctrl.payoutDetailsForm.state.$touched">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+            </div>
+        </div>
+        <div class="form-group col-sm-3"
+             ng-class="{'has-error': $ctrl.payoutDetailsForm.zipCode.$touched && $ctrl.payoutDetailsForm.zipCode.$invalid}">
+            <label class="control-label" for="zipCode" ng-bind="'EXPERT_PROFILE_ZIP_CODE' | translate" required></label>
+            <input class="form-control" id="zipCode" name="zipCode" ng-maxlength="10"
+                   ng-minlength="2" ng-model="$ctrl.payoutDetails.zipCode" ng-pattern="'\\d+'" required
+                   type="text">
+            <div class="help-block text-danger"
+                 ng-messages="$ctrl.payoutDetailsForm.zipCode.$error"
+                 ng-show="$ctrl.payoutDetailsForm.zipCode.$touched">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+                <div ng-bind="'VALIDATION_NUMBER' | translate" ng-message="pattern"></div>
+            </div>
+        </div>
+    </div>
+
+    <h4 ng-bind="'EXPERT_PROFILE_BANK_ACCOUNT' | translate"></h4>
+    <div class="row">
+        <div class="form-group iban col-sm-7"
+             ng-class="{'has-error': $ctrl.ibanFieldTouched && $ctrl.ibanFieldError}">
+            <label class="control-label" ng-bind="'EXPERT_PROFILE_IBAN' | translate"
+                   ng-if="!$ctrl.payoutDetails.filledAtLeastOnce"
+                   required></label>
+            <label class="control-label" ng-bind="'EXPERT_PROFILE_IBAN' | translate"
+                   ng-if="$ctrl.payoutDetails.filledAtLeastOnce"></label>
+            <info-point message-key="EXPERT_PROFILE_IBAN_TOOLTIP"></info-point>
+            <span class="help-block current-iban"
+                  ng-bind-html="('EXPERT_PROFILE_CURRENT_IBAN_TEXT' | translate).replace('%iban-last-4%', $ctrl.payoutDetails.ibanLastFourDigits)"
+                  ng-if="$ctrl.payoutDetails.ibanLastFourDigits">
+
+            </span>
+            <div class="form-control" id="iban-element"></div>
+            <div class="help-block text-danger"
+                 ng-show="$ctrl.ibanFieldTouched && $ctrl.ibanFieldError" ng-switch="$ctrl.ibanFieldError">
+                <span ng-bind="'EXPERT_PROFILE_INVALID_IBAN' | translate" ng-switch-when="invalid"></span>
+                <span ng-bind="'EXPERT_PROFILE_WRONG_COUNTRY_IBAN' | translate" ng-switch-when="country"></span>
+                <span ng-bind="'VALIDATION_REQUIRED' | translate" ng-switch-when="empty"></span>
+            </div>
+        </div>
+    </div>
+
+    <h4 ng-bind="'EXPERT_PROFILE_ID_DOC' | translate"
+        ng-if="!$ctrl.payoutDetails.filledAtLeastOnce || $ctrl.payoutDetails.idDocumentRequired"></h4>
+    <div class="row id-doc" ng-if="!$ctrl.payoutDetails.filledAtLeastOnce || $ctrl.payoutDetails.idDocumentRequired">
+        <div class="form-group col-sm-2"
+             ng-class="{'has-error': $ctrl.idDocumentFrontTouched && !$ctrl.payoutDetails.idDocumentFrontFileId}">
+            <label class="control-label" ng-bind="'EXPERT_PROFILE_FRONT' | translate" required></label>
+            <div ng-if="!$ctrl.payoutDetails.idDocumentFrontFileId">
+                <button class="btn btn-primary" ng-bind="'EXPERT_PROFILE_UPLOAD' | translate"
+                        ng-click="$ctrl.showIdentityDocumentUploadModal('front')"></button>
+            </div>
+            <div ng-if="$ctrl.payoutDetails.idDocumentFrontFileId">
+                <i aria-hidden="true" class="fa fa-check-circle"></i>&nbsp;<span
+                    ng-bind="'EXPERT_PROFILE_ID_DOC_PROVIDED' | translate"></span>
+            </div>
+            <div class="help-block text-danger"
+                 ng-show="$ctrl.idDocumentFrontTouched && !$ctrl.payoutDetails.idDocumentFrontFileId">
+                <span ng-bind="'VALIDATION_REQUIRED' | translate"></span>
+            </div>
+        </div>
+        <div class="form-group col-sm-2"
+             ng-class="{'has-error': $ctrl.idDocumentRearTouched && !$ctrl.payoutDetails.idDocumentRearFileId}">
+            <label class="control-label" ng-bind="'EXPERT_PROFILE_REAR' | translate" required></label>
+            <div ng-if="!$ctrl.payoutDetails.idDocumentRearFileId">
+                <button class="btn btn-primary" ng-bind="'EXPERT_PROFILE_UPLOAD' | translate"
+                        ng-click="$ctrl.showIdentityDocumentUploadModal('rear')"></button>
+            </div>
+            <div ng-if="$ctrl.payoutDetails.idDocumentRearFileId">
+                <i aria-hidden="true" class="fa fa-check-circle"></i>&nbsp;<span
+                    ng-bind="'EXPERT_PROFILE_ID_DOC_PROVIDED' | translate"></span>
+            </div>
+            <div class="help-block text-danger"
+                 ng-show="$ctrl.idDocumentRearTouched && !$ctrl.payoutDetails.idDocumentRearFileId">
+                <span ng-bind="'VALIDATION_REQUIRED' | translate"></span>
+            </div>
+        </div>
+    </div>
+
+    <h4>
+        <span ng-bind="'EXPERT_PROFILE_INVOICING' | translate"></span>
+        <info-point message-key="EXPERT_PROFILE_INVOICING_TOOLTIP"></info-point>
+    </h4>
+    <div class="row">
+        <div class="form-group tax-code col-sm-6"
+             ng-class="{'has-error': $ctrl.payoutDetailsForm.taxCode.$touched && $ctrl.payoutDetailsForm.taxCode.$invalid}">
+            <label class="control-label" ng-bind="'EXPERT_PROFILE_TAX_CODE' | translate" required></label>
+            <input class="form-control" id="taxCode" name="taxCode" ng-maxlength="30"
+                   ng-minlength="5" ng-model="$ctrl.payoutDetails.taxCode" ng-pattern="/^[A-Z0-9]+$/" required
+                   type="text">
+            <div class="help-block text-danger"
+                 ng-messages="$ctrl.payoutDetailsForm.taxCode.$error"
+                 ng-show="$ctrl.payoutDetailsForm.taxCode.$touched">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+                <div ng-bind="'VALIDATION_TAX_CODE' | translate" ng-message="pattern"></div>
+            </div>
+        </div>
+
+        <!-- DE-COMMENT WHEN SUPPORTING ELECTRONIC INVOICING
+        <div class="form-group col-sm-3">
+            <label class="control-label" for="expertHasVatNumber" ng-bind="'EXPERT_PROFILE_HAVE_VAT_NUMBER' | translate"
+                   required></label>
+            <div>
+                <answer-button id="expertHasVatNumber" name="expertHasVatNumber"
+                               ng-model="$ctrl.expertHasVatNumber"
+                               options="$ctrl.expertHasVatNumberOptions"></answer-button>
+            </div>
+        </div>
+        -->
+
+        <div class="form-group vatNumber col-sm-6"
+             ng-class="{'has-error': $ctrl.payoutDetailsForm.vatNumber.$touched && $ctrl.payoutDetailsForm.vatNumber.$invalid}">
+            <label class="control-label" ng-bind="'EXPERT_PROFILE_VAT_NUMBER' | translate"></label>
+            <input class="form-control" id="vatNumber" name="vatNumber" ng-maxlength="30"
+                   ng-minlength="5" ng-model="$ctrl.payoutDetails.vatNumber" ng-pattern="/^[A-Z0-9]+$/"
+                   type="text">
+            <div class="help-block text-danger"
+                 ng-messages="$ctrl.payoutDetailsForm.vatNumber.$error"
+                 ng-show="$ctrl.payoutDetailsForm.vatNumber.$touched">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+                <div ng-bind="'VALIDATION_VAT_NUMBER' | translate" ng-message="pattern"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- DE-COMMENT WHEN SUPPORTING ELECTRONIC INVOICING
+    <div class="row" ng-if="$ctrl.expertHasVatNumber && $ctrl.isExpertItalian()">
+        <div class="form-group col-sm-5">
+            <label class="control-label" for="receiver" ng-bind="'EXPERT_PROFILE_RECEIVER' | translate"
+                   required></label>
+            <info-point message-key="EXPERT_PROFILE_RECEIVER_TOOLTIP"></info-point>
+            <div>
+                <answer-button id="receiver" name="receiver" ng-model="$ctrl.receiver"
+                               options="$ctrl.receiverOptions"></answer-button>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-6"
+             ng-class="{'has-error': $ctrl.payoutDetailsForm.codiceDestinatario.$touched && $ctrl.payoutDetailsForm.codiceDestinatario.$invalid}"
+             ng-if="$ctrl.receiver === 'codiceDestinatario'">
+            <label class="control-label" ng-bind="'EXPERT_PROFILE_CODICE_DESTINATARIO' | translate" required></label>
+            <input class="form-control" id="codiceDestinatario" name="codiceDestinatario" ng-maxlength="7"
+                   ng-minlength="7" ng-model="$ctrl.payoutDetails.codiceDestinatario" ng-pattern="/^[A-Z0-9]+$/"
+                   required type="text">
+            <div class="help-block text-danger"
+                 ng-messages="$ctrl.payoutDetailsForm.codiceDestinatario.$error"
+                 ng-show="$ctrl.payoutDetailsForm.codiceDestinatario.$touched">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+                <div ng-bind="'VALIDATION_CODICE_DESTINATARIO' | translate" ng-message="pattern"></div>
+            </div>
+        </div>
+
+        <div class="form-group col-sm-6"
+             ng-class="{'has-error': $ctrl.payoutDetailsForm.pecAddress.$touched && $ctrl.payoutDetailsForm.pecAddress.$invalid}"
+             ng-if="$ctrl.receiver === 'pecAddress'">
+            <label class="control-label" ng-bind="'EXPERT_PROFILE_PEC_ADDRESS' | translate" required></label>
+            <input class="form-control" id="pecAddress" name="pecAddress" ng-email
+                   ng-maxlength="100" ng-minlength="2" ng-model="$ctrl.payoutDetails.pecAddress" required type="email">
+            <div class="help-block text-danger"
+                 ng-messages="$ctrl.payoutDetailsForm.pecAddress.$error"
+                 ng-show="$ctrl.payoutDetailsForm.pecAddress.$touched">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+            </div>
+        </div>
+
+    </div>
+    -->
+
+    <div class="save-btns">
+        <promise-button before-confirm="$ctrl.beforeSave" confirm-text-key="EXPERT_PROFILE_SAVE_PAYOUT_DETAILS"
+                        form="$ctrl.payoutDetailsForm"
+                        on-cancel="$ctrl.cancel"
+                        on-confirm="$ctrl.save">
+        </promise-button>
+    </div>
+</form>

@@ -1,0 +1,127 @@
+inline-expert-profile-viewer .fa.high-reputation {
+  margin-left: 4px;
+  color: #ff9800; }
+inline-expert-profile-viewer bookmark-button {
+  position: relative;
+  top: 2px;
+  margin-left: 4px; }
+inline-expert-profile-viewer .overview-container {
+  display: table;
+  width: 100%; }
+inline-expert-profile-viewer .supporter-medal-block {
+  position: relative;
+  margin: 35px 0 30px 0; }
+  @media screen and (min-width: 640px) {
+    inline-expert-profile-viewer .supporter-medal-block .medal {
+      width: 95px;
+      left: -1px;
+      top: -6px;
+      transform: rotate(-8deg);
+      position: absolute; }
+    inline-expert-profile-viewer .supporter-medal-block .explanation {
+      margin-left: 110px; } }
+  @media screen and (max-width: 639px) {
+    inline-expert-profile-viewer .supporter-medal-block .medal {
+      width: 95px;
+      right: 1px;
+      top: -6px;
+      transform: rotate(-8deg);
+      float: right;
+      position: relative;
+      margin-left: 10px; } }
+  inline-expert-profile-viewer .supporter-medal-block h3 {
+    margin-top: 0; }
+  inline-expert-profile-viewer .supporter-medal-block p:last-child {
+    margin-bottom: 0; }
+inline-expert-profile-viewer language-picker .ui-select-container {
+  max-width: 250px; }
+inline-expert-profile-viewer .btn.session-request {
+  margin: 8px 0;
+  position: relative; }
+inline-expert-profile-viewer .profile-picture {
+  display: table-cell; }
+  @media screen and (max-width: 500px) {
+    inline-expert-profile-viewer .profile-picture {
+      display: block; } }
+  inline-expert-profile-viewer .profile-picture .placeholder {
+    font-size: 100px; }
+inline-expert-profile-viewer h1 {
+  margin-top: 6px; }
+@media screen and (max-width: 500px) {
+  inline-expert-profile-viewer .name {
+    margin-top: 5px; } }
+inline-expert-profile-viewer .name h3 {
+  display: inline; }
+inline-expert-profile-viewer .overview {
+  display: table-cell;
+  padding: 0 0 0 16px;
+  vertical-align: top;
+  width: 100%;
+  position: relative; }
+  @media screen and (max-width: 500px) {
+    inline-expert-profile-viewer .overview {
+      display: block;
+      padding: 0; } }
+inline-expert-profile-viewer .user-data-blocks {
+  margin-top: -20px; }
+  inline-expert-profile-viewer .user-data-blocks.more-details {
+    margin-top: -15px; }
+  inline-expert-profile-viewer .user-data-blocks .user-data-block {
+    display: inline-block;
+    margin: 25px 18px -8px 0;
+    vertical-align: top; }
+    inline-expert-profile-viewer .user-data-blocks .user-data-block.full-row {
+      display: block;
+      margin-top: 25px;
+      margin-bottom: 0; }
+  inline-expert-profile-viewer .user-data-blocks .control-label {
+    margin: 0;
+    padding: 0; }
+  inline-expert-profile-viewer .user-data-blocks .form-control-static {
+    margin: 0 0 6px;
+    min-height: 0;
+    padding: 0; }
+inline-expert-profile-viewer .language-block,
+inline-expert-profile-viewer .skill-block {
+  margin: 0 0 5px 0; }
+  inline-expert-profile-viewer .language-block > span,
+  inline-expert-profile-viewer .skill-block > span {
+    padding-right: 5px; }
+inline-expert-profile-viewer .additional-details {
+  margin: 0 0 0 116px; }
+  @media screen and (max-width: 500px) {
+    inline-expert-profile-viewer .additional-details {
+      margin-left: 0; } }
+inline-expert-profile-viewer .comments-container {
+  margin-top: 6px;
+  max-height: 300px;
+  overflow-y: auto; }
+  inline-expert-profile-viewer .comments-container blockquote {
+    margin-bottom: 10px;
+    padding: 8px 18px;
+    font-size: inherit; }
+    inline-expert-profile-viewer .comments-container blockquote p {
+      white-space: pre-wrap; }
+  inline-expert-profile-viewer .comments-container footer {
+    font-size: 95%; }
+    inline-expert-profile-viewer .comments-container footer::before {
+      content: ''; }
+inline-expert-profile-viewer .education,
+inline-expert-profile-viewer .experience {
+  border-bottom: solid 2px;
+  border-color: #ff9800;
+  border-image: linear-gradient(to right, #ff9800 0%, white 100%);
+  border-image-slice: 1;
+  margin-bottom: 20px;
+  padding-bottom: 5px; }
+  inline-expert-profile-viewer .education h4,
+  inline-expert-profile-viewer .experience h4 {
+    margin-bottom: 0; }
+inline-expert-profile-viewer .details-btn {
+  margin: 28px -10px 0 -6px;
+  text-align: right; }
+  inline-expert-profile-viewer .details-btn .report-abuse-btn {
+    position: relative;
+    top: 5px; }
+
+/*# sourceMappingURL=inline-expert-profile-viewer.css.map */

@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+    <div ng-click="$ctrl.toggleCollapse()" class="panel-heading">
+        <div class="title" ng-transclude="title"></div>
+        <div class="panel-caret">
+            <i ng-show="$ctrl.collapsed" class="fa fa-caret-down"></i>
+            <i ng-show="!$ctrl.collapsed" class="fa fa-caret-up"></i>
+        </div>
+    </div>
+    <div class="panel-body" ng-show="!$ctrl.collapsed">
+        <div ng-transclude="content"></div>
+        <div class="text-right">
+            <button type="button" class="btn-hide btn btn-no-style btn-xs" ng-click="$ctrl.toggleCollapse()"><i
+                    class="fa fa-times"></i> <span ng-bind="'COLLAPSABLE_ALERT_HIDE' | translate"></span></button>
+        </div>
+    </div>
+</div>

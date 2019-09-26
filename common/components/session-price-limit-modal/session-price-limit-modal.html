@@ -1,0 +1,35 @@
+<form novalidate name="$ctrl.sessionPriceLimitForm">
+    <div class="modal-header">
+        <h3 class="modal-title" ng-bind="'SESSION_PRICE_LIMIT_TITLE' | translate"></h3>
+    </div>
+    <div class="modal-body session-price-limit">
+        <div class="intro-text" ng-bind="'SESSION_PRICE_LIMIT_TEXT' | translate"></div>
+
+        <div class="form-group price-selector">
+            <label class="control-label" for="price" ng-bind="'SESSION_PRICE_PRICE' | translate"></label>
+            <h-number value="$ctrl.requestDetails.requestedLimit" min="{{$ctrl.currentLimit}}" step="1">
+                <input id="price" name="price" type="text" ng-model="$ctrl.requestDetails.requestedLimit"
+                       ng-keypress="$ctrl.onKeyPress($event)">
+            </h-number>
+        </div>
+
+        <div class="form-group"
+             ng-class="{'has-error': $ctrl.sessionPriceLimitForm.reason.$touched && $ctrl.sessionPriceLimitForm.reason.$invalid}">
+            <label required class="control-label" for="reason"
+                   ng-bind="'SESSION_PRICE_LIMIT_REASON' | translate"></label>
+            <textarea class="form-control" rows="5" id="reason" name="reason" required ng-minlength=10
+                      ng-maxlength=10000 ng-model="$ctrl.requestDetails.reason"></textarea>
+            <div ng-show="$ctrl.sessionPriceLimitForm.reason.$touched"
+                 ng-messages="$ctrl.sessionPriceLimitForm.reason.$error"
+                 class="help-block text-danger">
+                <div ng-messages-include="common/validation/messages/common.html"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <promise-button spinner="session-price-limit-spinner" on-confirm="$ctrl.sendRequest" on-cancel="$ctrl.dismiss"
+                        btn-disabled="$ctrl.requestDetails.requestedLimit === $ctrl.currentLimit"
+                        confirm-text-key="SESSION_PRICE_LIMIT_SEND_REQUEST"
+                        form="$ctrl.sessionPriceLimitForm"></promise-button>
+    </div>
+</form>

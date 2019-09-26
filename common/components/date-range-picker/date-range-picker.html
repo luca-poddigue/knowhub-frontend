@@ -1,0 +1,57 @@
+<div ng-class="{'has-error': $ctrl.ngModel.$touched && $ctrl.ngModel.$invalid}"
+     class="input-group">
+  <span readonly type="text" class="range-input-box form-control input-{{$ctrl.inputSize}}">
+    <span class="hidden-xs" ng-bind="$ctrl.range[0] | date:'fullDate'"></span><span class="visible-xs-inline"
+                                                                                    ng-bind="$ctrl.range[0] | date:'shortDate'"></span> <i
+          ng-if="$ctrl.range[0] && ($ctrl.range.toPresent || $ctrl.range[1])" class="fa fa-arrows-h"
+          aria-hidden="true"></i> <span class="hidden-xs"
+                                        ng-bind="$ctrl.range.toPresent ? ('DATE_RANGE_PICKER_PRESENT' | translate) : ($ctrl.range[1] | date:'fullDate')"></span><span
+          class="visible-xs-inline"
+          ng-bind="$ctrl.range.toPresent ? ('DATE_RANGE_PICKER_PRESENT' | translate) : ($ctrl.range[1] | date:'shortDate')"></span>
+  </span>
+    <span class="input-group-btn range-btn">
+    <button class="btn btn-primary btn-popover btn-{{$ctrl.inputSize}}"
+            ng-class="{'btn-danger': $ctrl.ngModel.$touched && $ctrl.ngModel.$invalid}"
+            popover-class="date-range-popover" popover-append-to-body="true"
+            uib-popover-template="'dateRangePickerInternal.html'" popover-trigger="'none'"
+            popover-is-open="$ctrl.popoverOpen" ng-click="$ctrl.togglePopover()"
+            popover-placement="auto {{$ctrl.rangePopoverPlacement}}" type="button">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+    </button>
+    <button type="button" class="btn btn-primary btn-modal btn-{{$ctrl.inputSize}}" ng-click="$ctrl.showModal()"
+            ng-class="{'btn-danger': $ctrl.ngModel.$touched && $ctrl.ngModel.$invalid}">
+      <i class="fa fa-calendar" aria-hidden="true"></i>
+    </button>
+  </span>
+    <div ng-if="$ctrl.resettable && ($ctrl.range[0] || $ctrl.range[1])" class="clear-range {{$ctrl.inputSize}}"
+         ng-click="$ctrl.clearRange()"><i class="btn btn-link fa fa-times" aria-hidden="true"></i></div>
+</div>
+
+<script type="text/ng-template" id="dateRangePickerInternal.html">
+    <div class="date-picker-container from panel panel-default"
+         ng-class="{'to-present-enabled': $ctrl.enableToPresent}">
+        <div class="panel-heading"><strong ng-bind="'DATE_RANGE_PICKER_FROM' | translate"></strong><span
+                class="pull-right" ng-bind="$ctrl.range[0] | date:'fullDate'"></span></div>
+        <div class="panel-body">
+            <span uib-datepicker ng-model="$ctrl.range[0]" datepicker-options="$ctrl.datePickerOptions"
+                  ng-change="$ctrl.updateFrom()"></span>
+        </div>
+    </div>
+
+    <div class="date-picker-container to panel panel-default" ng-class="{'to-present-enabled': $ctrl.enableToPresent}">
+        <div class="panel-heading"><strong ng-bind="'DATE_RANGE_PICKER_TO' | translate"></strong><span
+                class="pull-right"
+                ng-bind="$ctrl.range.toPresent ? ('DATE_RANGE_PICKER_PRESENT' | translate ) : ($ctrl.range[1] | date:'fullDate')"></span>
+        </div>
+        <div class="panel-body">
+            <div ng-if="$ctrl.range.toPresent" class="prevent-user-interaction"></div>
+            <span uib-datepicker ng-model="$ctrl.range[1]" datepicker-options="$ctrl.datePickerOptions"
+                  ng-change="$ctrl.updateTo()"></span>
+        </div>
+        <div ng-if="$ctrl.enableToPresent">
+            <button class="btn btn-default btn-to-present" ng-click="$ctrl.toggleToPresent()"
+                    ng-class="{'active': $ctrl.range.toPresent}" ng-bind="'DATE_RANGE_PICKER_TO_PRESENT' | translate">
+            </button>
+        </div>
+    </div>
+</script>

@@ -1,0 +1,137 @@
+@import '../../css/cvars';
+
+app-footer {
+  padding: 4px 12px 0 12px;
+  text-align: center;
+  background-color: white;
+  position: absolute;
+  box-shadow: $shadow-up;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: $footer-z;
+
+  @media screen and (min-width: $screen-sm) {
+    > div {
+      width: 100%;
+      height: 31px;
+      display: table;
+      margin: 3px 4px;
+
+      > div {
+        width: 33.33%;
+        display: table-cell;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .locale-container {
+    display: inline-block;
+    width: 200px;
+    height: 30px;
+    position: relative;
+    bottom: 5px;
+  }
+
+  @media screen and (min-height: $fixed-footer-threshold) and (min-width: $fixed-footer-threshold) {
+    position: fixed;
+  }
+
+  .locale-picker {
+    outline: 0;
+
+    .ui-select-bootstrap > .ui-select-match > .btn {
+      text-align: center !important;
+      border: 0;
+      box-shadow: none;
+      padding: 0;
+      height: 0;
+
+      &:hover {
+        margin-top: 0;
+      }
+
+      &:active {
+        background-color: inherit;
+        box-shadow: none;
+      }
+    }
+
+    .caret {
+      display: none;
+    }
+
+    .ui-select-choices {
+      border-width: 4px 1px 1px 1px;
+    }
+
+    .ui-select-match-text {
+      float: none !important;
+    }
+
+    .ui-select-choices-row-inner {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    @media screen and (min-width: $screen-sm) {
+      .ui-select-container {
+        height: 30px;
+        position: relative;
+        top: -5px;
+      }
+    }
+  }
+
+  .owls-line {
+    img {
+      height: 31px;
+      width: auto;
+
+      @media screen and (min-width: $screen-sm) {
+        position: relative;
+        bottom: 2px;
+      }
+    }
+  }
+
+  .links a {
+    font-weight: bold;
+    padding: 0 10px;
+
+    @media screen and (min-width: $screen-sm) {
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+      padding: 0 1px;
+    }
+
+    &.selected {
+      color: $knowhub-orange-dark;
+      cursor: default;
+    }
+  }
+
+  .vat-number {
+    font-weight: bold;
+    padding-right: 10px;
+  }
+
+  @media screen and (min-width: $screen-sm) {
+    .locale-container {
+      bottom: 1px;
+    }
+
+    .links {
+      text-align: left;
+    }
+
+    .vat-number {
+      text-align: right;
+    }
+  }
+}

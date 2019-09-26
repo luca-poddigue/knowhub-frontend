@@ -1,0 +1,57 @@
+<div class="controls" ng-if="$ctrl.canChangeFiles()">
+    <div class="btn-select">
+        <button class="btn btn-default" ng-click="$ctrl.showFileUploadModal()"
+                ng-bind="'SESSION_FILES_MANAGER_ADD_FILES' | translate"></button>
+    </div>
+    <div class="bucket-status">
+        <strong ng-bind="'SESSION_FILES_MANAGER_USED_SPACE' | translate"></strong><span
+            class="status-text pull-right" ng-bind="$ctrl.usedSpaceBar.text"></span>
+        <div class="progress">
+            <div class="progress-bar progress-bar-{{$ctrl.usedSpaceBar.class}}"
+                 style="width:{{$ctrl.usedSpaceBar.percentage+'%'}}">
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul class="files-list list-group" ng-if="$ctrl.filesBucket.files && $ctrl.filesBucket.files.length">
+    <li ng-repeat="file in $ctrl.filesBucket.files track by $index" class="list-group-item">
+        <div class="file-header">
+            <div class="title">
+                <h4 ng-bind="file.name"></h4>
+            </div>
+            <div class="buttons" ng-if="$ctrl.canChangeFiles()">
+                <button class="btn btn-no-style btn-download" ng-click="$ctrl.downloadFile(file.url)">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                </button>
+                <button ng-if="$ctrl.isFileOwner(file.ownerId)"
+                        class="btn btn-no-style btn-delete"
+                        ng-disabled="$ctrl.ongoingDeletionIdx !== null"
+                        ng-click="$ctrl.showFileDeletionModal(file, $index)">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="file-details">
+            <div>
+                <label ng-bind="'SESSION_FILES_MANAGER_TYPE' | translate"></label>
+                <div>
+                    <span class="icon fa {{$ctrl.getIcon(file.type)}}"></span>&nbsp;<span ng-bind="file.type"></span>
+                </div>
+            </div>
+            <div>
+                <label ng-bind="'SESSION_FILES_MANAGER_SIZE' | translate"></label>
+                <div ng-bind="file.size | fileSize: 2"></div>
+            </div>
+            <div>
+                <label ng-bind="'SESSION_FILES_MANAGER_UPLOADED_BY' | translate"></label>
+                <div ng-bind="$ctrl.fileUploadedBy(file.ownerId)"></div>
+            </div>
+            <div>
+                <label ng-bind="'SESSION_FILES_MANAGER_UPLOADED_ON' | translate"></label>
+                <div ng-bind="file.uploadedOn | date : 'short'"></div>
+            </div>
+        </div>
+    </li>
+</ul>

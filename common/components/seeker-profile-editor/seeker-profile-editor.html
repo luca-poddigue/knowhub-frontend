@@ -1,0 +1,102 @@
+<form id="seeker-profile-editor" name="$ctrl.seekerProfileForm" novalidate>
+
+    <div class="alert alert-info" ng-if="$ctrl.mode === 'REGISTER'">
+        <h4 ng-bind="'SEEKER_PROFILE_REGISTER_AS_EXPERT_TITLE' | translate"></h4>
+        <span ng-bind-html="'SEEKER_PROFILE_REGISTER_AS_EXPERT_TEXT' | translate"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="profile-picture"
+               ng-bind="'SEEKER_PROFILE_PROFILE_PICTURE' | translate"></label>
+        <profile-picture-loader id="profile-picture" api=$ctrl.setProfilePictureLoaderApi(api)
+                                source="{{::$ctrl.userInfo.profilePictureSource}}"
+                                custom-photo-url="{{::$ctrl.customPhotoUrl}}"></profile-picture-loader>
+    </div>
+
+    <div ng-if="$ctrl.mode === 'REGISTER'" class="form-group"
+         ng-class="{'has-error': $ctrl.seekerProfileForm.firstName.$touched && $ctrl.seekerProfileForm.firstName.$invalid}">
+        <label required class="control-label" for="firstName" ng-bind="'SEEKER_PROFILE_FIRST_NAME' | translate"></label>
+        <input type="text" class="form-control" id="firstName" name="firstName" ng-model="$ctrl.userInfo.firstName"
+               required ng-minlength="1" ng-maxlength="50">
+        <div ng-show="$ctrl.seekerProfileForm.firstName.$touched" ng-messages="$ctrl.seekerProfileForm.firstName.$error"
+             class="help-block text-danger">
+            <div ng-messages-include="common/validation/messages/common.html"></div>
+        </div>
+    </div>
+
+    <div ng-if="$ctrl.mode === 'REGISTER'" class="form-group"
+         ng-class="{'has-error': $ctrl.seekerProfileForm.lastName.$touched && $ctrl.seekerProfileForm.lastName.$invalid}">
+        <label required class="control-label" for="lastName" ng-bind="'SEEKER_PROFILE_LAST_NAME' | translate"></label>
+        <input type="text" class="form-control" id="lastName" name="lastName" ng-model="$ctrl.userInfo.lastName"
+               required ng-minlength="1" ng-maxlength="50">
+        <div ng-show="$ctrl.seekerProfileForm.lastName.$touched" ng-messages="$ctrl.seekerProfileForm.lastName.$error"
+             class="help-block text-danger">
+            <div ng-messages-include="common/validation/messages/common.html"></div>
+        </div>
+    </div>
+
+    <div ng-if="$ctrl.mode === 'REGISTER'" class="form-group"
+         ng-class="{'has-error': $ctrl.seekerProfileForm.country.$touched && $ctrl.seekerProfileForm.country.$invalid}">
+        <label required class="control-label" for="country" ng-bind="'SEEKER_PROFILE_COUNTRY' | translate"></label>
+        <info-point message-key="SEEKER_PROFILE_COUNTRY_TOOLTIP"></info-point>
+        <country-picker id="country" name="country" ng-model="$ctrl.userInfo.country" required></country-picker>
+        <div ng-show="$ctrl.seekerProfileForm.country.$touched" ng-messages="$ctrl.seekerProfileForm.country.$error"
+             class="help-block text-danger">
+            <div ng-messages-include="common/validation/messages/common.html"></div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="language" ng-bind="'SEEKER_PROFILE_LOCALE' | translate"></label>
+        <info-point message-key="SEEKER_PROFILE_LOCALE_TOOLTIP"></info-point>
+        <locale-picker id="language" name="language" ng-model="$ctrl.userInfo.locale"></locale-picker>
+    </div>
+
+
+    <h4>
+        <span ng-bind="'SEEKER_PROFILE_VIDEO_CALL_IDS' | translate" required></span>
+        <info-point message-key="SEEKER_PROFILE_VIDEO_CALL_IDS_TOOLTIP"></info-point>
+    </h4>
+
+    <div class="form-group"
+         ng-class="{'has-error': $ctrl.seekerProfileForm.googleEmail.$touched && $ctrl.seekerProfileForm.googleEmail.$invalid}">
+        <label class="control-label" for="googleEmail"
+               ng-bind="'SEEKER_PROFILE_GOOGLE_EMAIL' | translate"></label>
+        <info-point message-key="SEEKER_PROFILE_GOOGLE_EMAIL_TOOLTIP"></info-point>
+        <input type="email" ng-email class="form-control" id="googleEmail" name="googleEmail"
+               ng-model="$ctrl.userInfo.googleEmail" ng-minlength="2" ng-maxlength="100">
+        <div ng-show="$ctrl.seekerProfileForm.googleEmail.$touched"
+             ng-messages="$ctrl.seekerProfileForm.googleEmail.$error" class="help-block text-danger">
+            <div ng-messages-include="common/validation/messages/common.html"></div>
+        </div>
+    </div>
+
+    <div class="form-group"
+         ng-class="{'has-error': $ctrl.seekerProfileForm.skypeName.$touched && $ctrl.seekerProfileForm.skypeName.$invalid}">
+        <label class="control-label" for="skypeName" ng-bind="'SEEKER_PROFILE_SKYPE_NAME' | translate"></label>
+        <info-point message-key="SEEKER_PROFILE_SKYPE_NAME_TOOLTIP"></info-point>
+        <input type="text" class="form-control" id="skypeName" name="skypeName" ng-model="$ctrl.userInfo.skypeName"
+               ng-minlength="2" ng-maxlength="100" ng-pattern="/^\S+$/">
+        <div ng-show="$ctrl.seekerProfileForm.skypeName.$touched" ng-messages="$ctrl.seekerProfileForm.skypeName.$error"
+             class="help-block text-danger">
+            <div ng-message="pattern" ng-bind="'VALIDATION_NO_SPACES' | translate"></div>
+            <div ng-messages-include="common/validation/messages/common.html"></div>
+        </div>
+    </div>
+
+    <div class="form-group"
+         ng-class="{'has-error': $ctrl.seekerProfileForm.goToMeetingName.$touched && $ctrl.seekerProfileForm.goToMeetingName.$invalid}">
+        <label class="control-label" for="goToMeetingName" ng-bind="'SEEKER_PROFILE_GOTOMEETING_NAME' | translate"></label>
+        <info-point message-key="SEEKER_PROFILE_GOTOMEETING_NAME_TOOLTIP"></info-point>
+        <input type="text" class="form-control" id="goToMeetingName" name="goToMeetingName" ng-model="$ctrl.userInfo.goToMeetingName"
+               ng-minlength="2" ng-maxlength="100" ng-pattern="/^\S+$/">
+        <div ng-show="$ctrl.seekerProfileForm.goToMeetingName.$touched" ng-messages="$ctrl.seekerProfileForm.goToMeetingName.$error"
+             class="help-block text-danger">
+            <div ng-message="pattern" ng-bind="'VALIDATION_NO_SPACES' | translate"></div>
+            <div ng-messages-include="common/validation/messages/common.html"></div>
+        </div>
+    </div>
+
+    <promise-button on-cancel="$ctrl.mode === 'UPDATE' ? $ctrl.cancel : null" on-confirm="$ctrl.save"
+                    confirm-text-key="{{'SEEKER_PROFILE_'+$ctrl.mode}}" form="$ctrl.seekerProfileForm"></promise-button>
+</form>

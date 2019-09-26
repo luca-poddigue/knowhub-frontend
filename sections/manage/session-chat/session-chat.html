@@ -1,0 +1,98 @@
+<div class="chat-container" ng-class="{'open': $ctrl.chatOpen}">
+    <div class=session-chat-overlay ng-show="$ctrl.chatOpen"></div>
+    <div class="chat" ng-show="$ctrl.chatOpen">
+
+        <div class="chat-bar">
+            <div>
+                <h4 class="text-ellipsis" ng-bind="$ctrl.activeChat.sessionTopic"></h4>
+                <h5 class="text-ellipsis"
+                    ng-bind="('SESSION_CHAT_WITH' | translate) + ' ' + $ctrl.activeChat.withUser"></h5>
+            </div>
+            <button ng-if="$ctrl.showReloadChaButton()" class="btn btn-no-style btn-reload-chat"
+                    ng-click="$ctrl.reloadChat()">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-no-style btn-close-chat" ng-click="$ctrl.hideChat()">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div class="chat-body">
+
+            <spinner class="spinner" name="chat-messages-spinner"></spinner>
+
+            <button class="scroll-to-bottom-btn btn btn-no-style" ng-if="$ctrl.showScrollToBottomBtn"
+                    ng-click="$ctrl.scrollToBottom()">
+                <i class="fa fa-2x fa-arrow-circle-down" aria-hidden="true"></i>
+            </button>
+
+            <div class="messages-container" ng-class="{'initializing': !$ctrl.initialized}"
+                 ng-show="!$ctrl.currentEmojiCategory" ng-scroll="$ctrl.loadChatMessages()" ng-scroll-mode="element"
+                 ng-scroll-triggering-side="top">
+                <div class="message" id="{{message.userId+'-'+message.timestamp}}"
+                     ng-class="{'sent-by-user': $ctrl.userId === message.userId, 'sent-by-other-user': $ctrl.userId !== message.userId, 'has-error': message.error}"
+                     ng-click="$ctrl.toggleShowMessageDate(message)"
+                     ng-repeat="message in $ctrl.messages track by $index">
+                    <div>
+                        <div>
+                            <div ng-bind-html="message.html"></div>
+                            <div ng-if="message.showDate" class="msg-date"
+                                 ng-bind="(message.timestamp | date:'fullDate') + ' ' + (message.timestamp | date:'shortTime')"></div>
+                        </div>
+                        <div class="error-msg" ng-if="message.error"
+                             ng-bind="'SESSION_CHAT_MESSAGE_DELIVERY_ERROR' | translate"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="emoji-container" ng-lazy-show="$ctrl.currentEmojiCategory === category"
+                 ng-repeat="(category, emojiList) in $ctrl.emojiCatalogue track by $index">
+                <div>
+                    <button class="btn btn-no-style btn-emoji"
+                            ng-repeat="emojiCode in $ctrl.emojiCatalogue[category] track by $index"
+                            ng-mousedown="$ctrl.addEmoji($event, category, emojiCode)">
+                        <img class="emoji"
+                             ng-src="sections/manage/session-chat/images/emoji/{{::category+'/'+emojiCode+$ctrl.emojiFormat}}">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="new-message-container">
+
+            <form name="$ctrl.sessionChatEditorForm" novalidate>
+                <div class="input-box">
+                    <div class="message"
+                         ng-class="{'has-error': $ctrl.sessionChatEditorForm.newMessageEditor.$touched && $ctrl.sessionChatEditorForm.newMessageEditor.$invalid}">
+                        <div id="newMessageEditor" name="newMessageEditor" session-chat-editor contenteditable
+                             class="form-control"
+                             ng-model="$ctrl.newMessage" ng-maxlength="1000" get-editor-api="$ctrl.getEditorApi($event)"
+                             ng-keypress="$ctrl.onEditorKeyPress($event)">
+                        </div>
+                    </div>
+                    <div class="btn-send-message">
+                        <button class="pull-right btn btn-no-style" ng-click="$ctrl.sendNewMessage()"
+                                ng-disabled="!$ctrl.canSendNewMessage()">
+                            <i class="fa fa-paper-plane-o fa-2x"></i>
+                        </button>
+                    </div>
+                </div>
+                <div ng-show="$ctrl.sessionChatEditorForm.newMessageEditor.$touched"
+                     ng-messages="$ctrl.sessionChatEditorForm.newMessageEditor.$error"
+                     class="validation-messages help-block text-danger">
+                    <div ng-messages-include="common/validation/messages/common.html"></div>
+                </div>
+            </form>
+
+            <div class="emoji-categories">
+                <button class="btn btn-no-style btn-emoji-category"
+                        ng-class="{'active': $ctrl.currentEmojiCategory === category}"
+                        ng-repeat="(category, emojiList) in $ctrl.emojiCatalogue track by $index"
+                        ng-click="$ctrl.setCurrentEmojiCategory(category)">
+                    <i class="fa fa-{{$ctrl.categoryToIconMap[category]}}" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

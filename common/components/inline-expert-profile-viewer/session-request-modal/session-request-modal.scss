@@ -1,0 +1,88 @@
+@import '../../../../common/css/cvars';
+
+.session-request-modal {
+
+  .form-group.time-span {
+    margin-bottom: 0;
+
+    .time-span-validation {
+      .help-block {
+        margin: 10px 0 0 0;
+      }
+    }
+  }
+
+  [name=session-request-calendar-spinner] .spinner-container {
+    margin-top: 10px;
+  }
+
+  .form-control-static {
+    padding: 0;
+  }
+
+  .calendar-btns {
+    margin-bottom: 9px;
+
+    > div {
+      display: inline-block;
+      margin-right: 15px;
+      margin-bottom: 6px;
+    }
+  }
+
+  .calendar {
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .fc-today,
+  th.fc-today,
+  td.fc-today {
+    background-color: inherit;
+  }
+
+  .fc-bgevent {
+    background-color: $gray;
+    cursor: not-allowed;
+  }
+
+  .fc-event {
+    cursor: default;
+    background-color: $knowhub-orange;
+    border-color: $knowhub-orange;
+
+    &.session-event {
+      cursor: not-allowed;
+      background-color: $light-blue-info;
+      border-color: $light-blue-info;
+      border-radius: 0;
+
+      .fc-time {
+        visibility: hidden;
+      }
+    }
+
+    &.session-request-event {
+      .fc-title {
+        word-wrap: break-word;
+        word-break: break-word;
+      }
+    }
+
+    &.future-availability-event {
+      cursor: not-allowed;
+      background-color: $light-purple;
+      border-color: $light-purple;
+      border-radius: 0;
+
+      .fc-time {
+        visibility: hidden;
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+expert-profile-editor .multilang-profile div[ng-messages] {
+  margin: 0; }
+  expert-profile-editor .multilang-profile div[ng-messages] > div[ng-message] {
+    margin-bottom: 4px; }
+expert-profile-editor .multilang-profile .profile-lang-switch .btn-success,
+expert-profile-editor .multilang-profile .profile-lang-switch .btn-danger {
+  font-size: 120%;
+  line-height: 15px; }
+expert-profile-editor .multilang-profile h3 {
+  margin-top: 8px; }
+expert-profile-editor .multilang-profile p {
+  margin-top: 12px; }
+expert-profile-editor .multilang-profile label {
+  display: block; }
+expert-profile-editor .multilang-profile .form-group {
+  display: inline-block;
+  margin: 0 20px 9px 0; }
+expert-profile-editor h3 {
+  color: #ff9800;
+    margin-top: 30px;
+}
+expert-profile-editor h4 {
+    margin-top: 15px;
+    color: #ff9800;
+}
+expert-profile-editor .panel.about div[ng-messages] {
+  margin-bottom: 0; }
+expert-profile-editor .markdown-toolbar .btn {
+  margin-bottom: 5px; }
+expert-profile-editor .markdown-textarea {
+  height: 200px; }
+expert-profile-editor .btn-block {
+  display: inline;
+  margin-right: 10px; }
+expert-profile-editor .btn.add-element {
+  margin-bottom: 12px; }
+  expert-profile-editor .btn.add-element.full-width {
+    margin-top: 20px;
+    width: 100%; }
+expert-profile-editor .save-button {
+    margin: 40px 0 30px 0;
+}
+expert-profile-editor .sub-form {
+  margin-top: 18px;
+  padding: 6px 0 15px 0;
+  border-top: solid 1px #e6e6e6;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 9px 0 rgba(0, 0, 0, 0.2);
+  position: relative; }
+  expert-profile-editor .sub-form .form-group {
+    margin-bottom: 0; }
+    expert-profile-editor .sub-form .form-group label {
+      margin: 9px 0 0 0; }
+    expert-profile-editor .sub-form .form-group label + * + div {
+      margin: 0; }
+  @media screen and (min-width: 768px) {
+    expert-profile-editor .sub-form .col-sm-4,
+    expert-profile-editor .sub-form .col-sm-6,
+    expert-profile-editor .sub-form .col-sm-8,
+    expert-profile-editor .sub-form .col-sm-12 {
+      display: inline-block;
+      margin: -1px;
+      vertical-align: top;
+      float: none; } }
+  expert-profile-editor .sub-form .actions {
+    position: absolute;
+    top: 5px;
+    right: 5px; }
+    expert-profile-editor .sub-form .actions .btn {
+      position: relative;
+      z-index: 10; }
+    expert-profile-editor .sub-form .actions .delete-element {
+      margin-left: 5px; }
+expert-profile-editor tags-picker.skills .label span {
+  text-transform: lowercase; }
+expert-profile-editor promise-button {
+  display: block;
+  margin-top: 30px; }
+
+/*# sourceMappingURL=expert-profile-editor.css.map */

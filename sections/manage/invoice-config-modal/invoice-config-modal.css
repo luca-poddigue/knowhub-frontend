@@ -1,0 +1,28 @@
+.modal-dialog .invoice-config-modal.modal-body input#code {
+    max-width: 250px;
+}
+.modal-dialog .invoice-config-modal.modal-body img.signature {
+    display: block;
+    margin-bottom: 10px;
+    max-width: 300px;
+    width: 100%;
+    image-rendering: -moz-crisp-edges;
+    /* Firefox */
+    image-rendering: -o-crisp-edges;
+    /* Opera */
+    image-rendering: -webkit-optimize-contrast;
+    /* Webkit (non-standard naming) */
+    image-rendering: crisp-edges;
+    -ms-interpolation-mode: nearest-neighbor;
+    /* IE (non-standard property) */
+}
+.modal-dialog .invoice-config-modal.modal-footer .btns-after-generation {
+    margin-top: -5px;
+    padding-left: 45px;
+}
+
+.modal-dialog .invoice-config-modal.modal-footer .btns-after-generation .btn {
+    margin-top: 5px;
+}
+
+/*# sourceMappingURL=invoice-config-modal.css.map */

@@ -1,0 +1,50 @@
+<div>
+    <div ng-if="$ctrl.userInfo.profilePictureDataUrl || $ctrl.userInfo.profilePictureUrl" class="profile-picture">
+        <img ng-style="{'width': $ctrl.profilePictureSize, 'height': $ctrl.profilePictureSize}"
+             ng-src="{{$ctrl.userInfo.profilePictureDataUrl || $ctrl.userInfo.profilePictureUrl}}">
+    </div>
+    <div ng-if="!$ctrl.userInfo.profilePictureDataUrl && !$ctrl.userInfo.profilePictureUrl"
+         class="profile-picture placeholder">
+        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+    </div>
+    <div class="details">
+        <div class="main-details">
+            <h3 class="form-control-static name"
+                ng-bind="$ctrl.userInfo.firstName+' '+$ctrl.userInfo.lastName"></h3>
+            <span class="user-email" ng-bind="$ctrl.email"></span>
+        </div>
+        <div>
+            <div class="form-group">
+                <label class="control-label" ng-bind="'SEEKER_PROFILE_COUNTRY' | translate"></label>
+                <p class="form-control-static"
+                   ng-bind="'COUNTRY_'+$ctrl.userInfo.country | translate"></p>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" ng-bind="'SEEKER_PROFILE_LOCALE' | translate"></label>
+                <p class="form-control-static"
+                   ng-bind="$ctrl.formatLocaleString($ctrl.userInfo.locale)"></p>
+            </div>
+
+        </div>
+        <div>
+
+            <div class="form-group" ng-if="$ctrl.userInfo.googleEmail">
+                <label class="control-label"
+                       ng-bind="'SEEKER_PROFILE_GOOGLE_EMAIL' | translate"></label>
+                <p class="form-control-static" ng-bind="$ctrl.userInfo.googleEmail"></p>
+            </div>
+
+            <div class="form-group" ng-if="$ctrl.userInfo.skypeName">
+                <label class="control-label" ng-bind="'SEEKER_PROFILE_SKYPE_NAME' | translate"></label>
+                <p class="form-control-static" ng-bind="$ctrl.userInfo.skypeName"></p>
+            </div>
+
+            <div class="form-group" ng-if="$ctrl.userInfo.goToMeetingName">
+                <label class="control-label" ng-bind="'SEEKER_PROFILE_GOTOMEETING_NAME' | translate"></label>
+                <p class="form-control-static" ng-bind="$ctrl.userInfo.goToMeetingName"></p>
+            </div>
+
+        </div>
+    </div>
+</div>

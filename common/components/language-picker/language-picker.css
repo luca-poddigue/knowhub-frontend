@@ -1,0 +1,24 @@
+language-picker > div {
+  max-width: 250px; }
+language-picker span.ui-select-toggle a.btn {
+  cursor: pointer;
+  border: none; }
+  language-picker span.ui-select-toggle a.btn:active, language-picker span.ui-select-toggle a.btn:focus {
+    background-color: transparent;
+    box-shadow: none; }
+language-picker span.ui-select-toggle:hover {
+  margin-top: inherit;
+  transform: none; }
+
+language-picker .ui-select-no-choice {
+    border: none;
+    padding: 0;
+    top: 37px;
+}
+
+language-picker .ui-select-no-choice .panel {
+    margin: 0;
+    padding: 8px;
+}
+
+/*# sourceMappingURL=language-picker.css.map */

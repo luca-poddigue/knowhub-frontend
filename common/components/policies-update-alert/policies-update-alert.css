@@ -1,0 +1,9 @@
+policies-update-alert > .alert {
+  bottom: 7px;
+  margin: 0;
+  max-width: 300px;
+  position: fixed;
+  right: 10px;
+  z-index: 1200; }
+
+/*# sourceMappingURL=policies-update-alert.css.map */
