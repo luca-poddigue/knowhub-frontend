@@ -81,7 +81,7 @@ steps:
       - '-c'
       - |
         if [ "$BRANCH_NAME" != "${_MASTER_BRANCH}" ]; then exit 0; fi
-        cd ${_GITHUB_ENV_REPO} && \
+        cd ${_GITHUB_ENV_REPO}/knowhub && \
         sed -i -E "s/(\s*$REPO_NAME:\s*)\w+/\1$SHORT_SHA/" images.yaml
   - id: 'Push to env repo'
     name: 'gcr.io/cloud-builders/gcloud'
@@ -90,7 +90,7 @@ steps:
       - '-c'
       - |
         if [ "$BRANCH_NAME" != "${_MASTER_BRANCH}" ]; then exit 0; fi
-        cd ${_GITHUB_ENV_REPO} && \
+        cd ${_GITHUB_ENV_REPO}/knowhub && \
         git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)') && \
         git add images.yaml && \
         git commit -m "[Build] Updating deployment for $REPO_NAME with new image tag $SHORT_SHA
