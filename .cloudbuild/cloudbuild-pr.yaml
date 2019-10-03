@@ -1,0 +1,25 @@
+steps:
+  - id: 'Decrypt env constants'
+    dir: 'src'
+    name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'kms'
+      - 'decrypt'
+      - '--ciphertext-file=common/constants/env.js.enc'
+      - '--plaintext-file=common/constants/env.js'
+      - '--location=global'
+      - '--keyring=build'
+      - '--key=frontend-env-dev'
+  - id: 'Install dependencies'
+    dir: 'src'
+    name: 'node:10.14.2'
+    entrypoint: 'npm'
+    args: ['install']
+  - id: 'Gulp build'
+    dir: 'src'
+    name: 'node:10.14.2'
+    entrypoint: 'node'
+    args: ['node_modules/gulp/bin/gulp.js', 'build']
+  - id: 'Docker build'
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA', '.']
