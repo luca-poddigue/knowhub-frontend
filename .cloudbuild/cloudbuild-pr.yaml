@@ -23,4 +23,4 @@ steps:
   - id: 'Docker build'
     dir: 'target'
     name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA', '-f ../Dockerfile', '.']
+    args: ['build', '-t', 'eu.gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA', '.']

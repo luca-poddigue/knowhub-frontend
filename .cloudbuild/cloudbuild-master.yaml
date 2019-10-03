@@ -32,7 +32,7 @@ steps:
     args:
       - '-c'
       - |
-        docker build -t eu.gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA -f ../Dockerfile . && \
+        docker build -t eu.gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA -f . && \
         docker push eu.gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA
   - id: 'Decrypt GitHub env repo SSH key'
     name: 'gcr.io/cloud-builders/gcloud'
