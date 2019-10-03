@@ -25,14 +25,13 @@ steps:
     name: 'node:10.14.2'
     entrypoint: 'node'
     args: ['node_modules/gulp/bin/gulp.js', 'build']
-  - id: 'Docker build'
-    dir: 'target'
+  - id: 'Docker build and push'
     name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        docker build -t eu.gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA -f . && \
+        docker build -t eu.gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA . && \
         docker push eu.gcr.io/$PROJECT_ID/$REPO_NAME:$SHORT_SHA
   - id: 'Decrypt GitHub env repo SSH key'
     name: 'gcr.io/cloud-builders/gcloud'
@@ -82,9 +81,9 @@ steps:
     args:
       - '-c'
       - |
-        cd ${_GITHUB_ENV_REPO}/knowhub && \
+        cd ${_GITHUB_ENV_REPO}/knowhub/charts/${_HELM_CHART_NAME} && \
         git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)') && \
-        git add images.yaml && \
+        git add values.yaml && \
         git commit -m "[Build] Updating deployment for $REPO_NAME with new image tag $SHORT_SHA
         Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
         git push origin master
