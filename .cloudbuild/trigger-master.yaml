@@ -1,0 +1,14 @@
+# gcloud alpha builds triggers import --source .cloudbuild/trigger-master.yaml
+name: knowhub-frontend-master
+description: Master
+filename: .cloudbuild/cloudbuild-master.yaml
+github:
+  name: knowhub-frontend
+  owner: luca-poddigue
+  push:
+    branch: master
+ignoredFiles:
+- .gitignore
+- .cloudbuild/trigger-*.yaml
+- '*.txt'
+- '*.md'
