@@ -23,7 +23,7 @@
                 <a ng-click="$ctrl.becomeExpert()" ng-bind="'EXPERT_PROFILE_BECOME_EXPERT' | translate"></a>
             </li>
         </ul>
-        <ul ng-if="$ctrl.showAccountWidget()" class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right navbar-btns" ng-if="$ctrl.showAccountWidget()">
             <li ng-if="!$ctrl.isUserSignedIn()">
                 <a ng-click="$ctrl.showAuthModal()" ng-bind="'AUTH_LOGIN' | translate"></a>
             </li>

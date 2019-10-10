@@ -749,7 +749,7 @@
   "SESSION_RESCHEDULING_LEGEND_AVAILABLE_IN_FUTURE_SEEKER": "Maestro disponibile in futuro",
   "SESSION_PURCHASE_TITLE": "Accetta e acquista sessione",
   "SESSION_PURCHASE_BROWSER_PAYMENT_PRODUCT_LABEL": "Sessione di condivisione",
-  "SESSION_PURCHASE_TEXT": "Per accettare la sessione, effettua ora il pagamento con la tua carta. Il maestro verrà pagato solo se confermerai l'effettivo svolgimento della sessione.",
+  "SESSION_PURCHASE_TEXT": "Per accettare la sessione, effettua ora il pagamento con la tua carta. L'acquisto è immediato, ma il maestro riceverà la quota solo se confermerai l'effettivo svolgimento della sessione. Verrai rimborsato nel caso insorgano inconvenienti imputabili al maestro.",
   "SESSION_PURCHASE_ACCEPTED_CARDS": "Carte accettate",
   "SESSION_PURCHASE_CARD_NUMBER": "Numero della carta",
   "SESSION_PURCHASE_CUSTOM_PAYMENT_METHOD": "Nuova carta di credito",
