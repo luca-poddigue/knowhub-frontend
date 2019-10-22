@@ -839,7 +839,7 @@
   "COMPLETE_SESSION_SHARE": "Share",
   "SESSION_PURCHASE_TITLE": "Accept and purchase session",
   "SESSION_PURCHASE_BROWSER_PAYMENT_PRODUCT_LABEL": "Sharing session",
-  "SESSION_PURCHASE_TEXT": "Purchase the session now to accept it. The expert will be paid only if you confirm that the session has been held.",
+  "SESSION_PURCHASE_TEXT": "Pay now to accept the session. Purchase is immediate, but the expert will be paid only if you confirm that the session has been held. You will get refunded in case of inconveniences attributable to the expert.",
   "SESSION_PURCHASE_ACCEPTED_CARDS": "Accepted cards",
   "SESSION_PURCHASE_CARD_NUMBER": "Card number",
   "SESSION_PURCHASE_CUSTOM_PAYMENT_METHOD": "New credit card",

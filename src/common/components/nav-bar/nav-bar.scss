@@ -35,7 +35,7 @@ nav-bar {
       }
 
       @media screen and (min-width: $screen-sm) {
-        &.navbar-btns > li {
+        &.navbar-btns > li:not([uib-dropdown]) {
           transition: transform .2s ease-out;
           border-radius: 10px 10px 0 0;
           margin-right: 10px;
