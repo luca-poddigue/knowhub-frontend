@@ -74,7 +74,7 @@ steps:
       - '-c'
       - |
         cd ${_GITHUB_ENV_REPO}/knowhub/charts/${_HELM_CHART_NAME} && \
-        sed -i -E "s/(\s*imageTag:\s*)\w+/\1$SHORT_SHA/" values.yaml
+        sed -i -E "s/(\s*imageTag:\s*)\"\w+\"/\1\"$SHORT_SHA\"/" values.yaml
   - id: 'Push to env repo'
     name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
